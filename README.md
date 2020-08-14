@@ -36,7 +36,7 @@ At [**@skybrud**](https://github.com/skybrud) we typically use Umbraco as a head
 
 Normally the property with the related content would return the full model for each page, but with the special multinode treepicker from this package, we can implement a custom item converter.
 
-We can do this by implementing the [`IMntpItemConverter`](https://github.com/abjerner/Skybrud.Umbraco.MultiNodeTreePicker/blob/master/src/Skybrud.Umbraco.MultiNodeTreePicker/Converters/IMntpItemConverter.cs) interface, but do get going a bit quicker, the package also contains the abstract [`MntpGenericItemConverter`](https://github.com/abjerner/Skybrud.Umbraco.MultiNodeTreePicker/blob/master/src/Skybrud.Umbraco.MultiNodeTreePicker/Converters/MntpGenericItemConverter.cs) class we can use instead:
+We can do this by implementing the [`IMntpItemConverter`](https://github.com/abjerner/Skybrud.Umbraco.MultiNodeTreePicker/blob/master/src/Skybrud.Umbraco.MultiNodeTreePicker/Converters/IMntpItemConverter.cs) interface, but to get going a bit quicker, the package also contains the abstract [`MntpGenericItemConverter`](https://github.com/abjerner/Skybrud.Umbraco.MultiNodeTreePicker/blob/master/src/Skybrud.Umbraco.MultiNodeTreePicker/Converters/MntpGenericItemConverter.cs) class we can use instead:
 
 ```csharp
 public class TestMntpItemConverter : MntpGenericItemConverter<TestItem> {
@@ -64,13 +64,13 @@ public class TestItem {
     }
 ```
 
-The `MntpGenericItemConverter` class requires us to specify a name for the converter, and then a callack function that will be used for convertering each `IPublishedContent` to the desired type.
+The `MntpGenericItemConverter` class requires us to specify a name for the converter, and then a callback function that will be used for converting each `IPublishedContent` to the desired type.
 
 ![image](https://user-images.githubusercontent.com/3634580/90198696-b2271d80-ddd2-11ea-8ac8-dd9f59a513f2.png)
 
-When the data type is confiured to use our item converter (see screenshot above), properties of this type will now return `List<TestItem>` instead of `List<IPublishedContent>`.
+When the data type is configured to use our item converter (see screenshot above), properties of this type will now return `List<TestItem>` instead of `List<IPublishedContent>`.
 
-With this special multinode treepicker, it's the datatype of the individual property, that determines the returned value. Another property could for instance be for selecting contact persons where we'd need a bit more information that what's available from the `TestItem` class, so we can create another item converter:
+With this special multinode treepicker, it's the datatype of the individual property, that determines the returned value. Another property could for instance be for selecting contact persons where we'd need a bit more information than what's available from the `TestItem` class, so we can create another item converter:
 
 ```csharp
   public class TestMntpPersonItemConverter : MntpGenericItemConverter<TestPersonItem> {
