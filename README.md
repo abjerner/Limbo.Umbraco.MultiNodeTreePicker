@@ -32,7 +32,7 @@ You can also download a ZIP file of the latest release directly from GitHub, unz
 
 ## Examples
 
-At @skybrud we typically use Umbraco as a headless CMS, and being able to control the generated models therefore makes a lot of sense. If a given page has some related content, it doesn't make sense for us to return the full model of a related model, so we instead have an item class with the needed properties - this class could be called `TestItem`.
+At [**@skybrud**](https://github.com/skybrud) we typically use Umbraco as a headless CMS, and being able to control the generated models therefore makes a lot of sense. If a given page has some related content, it doesn't make sense for us to return the full model of a related model, so we instead have an item class with the needed properties - this class could be called `TestItem`.
 
 Normally the property with the related content would return the full model for each page, but with the special multinode treepicker from this package, we can implement a custom item converter.
 
@@ -99,4 +99,4 @@ With this special multinode treepicker, it's the datatype of the individual prop
 
 ## Inspiration
 
-The item converters in this package was inspired by a similar concept in the [Contentment](https://github.com/leekelleher/umbraco-contentment) package. Thanks for creating and sharing this with us @leekelleher 👍
+The item converters in this package was inspired by a similar concept in the [Contentment](https://github.com/leekelleher/umbraco-contentment) package. Thanks for creating and sharing this with us [**@leekelleher**](https://github.com/leekelleher) 👍
