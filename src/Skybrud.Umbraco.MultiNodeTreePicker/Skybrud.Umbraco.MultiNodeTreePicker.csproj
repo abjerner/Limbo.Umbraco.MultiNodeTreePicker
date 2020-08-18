@@ -36,6 +36,14 @@
     </PackageReference>
   </ItemGroup>
 
+
+  <ItemGroup>
+    <Content Include="App_Plugins\Skybrud.MultiNodeTreePicker\**\*.css" />
+    <Content Include="App_Plugins\Skybrud.MultiNodeTreePicker\**\*.html" />
+    <Content Include="App_Plugins\Skybrud.MultiNodeTreePicker\**\*.js" />
+    <Content Include="App_Plugins\Skybrud.MultiNodeTreePicker\Lang\*.xml" />
+  </ItemGroup>
+
   <!--<PropertyGroup>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
   </PropertyGroup>-->
