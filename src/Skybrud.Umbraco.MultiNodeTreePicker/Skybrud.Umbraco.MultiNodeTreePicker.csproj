@@ -7,11 +7,11 @@
 
   <PropertyGroup>
     <RootNamespace>Skybrud.Umbraco.MultiNodeTreePicker</RootNamespace>
-    <Version>1.0.0-beta002</Version>
+    <Version>1.0.0</Version>
     <Company>Skybrud.dk a/s</Company>
     <Product>Skybrud.Umbraco.MultiNodeTreePicker</Product>
     <Authors>Anders Bjerner</Authors>
-    <Copyright>Copyright © 2020</Copyright>
+    <Copyright>Copyright © 2021</Copyright>
     <Description>Extended multi node tree picker for Umbraco 8.</Description>
   </PropertyGroup>
 
