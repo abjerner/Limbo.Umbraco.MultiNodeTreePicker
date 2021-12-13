@@ -1,21 +1,30 @@
-﻿using ClientDependency.Core;
-using Umbraco.Core.Logging;
-using Umbraco.Core.PropertyEditors;
-using Umbraco.Web.PropertyEditors;
+﻿using System;
+using Microsoft.Extensions.Logging;
+using Umbraco.Cms.Core.Composing;
+using Umbraco.Cms.Core.DependencyInjection;
+using Umbraco.Cms.Core.IO;
+using Umbraco.Cms.Core.PropertyEditors;
+using Umbraco.Cms.Infrastructure.WebAssets;
 
-namespace Limbo.Umbraco.MultiNodeTreePicker.PropertyEditors {
-
-    [DataEditor(EditorAlias, "Limbo Multinode Treepicker", EditorView, ValueType = ValueTypes.Text, Group = "Limbo.dk", Icon = "icon-page-add color-limbo")]
-    [PropertyEditorAsset(ClientDependencyType.Javascript, "/App_Plugins/Limbo.MultiNodeTreePicker/MntpConverter.js")]
-    public class MntpEditor : MultiNodeTreePickerPropertyEditor {
+namespace Limbo.Umbraco.MultiNodeTreePicker.PropertyEditors
+{
+    [DataEditor(EditorAlias, "Limbo Multinode Treepicker", EditorView, ValueType = ValueTypes.Text, Group = "Limbo.works", Icon = "icon-page-add color-limbo")]
+    public class MntpEditor : MultiNodeTreePickerPropertyEditor
+    {
 
         internal const string EditorAlias = "Limbo.Umbraco.MultiNodeTreePicker";
 
         internal const string EditorView = "contentpicker";
+        private readonly IIOHelper iOHelper;
 
-        public MntpEditor(ILogger logger) : base(logger) { }
+        public MntpEditor(IDataValueEditorFactory dataValueEditorFactory, IIOHelper iOHelper) : base(dataValueEditorFactory, iOHelper)
+        {
+            this.iOHelper = iOHelper;
+        }
 
-        protected override IConfigurationEditor CreateConfigurationEditor() => new MntpConfigurationEditor();
-
+        protected override IConfigurationEditor CreateConfigurationEditor()
+        {
+            return new MntpConfigurationEditor(iOHelper);
+        }
     }
 }
