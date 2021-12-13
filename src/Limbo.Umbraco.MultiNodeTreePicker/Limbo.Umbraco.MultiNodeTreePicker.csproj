@@ -1,55 +1,40 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <ContentTargetFolders>.</ContentTargetFolders>
+        <Product>Limbo.Umbraco.MultiNodeTreePicker</Product>
+        <Company>Limbo Works ApS</Company>
+        <Authors>Anders Bjerner, Nikolaj Brask-Nielsen</Authors>
+        <PackageId>Limbo.Umbraco.MultiNodeTreePicker</PackageId>
+        <Title>Limbo.Umbraco.MultiNodeTreePicker</Title>
+        <Description>Extended multi node tree picker for Umbraco 9.</Description>
+        <Product>Limbo.Umbraco.MultiNodeTreePicker</Product>
+        <PackageTags>umbraco plugin package</PackageTags>
+        <RootNamespace>Limbo.Umbraco.MultiNodeTreePicker</RootNamespace>
+    </PropertyGroup>
 
-  <PropertyGroup>
-    <TargetFramework>net472</TargetFramework>
-    <BuildInParallel>false</BuildInParallel>
-  </PropertyGroup>
+    <PropertyGroup>
+      <PackageTags>Limbo, Umbraco, MultiNodeTreePicker</PackageTags>
+      <PackageLicenseExpression>MIT</PackageLicenseExpression>
+      <PackageProjectUrl>https://github.com/limbo-works/Limbo.Umbraco.MultiNodeTreePicker</PackageProjectUrl>
+      <PackageIconUrl>https://www.limbo.works/favicon-32x32.png</PackageIconUrl>
+      <RepositoryType>git</RepositoryType>
+      <RepositoryUrl>https://github.com/limbo-works/Limbo.Umbraco.MultiNodeTreePicker</RepositoryUrl>
+    </PropertyGroup>
 
-  <PropertyGroup>
-    <RootNamespace>Limbo.Umbraco.MultiNodeTreePicker</RootNamespace>
-    <Version>1.0.0</Version>
-    <Company>Limbo.dk a/s</Company>
-    <Product>Limbo.Umbraco.MultiNodeTreePicker</Product>
-    <Authors>Anders Bjerner</Authors>
-    <Copyright>Copyright © 2021</Copyright>
-    <Description>Extended multi node tree picker for Umbraco 8.</Description>
-  </PropertyGroup>
+    <ItemGroup>
+        <PackageReference Include="Umbraco.Cms.Web.Website" Version="9.1.2" />
+        <PackageReference Include="Umbraco.Cms.Web.BackOffice" Version="9.1.2" />
+    </ItemGroup>
 
-  <PropertyGroup>
-    <PackageTags>Limbo, Umbraco, MultiNodeTreePicker</PackageTags>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageProjectUrl>https://github.com/abjerner/Limbo.Umbraco.MultiNodeTreePicker</PackageProjectUrl>
-    <PackageIconUrl>http://www.limbo.works/favicon-32x32.png</PackageIconUrl>
-    <RepositoryType>git</RepositoryType>
-    <RepositoryUrl>https://github.com/abjerner/Limbo.Umbraco.MultiNodeTreePicker</RepositoryUrl>
-  </PropertyGroup>
-
-  <ItemGroup>
-    <Reference Include="System.Web" />
-    <PackageReference Include="Limbo.Essentials" Version="1.1.28" />
-    <PackageReference Include="Limbo.WebApi.Json" Version="1.0.4" />
-    <PackageReference Include="UmbracoCms.Core" Version="8.1.0">
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
-    <PackageReference Include="UmbracoCms.Web" Version="8.1.0">
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
-  </ItemGroup>
-
-
-  <ItemGroup>
-    <Content Include="App_Plugins\Limbo.MultiNodeTreePicker\**\*.css" />
-    <Content Include="App_Plugins\Limbo.MultiNodeTreePicker\**\*.html" />
-    <Content Include="App_Plugins\Limbo.MultiNodeTreePicker\**\*.js" />
-    <Content Include="App_Plugins\Limbo.MultiNodeTreePicker\Lang\*.xml" />
-  </ItemGroup>
-
-  <!--<PropertyGroup>
-    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
-  </PropertyGroup>-->
-
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition="'$(ConfigurationName)'=='Release' AND '$(TargetFramework)'=='net472' AND '$(BuildTools)'=='1'">
-    <Exec Command="&quot;$(ProjectDir)..\build\Limbo.BuildTools.Tasks.exe&quot; &quot;postBuild&quot; &quot;$(ConfigurationName)&quot; &quot;$(ProjectPath)&quot; &quot;$(TargetPath)&quot;" />
-  </Target>
-
+    <ItemGroup>
+        <Content Include="App_Plugins\Limbo.Umbraco.MultiNodeTreePicker\**\*.*">
+            <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+            <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+        </Content>
+        <None Include="build\**\*.*">
+            <Pack>True</Pack>
+            <PackagePath>buildTransitive</PackagePath>
+        </None>
+    </ItemGroup>
 </Project>
