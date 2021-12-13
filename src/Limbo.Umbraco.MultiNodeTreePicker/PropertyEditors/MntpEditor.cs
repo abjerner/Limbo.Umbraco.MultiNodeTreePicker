@@ -1,13 +1,10 @@
-﻿using ClientDependency.Core;
-using Umbraco.Core.Logging;
-using Umbraco.Core.PropertyEditors;
-using Umbraco.Web.PropertyEditors;
-
-namespace Limbo.Umbraco.MultiNodeTreePicker.PropertyEditors {
+﻿namespace Limbo.Umbraco.MultiNodeTreePicker.PropertyEditors
+{
 
     [DataEditor(EditorAlias, "Limbo Multinode Treepicker", EditorView, ValueType = ValueTypes.Text, Group = "Limbo.dk", Icon = "icon-page-add color-limbo")]
     [PropertyEditorAsset(ClientDependencyType.Javascript, "/App_Plugins/Limbo.MultiNodeTreePicker/MntpConverter.js")]
-    public class MntpEditor : MultiNodeTreePickerPropertyEditor {
+    public class MntpEditor : MultiNodeTreePickerPropertyEditor
+    {
 
         internal const string EditorAlias = "Limbo.Umbraco.MultiNodeTreePicker";
 

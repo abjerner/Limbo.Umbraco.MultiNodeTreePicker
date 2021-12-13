@@ -1,13 +1,14 @@
 ﻿using Limbo.Umbraco.MultiNodeTreePicker.Converters;
-using Umbraco.Core;
-using Umbraco.Core.Composing;
 
-namespace Limbo.Umbraco.MultiNodeTreePicker.Composers {
+namespace Limbo.Umbraco.MultiNodeTreePicker.Composers
+{
 
     [RuntimeLevel(MinLevel = RuntimeLevel.Boot)]
-    internal sealed class MntpComposer : IUserComposer  {
-        
-        public void Compose(Composition composition) {
+    internal sealed class MntpComposer : IUserComposer
+    {
+
+        public void Compose(Composition composition)
+        {
 
             composition.RegisterUnique<MntpConverterCollection>();
 
