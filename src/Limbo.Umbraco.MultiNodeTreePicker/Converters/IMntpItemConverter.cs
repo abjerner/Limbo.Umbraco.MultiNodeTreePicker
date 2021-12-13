@@ -6,7 +6,7 @@ using Umbraco.Cms.Core.PropertyEditors;
 namespace Limbo.Umbraco.MultiNodeTreePicker.Converters
 {
 
-    public interface IMntpItemConverter : IPropertyValueConverter
+    public interface IMntpItemConverter
     {
 
         [JsonProperty("name")]

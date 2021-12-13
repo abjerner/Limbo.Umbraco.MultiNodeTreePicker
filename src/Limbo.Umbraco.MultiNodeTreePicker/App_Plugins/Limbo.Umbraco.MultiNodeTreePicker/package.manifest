@@ -1,2 +1,5 @@
 ﻿{
+  "javascript": [
+    "~/App_Plugins/Limbo.Umbraco.MultiNodeTreePicker/MntpConverter.js"
+  ]
 }

@@ -8,15 +8,7 @@ using Umbraco.Cms.Infrastructure.WebAssets;
 
 namespace Limbo.Umbraco.MultiNodeTreePicker.PropertyEditors
 {
-    public class ComposerStuff : IComposer
-    {
-        public void Compose(IUmbracoBuilder builder)
-        {
-            builder.BackOfficeAssets().Append(typeof(MntpEditor));
-        }
-    }
-
-    [DataEditor(EditorAlias, "Limbo Multinode Treepicker", EditorView, ValueType = ValueTypes.Text, Group = "limbo.works", Icon = "icon-page-add color-limbo")]
+    [DataEditor(EditorAlias, "Limbo Multinode Treepicker", EditorView, ValueType = ValueTypes.Text, Group = "Limbo.works", Icon = "icon-page-add color-limbo")]
     public class MntpEditor : MultiNodeTreePickerPropertyEditor
     {
 
@@ -30,7 +22,9 @@ namespace Limbo.Umbraco.MultiNodeTreePicker.PropertyEditors
             this.iOHelper = iOHelper;
         }
 
-        protected override IConfigurationEditor CreateConfigurationEditor() => new MntpConfigurationEditor(iOHelper);
-
+        protected override IConfigurationEditor CreateConfigurationEditor()
+        {
+            return new MntpConfigurationEditor(iOHelper);
+        }
     }
 }
