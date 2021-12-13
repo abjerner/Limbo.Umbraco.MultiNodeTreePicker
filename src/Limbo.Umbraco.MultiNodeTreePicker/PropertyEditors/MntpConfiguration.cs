@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json.Linq;
+using Umbraco.Cms.Core.PropertyEditors;
 
 namespace Limbo.Umbraco.MultiNodeTreePicker.PropertyEditors
 {

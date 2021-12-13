@@ -1,4 +1,5 @@
 ﻿using Limbo.Umbraco.MultiNodeTreePicker.Converters;
+using Umbraco.Cms.Core.Composing;
 
 namespace Limbo.Umbraco.MultiNodeTreePicker.Composers
 {

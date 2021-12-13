@@ -4,10 +4,10 @@
     internal static class MntpCompositionExtensions
     {
 
-        public static MntpConverterCollectionBuilder MntpConverters(this Composition composition)
-        {
-            return composition.WithCollectionBuilder<MntpConverterCollectionBuilder>();
-        }
+        //public static MntpConverterCollectionBuilder MntpConverters(this Composition composition)
+        //{
+        //    return composition.WithCollectionBuilder<MntpConverterCollectionBuilder>();
+        //}
 
     }
 

@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using Umbraco.Cms.Core.IO;
+using Umbraco.Cms.Core.PropertyEditors;
 
 namespace Limbo.Umbraco.MultiNodeTreePicker.PropertyEditors
 {
@@ -6,7 +8,7 @@ namespace Limbo.Umbraco.MultiNodeTreePicker.PropertyEditors
     public class MntpConfigurationEditor : ConfigurationEditor<MntpConfiguration>
     {
 
-        public MntpConfigurationEditor()
+        public MntpConfigurationEditor(IIOHelper iOHelper) : base(iOHelper)
         {
             Field(nameof(MultiNodePickerConfiguration.TreeSource))
                 .Config = new Dictionary<string, object> { { "idType", "udi" } };

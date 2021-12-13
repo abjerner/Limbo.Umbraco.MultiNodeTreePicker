@@ -1,24 +1,20 @@
 ﻿using Limbo.Umbraco.MultiNodeTreePicker.Converters;
+using Umbraco.Cms.Core;
+using Umbraco.Cms.Core.Composing;
+using Umbraco.Cms.Core.DependencyInjection;
+using Umbraco.Cms.Core.PropertyEditors;
+using Umbraco.Extensions;
 
 namespace Limbo.Umbraco.MultiNodeTreePicker.Composers
 {
-
-    [RuntimeLevel(MinLevel = RuntimeLevel.Boot)]
-    internal sealed class MntpComposer : IUserComposer
+    internal sealed class MntpComposer : IComposer
     {
-
-        public void Compose(Composition composition)
+        public void Compose(IUmbracoBuilder builder)
         {
+            builder.Services.AddUnique<MntpConverterCollection>();
 
-            composition.RegisterUnique<MntpConverterCollection>();
-
-            composition
-                .MntpConverters()
-                .Add(() => composition.TypeLoader.GetTypes<IMntpItemConverter>())
-                ;
-
+            builder.PropertyValueConverters().Append<IMntpItemConverter>();
         }
-
     }
 
 }

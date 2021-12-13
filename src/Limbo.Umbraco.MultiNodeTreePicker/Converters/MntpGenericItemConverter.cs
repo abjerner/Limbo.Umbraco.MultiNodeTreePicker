@@ -1,4 +1,6 @@
 ﻿using System;
+using Umbraco.Cms.Core.Models.PublishedContent;
+using Umbraco.Cms.Core.PropertyEditors;
 
 namespace Limbo.Umbraco.MultiNodeTreePicker.Converters
 {
@@ -30,6 +32,40 @@ namespace Limbo.Umbraco.MultiNodeTreePicker.Converters
             return typeof(T);
         }
 
+        public bool IsConverter(IPublishedPropertyType propertyType)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool? IsValue(object value, PropertyValueLevel level)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Type GetPropertyValueType(IPublishedPropertyType propertyType)
+        {
+            throw new NotImplementedException();
+        }
+
+        public PropertyCacheLevel GetPropertyCacheLevel(IPublishedPropertyType propertyType)
+        {
+            throw new NotImplementedException();
+        }
+
+        public object ConvertSourceToIntermediate(IPublishedElement owner, IPublishedPropertyType propertyType, object source, bool preview)
+        {
+            throw new NotImplementedException();
+        }
+
+        public object ConvertIntermediateToObject(IPublishedElement owner, IPublishedPropertyType propertyType, PropertyCacheLevel referenceCacheLevel, object inter, bool preview)
+        {
+            throw new NotImplementedException();
+        }
+
+        public object ConvertIntermediateToXPath(IPublishedElement owner, IPublishedPropertyType propertyType, PropertyCacheLevel referenceCacheLevel, object inter, bool preview)
+        {
+            throw new NotImplementedException();
+        }
     }
 
 }

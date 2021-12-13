@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Limbo.Umbraco.MultiNodeTreePicker.Converters;
+using Umbraco.Cms.Core.Composing;
 
 namespace Limbo.Umbraco.MultiNodeTreePicker.Composers
 {
@@ -10,7 +11,7 @@ namespace Limbo.Umbraco.MultiNodeTreePicker.Composers
 
         private readonly Dictionary<string, IMntpItemConverter> _lookup;
 
-        public MntpConverterCollection(IEnumerable<IMntpItemConverter> items) : base(items)
+        public MntpConverterCollection(Func<IEnumerable<IMntpItemConverter>> items) : base(items)
         {
 
             _lookup = new Dictionary<string, IMntpItemConverter>(StringComparer.OrdinalIgnoreCase);

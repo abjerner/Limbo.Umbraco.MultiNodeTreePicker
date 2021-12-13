@@ -1,10 +1,10 @@
 ﻿using System.Linq;
 using Limbo.Umbraco.MultiNodeTreePicker.Composers;
+using Umbraco.Cms.Web.BackOffice.Controllers;
+using Umbraco.Cms.Web.Common.Attributes;
 
 namespace Limbo.Umbraco.MultiNodeTreePicker.Controllers
 {
-
-    [JsonOnlyConfiguration]
     [PluginController("Limbo")]
     public class MntpController : UmbracoAuthorizedApiController
     {

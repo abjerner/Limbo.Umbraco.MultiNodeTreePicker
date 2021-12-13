@@ -3,6 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using Limbo.Umbraco.MultiNodeTreePicker.Composers;
 using Limbo.Umbraco.MultiNodeTreePicker.Converters;
+using Umbraco.Cms.Core;
+using Umbraco.Cms.Core.Models;
+using Umbraco.Cms.Core.Models.PublishedContent;
+using Umbraco.Cms.Core.PropertyEditors;
+using Umbraco.Cms.Core.PropertyEditors.ValueConverters;
+using Umbraco.Cms.Core.PublishedCache;
+using Umbraco.Cms.Core.Services;
+using Umbraco.Cms.Core.Web;
 
 namespace Limbo.Umbraco.MultiNodeTreePicker.PropertyEditors.ValueConverters
 {
@@ -13,12 +21,13 @@ namespace Limbo.Umbraco.MultiNodeTreePicker.PropertyEditors.ValueConverters
         #region Constructors
 
         private readonly IPublishedSnapshotAccessor _publishedSnapshotAccessor;
-
+        private readonly IUmbracoContextAccessor umbracoContextAccessor;
         private readonly MntpConverterCollection _converterCollection;
 
-        public MntpValueConverter(IPublishedSnapshotAccessor publishedSnapshotAccessor, MntpConverterCollection converterCollection) : base(publishedSnapshotAccessor)
+        public MntpValueConverter(IPublishedSnapshotAccessor publishedSnapshotAccessor, IUmbracoContextAccessor umbracoContextAccessor, IMemberService memberService, MntpConverterCollection converterCollection) : base(publishedSnapshotAccessor, umbracoContextAccessor, memberService)
         {
             _publishedSnapshotAccessor = publishedSnapshotAccessor ?? throw new ArgumentNullException(nameof(publishedSnapshotAccessor));
+            this.umbracoContextAccessor = umbracoContextAccessor;
             _converterCollection = converterCollection;
         }
 
@@ -40,7 +49,7 @@ namespace Limbo.Umbraco.MultiNodeTreePicker.PropertyEditors.ValueConverters
         {
             return source?.ToString()
                 .Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries)
-                .Select(Udi.Parse)
+                .Select(Udi.Create)
                 .ToArray();
         }
 
@@ -54,7 +63,7 @@ namespace Limbo.Umbraco.MultiNodeTreePicker.PropertyEditors.ValueConverters
             if (propertyType.DataType.Configuration is MntpConfiguration config && config.ItemConverter != null)
             {
 
-                string key = config.ItemConverter.GetString("key");
+                string key = config.ItemConverter.GetValue("key").ToString();
 
                 if (_converterCollection.TryGet(key, out IMntpItemConverter converter))
                 {
@@ -68,8 +77,8 @@ namespace Limbo.Umbraco.MultiNodeTreePicker.PropertyEditors.ValueConverters
 
                         return (value as IEnumerable<IPublishedElement> ?? new IPublishedElement[0])
                             .Select(x => converter.Convert(propertyType, x))
-                            .Cast(type)
-                            .ToList(type);
+                            //.Cast<type>()
+                            .ToList();
 
                     }
 
@@ -89,7 +98,7 @@ namespace Limbo.Umbraco.MultiNodeTreePicker.PropertyEditors.ValueConverters
             if (propertyType.DataType.Configuration is MntpConfiguration config && config.ItemConverter != null)
             {
 
-                string key = config.ItemConverter.GetString("key");
+                string key = config.ItemConverter.GetValue("key").ToString();
 
                 if (_converterCollection.TryGet(key, out IMntpItemConverter converter))
                 {
@@ -128,10 +137,10 @@ namespace Limbo.Umbraco.MultiNodeTreePicker.PropertyEditors.ValueConverters
 
         public object Bah(IPublishedElement owner, IPublishedPropertyType propertyType, PropertyCacheLevel cacheLevel, object source, bool preview)
         {
-
+            umbracoContextAccessor.TryGetUmbracoContext(out var umbracoContext);
             if (source == null) return null;
 
-            if (Current.UmbracoContext == null) return source;
+            if (umbracoContext == null) return source;
 
             Udi[] udis = source as Udi[] ?? new Udi[0];
 
@@ -151,16 +160,17 @@ namespace Limbo.Umbraco.MultiNodeTreePicker.PropertyEditors.ValueConverters
                 if (guidUdi == null) continue;
 
                 IPublishedContent multiNodeTreePickerItem = null;
+                var couldGetPublishedSnapshotAccessor = _publishedSnapshotAccessor.TryGetPublishedSnapshot(out var publishedSnapshot);
                 switch (udi.EntityType)
                 {
                     case Constants.UdiEntityType.Document:
-                        multiNodeTreePickerItem = GetPublishedContent(udi, ref objectType, UmbracoObjectTypes.Document, id => _publishedSnapshotAccessor.PublishedSnapshot.Content.GetById(guidUdi.Guid));
+                        multiNodeTreePickerItem = GetPublishedContent(udi, ref objectType, UmbracoObjectTypes.Document, id => publishedSnapshot.Content.GetById(guidUdi.Guid));
                         break;
                     case Constants.UdiEntityType.Media:
-                        multiNodeTreePickerItem = GetPublishedContent(udi, ref objectType, UmbracoObjectTypes.Media, id => _publishedSnapshotAccessor.PublishedSnapshot.Media.GetById(guidUdi.Guid));
+                        multiNodeTreePickerItem = GetPublishedContent(udi, ref objectType, UmbracoObjectTypes.Media, id => publishedSnapshot.Media.GetById(guidUdi.Guid));
                         break;
                     case Constants.UdiEntityType.Member:
-                        multiNodeTreePickerItem = GetPublishedContent(udi, ref objectType, UmbracoObjectTypes.Member, id => _publishedSnapshotAccessor.PublishedSnapshot.Members.GetByProviderKey(guidUdi.Guid));
+                        //multiNodeTreePickerItem = GetPublishedContent(udi, ref objectType, UmbracoObjectTypes.Member, id => publishedSnapshot.Members.GetByProviderKey(guidUdi.Guid));
                         break;
                 }
 
