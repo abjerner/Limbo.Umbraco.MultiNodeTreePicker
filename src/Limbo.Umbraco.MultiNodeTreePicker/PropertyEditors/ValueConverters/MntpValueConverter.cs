@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Skybrud.Essentials.Collections.Extensions;
-using Skybrud.Essentials.Json.Extensions;
-using Skybrud.Umbraco.MultiNodeTreePicker.Composers;
-using Skybrud.Umbraco.MultiNodeTreePicker.Converters;
+using Limbo.Essentials.Collections.Extensions;
+using Limbo.Essentials.Json.Extensions;
+using Limbo.Umbraco.MultiNodeTreePicker.Composers;
+using Limbo.Umbraco.MultiNodeTreePicker.Converters;
 using Umbraco.Core;
 using Umbraco.Core.Models;
 using Umbraco.Core.Models.PublishedContent;
@@ -14,7 +14,7 @@ using Umbraco.Web.PropertyEditors;
 using Umbraco.Web.PropertyEditors.ValueConverters;
 using Umbraco.Web.PublishedCache;
 
-namespace Skybrud.Umbraco.MultiNodeTreePicker.PropertyEditors.ValueConverters {
+namespace Limbo.Umbraco.MultiNodeTreePicker.PropertyEditors.ValueConverters {
     
     public class MntpValueConverter : MultiNodeTreePickerValueConverter {
 

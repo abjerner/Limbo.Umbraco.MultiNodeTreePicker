@@ -2,7 +2,7 @@
 using Newtonsoft.Json;
 using Umbraco.Core.Models.PublishedContent;
 
-namespace Skybrud.Umbraco.MultiNodeTreePicker.Converters {
+namespace Limbo.Umbraco.MultiNodeTreePicker.Converters {
     
     public interface IMntpItemConverter {
 

@@ -6,28 +6,28 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <RootNamespace>Skybrud.Umbraco.MultiNodeTreePicker</RootNamespace>
+    <RootNamespace>Limbo.Umbraco.MultiNodeTreePicker</RootNamespace>
     <Version>1.0.0</Version>
-    <Company>Skybrud.dk a/s</Company>
-    <Product>Skybrud.Umbraco.MultiNodeTreePicker</Product>
+    <Company>Limbo.dk a/s</Company>
+    <Product>Limbo.Umbraco.MultiNodeTreePicker</Product>
     <Authors>Anders Bjerner</Authors>
     <Copyright>Copyright © 2021</Copyright>
     <Description>Extended multi node tree picker for Umbraco 8.</Description>
   </PropertyGroup>
 
   <PropertyGroup>
-    <PackageTags>Skybrud, Umbraco, MultiNodeTreePicker</PackageTags>
+    <PackageTags>Limbo, Umbraco, MultiNodeTreePicker</PackageTags>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageProjectUrl>https://github.com/abjerner/Skybrud.Umbraco.MultiNodeTreePicker</PackageProjectUrl>
-    <PackageIconUrl>http://www.skybrud.dk/img/5431sk/icon/favicon.ico</PackageIconUrl>
+    <PackageProjectUrl>https://github.com/abjerner/Limbo.Umbraco.MultiNodeTreePicker</PackageProjectUrl>
+    <PackageIconUrl>http://www.limbo.works/favicon-32x32.png</PackageIconUrl>
     <RepositoryType>git</RepositoryType>
-    <RepositoryUrl>https://github.com/abjerner/Skybrud.Umbraco.MultiNodeTreePicker</RepositoryUrl>
+    <RepositoryUrl>https://github.com/abjerner/Limbo.Umbraco.MultiNodeTreePicker</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>
     <Reference Include="System.Web" />
-    <PackageReference Include="Skybrud.Essentials" Version="1.1.28" />
-    <PackageReference Include="Skybrud.WebApi.Json" Version="1.0.4" />
+    <PackageReference Include="Limbo.Essentials" Version="1.1.28" />
+    <PackageReference Include="Limbo.WebApi.Json" Version="1.0.4" />
     <PackageReference Include="UmbracoCms.Core" Version="8.1.0">
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
@@ -38,10 +38,10 @@
 
 
   <ItemGroup>
-    <Content Include="App_Plugins\Skybrud.MultiNodeTreePicker\**\*.css" />
-    <Content Include="App_Plugins\Skybrud.MultiNodeTreePicker\**\*.html" />
-    <Content Include="App_Plugins\Skybrud.MultiNodeTreePicker\**\*.js" />
-    <Content Include="App_Plugins\Skybrud.MultiNodeTreePicker\Lang\*.xml" />
+    <Content Include="App_Plugins\Limbo.MultiNodeTreePicker\**\*.css" />
+    <Content Include="App_Plugins\Limbo.MultiNodeTreePicker\**\*.html" />
+    <Content Include="App_Plugins\Limbo.MultiNodeTreePicker\**\*.js" />
+    <Content Include="App_Plugins\Limbo.MultiNodeTreePicker\Lang\*.xml" />
   </ItemGroup>
 
   <!--<PropertyGroup>
@@ -49,7 +49,7 @@
   </PropertyGroup>-->
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition="'$(ConfigurationName)'=='Release' AND '$(TargetFramework)'=='net472' AND '$(BuildTools)'=='1'">
-    <Exec Command="&quot;$(ProjectDir)..\build\Skybrud.BuildTools.Tasks.exe&quot; &quot;postBuild&quot; &quot;$(ConfigurationName)&quot; &quot;$(ProjectPath)&quot; &quot;$(TargetPath)&quot;" />
+    <Exec Command="&quot;$(ProjectDir)..\build\Limbo.BuildTools.Tasks.exe&quot; &quot;postBuild&quot; &quot;$(ConfigurationName)&quot; &quot;$(ProjectPath)&quot; &quot;$(TargetPath)&quot;" />
   </Target>
 
 </Project>

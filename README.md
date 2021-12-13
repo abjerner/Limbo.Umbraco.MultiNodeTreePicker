@@ -1,6 +1,6 @@
-# Skybrud.Umbraco.MultiNodeTreePicker
+# Limbo.Umbraco.MultiNodeTreePicker
 
-**Skybrud.Umbraco.MultiNodeTreePicker** adds a special multinode treepicker to the Umbraco 8 backoffice in which developers can select a custom item converter.
+**Limbo.Umbraco.MultiNodeTreePicker** adds a special multinode treepicker to the Umbraco 8 backoffice in which developers can select a custom item converter.
 
 The purpose of an item converter is to control the C# type returned by the `.Value()` method or the corresponding property in a ModelsBuilder generated model. This is particular useful in a SPA/Headless Umbraco implementation, where the ModelsBuilder model can then be returned directly via a WebAPI endpoint.
 
@@ -10,12 +10,12 @@ The purpose of an item converter is to control the C# type returned by the `.Val
 This is the recommended approach, as you install the [**NuGet Package**][NuGetPackage] in your Visual Studio project, and NuGet takes care of the rest.
 
 ```
-Install-Package Skybrud.Umbraco.MultiNodeTreePicker -pre
+Install-Package Limbo.Umbraco.MultiNodeTreePicker -pre
 ```
 **Umbraco package**  
 Download the package from Our Umbraco - the Umbraco cummunity website:
 
-- <a href="https://our.umbraco.com/packages/backoffice-extensions/skybrud-multinode-treepicker/" target="_blank"><strong>Download Umbraco package</strong></a>
+- <a href="https://our.umbraco.com/packages/backoffice-extensions/limbo-multinode-treepicker/" target="_blank"><strong>Download Umbraco package</strong></a>
 
 **Manual install**  
 You can also download a ZIP file of the latest release directly from GitHub, unzip, and move the contents to the root directory of your web application.
@@ -27,16 +27,16 @@ You can also download a ZIP file of the latest release directly from GitHub, unz
   Unzip and move the contents to the root directory of your web application.
   
 
-[NuGetPackage]: https://www.nuget.org/packages/Skybrud.Umbraco.MultiNodeTreePicker
-[GitHubRelease]: https://github.com/abjerner/Skybrud.Umbraco.MultiNodeTreePicker/releases
+[NuGetPackage]: https://www.nuget.org/packages/Limbo.Umbraco.MultiNodeTreePicker
+[GitHubRelease]: https://github.com/abjerner/Limbo.Umbraco.MultiNodeTreePicker/releases
 
 ## Examples
 
-At [**@skybrud**](https://github.com/skybrud) we typically use Umbraco as a headless CMS, and being able to control the generated models therefore makes a lot of sense. If a given page has some related content, it doesn't make sense for us to return the full model of a related model, so we instead have an item class with the needed properties - this class could be called `TestItem`.
+At [**@limbo**](https://github.com/limbo) we typically use Umbraco as a headless CMS, and being able to control the generated models therefore makes a lot of sense. If a given page has some related content, it doesn't make sense for us to return the full model of a related model, so we instead have an item class with the needed properties - this class could be called `TestItem`.
 
 Normally the property with the related content would return the full model for each page, but with the special multinode treepicker from this package, we can implement a custom item converter.
 
-We can do this by implementing the [`IMntpItemConverter`](https://github.com/abjerner/Skybrud.Umbraco.MultiNodeTreePicker/blob/master/src/Skybrud.Umbraco.MultiNodeTreePicker/Converters/IMntpItemConverter.cs) interface, but to get going a bit quicker, the package also contains the abstract [`MntpGenericItemConverter`](https://github.com/abjerner/Skybrud.Umbraco.MultiNodeTreePicker/blob/master/src/Skybrud.Umbraco.MultiNodeTreePicker/Converters/MntpGenericItemConverter.cs) class we can use instead:
+We can do this by implementing the [`IMntpItemConverter`](https://github.com/abjerner/Limbo.Umbraco.MultiNodeTreePicker/blob/master/src/Limbo.Umbraco.MultiNodeTreePicker/Converters/IMntpItemConverter.cs) interface, but to get going a bit quicker, the package also contains the abstract [`MntpGenericItemConverter`](https://github.com/abjerner/Limbo.Umbraco.MultiNodeTreePicker/blob/master/src/Limbo.Umbraco.MultiNodeTreePicker/Converters/MntpGenericItemConverter.cs) class we can use instead:
 
 ```csharp
 public class TestMntpItemConverter : MntpGenericItemConverter<TestItem> {

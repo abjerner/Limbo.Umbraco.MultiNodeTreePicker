@@ -1,13 +1,13 @@
 ﻿using System.Linq;
-using Skybrud.Umbraco.MultiNodeTreePicker.Composers;
-using Skybrud.WebApi.Json;
+using Limbo.Umbraco.MultiNodeTreePicker.Composers;
+using Limbo.WebApi.Json;
 using Umbraco.Web.Mvc;
 using Umbraco.Web.WebApi;
 
-namespace Skybrud.Umbraco.MultiNodeTreePicker.Controllers {
+namespace Limbo.Umbraco.MultiNodeTreePicker.Controllers {
     
     [JsonOnlyConfiguration]
-    [PluginController("Skybrud")]
+    [PluginController("Limbo")]
     public class MntpController : UmbracoAuthorizedApiController {
 
         private readonly MntpConverterCollection _converterCollection;

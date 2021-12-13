@@ -1,6 +1,6 @@
 ﻿using Umbraco.Core.Composing;
 
-namespace Skybrud.Umbraco.MultiNodeTreePicker.Composers {
+namespace Limbo.Umbraco.MultiNodeTreePicker.Composers {
     
     internal static class MntpCompositionExtensions {
         

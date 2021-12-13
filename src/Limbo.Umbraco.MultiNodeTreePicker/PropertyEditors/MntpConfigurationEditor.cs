@@ -2,7 +2,7 @@
 using Umbraco.Core.PropertyEditors;
 using Umbraco.Web.PropertyEditors;
 
-namespace Skybrud.Umbraco.MultiNodeTreePicker.PropertyEditors {
+namespace Limbo.Umbraco.MultiNodeTreePicker.PropertyEditors {
     
     public class MntpConfigurationEditor : ConfigurationEditor<MntpConfiguration> {
         

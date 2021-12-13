@@ -3,13 +3,13 @@ using Umbraco.Core.Logging;
 using Umbraco.Core.PropertyEditors;
 using Umbraco.Web.PropertyEditors;
 
-namespace Skybrud.Umbraco.MultiNodeTreePicker.PropertyEditors {
+namespace Limbo.Umbraco.MultiNodeTreePicker.PropertyEditors {
 
-    [DataEditor(EditorAlias, "Skybrud Multinode Treepicker", EditorView, ValueType = ValueTypes.Text, Group = "Skybrud.dk", Icon = "icon-page-add color-skybrud")]
-    [PropertyEditorAsset(ClientDependencyType.Javascript, "/App_Plugins/Skybrud.MultiNodeTreePicker/MntpConverter.js")]
+    [DataEditor(EditorAlias, "Limbo Multinode Treepicker", EditorView, ValueType = ValueTypes.Text, Group = "Limbo.dk", Icon = "icon-page-add color-limbo")]
+    [PropertyEditorAsset(ClientDependencyType.Javascript, "/App_Plugins/Limbo.MultiNodeTreePicker/MntpConverter.js")]
     public class MntpEditor : MultiNodeTreePickerPropertyEditor {
 
-        internal const string EditorAlias = "Skybrud.Umbraco.MultiNodeTreePicker";
+        internal const string EditorAlias = "Limbo.Umbraco.MultiNodeTreePicker";
 
         internal const string EditorView = "contentpicker";
 
