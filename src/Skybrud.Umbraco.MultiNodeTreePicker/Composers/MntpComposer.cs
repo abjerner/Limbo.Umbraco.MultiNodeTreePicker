@@ -8,8 +8,6 @@ namespace Skybrud.Umbraco.MultiNodeTreePicker.Composers
     {
         public void Compose(IUmbracoBuilder builder)
         {
-            //builder.Services.AddUnique<MntpConverterCollection>();
-
             builder.WithCollectionBuilder<MntpConverterCollectionBuilder>().Add(() => builder.TypeLoader.GetTypes<IMntpItemConverter>());
         }
     }
