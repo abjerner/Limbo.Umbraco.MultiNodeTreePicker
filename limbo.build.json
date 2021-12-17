@@ -18,8 +18,8 @@
             ]
           },
           {
-            "source": "src/{packageName}/App_Plugins/Limbo.MultiNodeTreePicker",
-            "destination": "App_Plugins/Limbo.Time/",
+            "source": "src/{packageName}/App_Plugins/Skybrud.MultiNodeTreePicker",
+            "destination": "App_Plugins/Skybrud.Time/",
             "patterns": [
               "**/*.js",
               "**/*.css",
@@ -49,7 +49,7 @@
           "requirements": "8.6.0",
           "author": {
             "name": "{company}",
-            "url": "https://www.limbo.works/"
+            "url": "https://www.skybrud.dk/"
           },
           "contributors": [
             "Anders Bjerner"
@@ -60,17 +60,17 @@
             "source": "src/{packageName}/bin/Release/net472",
             "destination": "bin/",
             "patterns": [
-              "Limbo.Essentials.dll",
-              "Limbo.Essentials.xml",
-              "Limbo.WebApi.Json.dll",
-              "Limbo.WebApi.Json.xml",
+              "Skybrud.Essentials.dll",
+              "Skybrud.Essentials.xml",
+              "Skybrud.WebApi.Json.dll",
+              "Skybrud.WebApi.Json.xml",
               "{packageName}.dll",
               "{packageName}.xml"
             ]
           },
           {
-            "source": "src/{packageName}/App_Plugins/Limbo.MultiNodeTreePicker",
-            "destination": "App_Plugins/Limbo.MultiNodeTreePicker/",
+            "source": "src/{packageName}/App_Plugins/Skybrud.MultiNodeTreePicker",
+            "destination": "App_Plugins/Skybrud.MultiNodeTreePicker/",
             "patterns": [
               "**/*.js",
               "**/*.css",

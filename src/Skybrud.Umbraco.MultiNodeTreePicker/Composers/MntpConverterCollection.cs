@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using Limbo.Umbraco.MultiNodeTreePicker.Converters;
+using Skybrud.Umbraco.MultiNodeTreePicker.Converters;
 using Umbraco.Cms.Core.Composing;
 
-namespace Limbo.Umbraco.MultiNodeTreePicker.Composers
+namespace Skybrud.Umbraco.MultiNodeTreePicker.Composers
 {
 
     public sealed class MntpConverterCollection : BuilderCollectionBase<IMntpItemConverter>

@@ -2,7 +2,7 @@
 using Umbraco.Cms.Core.Models.PublishedContent;
 using Umbraco.Cms.Core.PropertyEditors;
 
-namespace Limbo.Umbraco.MultiNodeTreePicker.Converters
+namespace Skybrud.Umbraco.MultiNodeTreePicker.Converters
 {
 
     public abstract class MntpGenericItemConverter<T> : IMntpItemConverter

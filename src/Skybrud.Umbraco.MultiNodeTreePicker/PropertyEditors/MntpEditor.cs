@@ -6,13 +6,13 @@ using Umbraco.Cms.Core.IO;
 using Umbraco.Cms.Core.PropertyEditors;
 using Umbraco.Cms.Infrastructure.WebAssets;
 
-namespace Limbo.Umbraco.MultiNodeTreePicker.PropertyEditors
+namespace Skybrud.Umbraco.MultiNodeTreePicker.PropertyEditors
 {
-    [DataEditor(EditorAlias, "Limbo Multinode Treepicker", EditorView, ValueType = ValueTypes.Text, Group = "Limbo.works", Icon = "icon-page-add color-limbo")]
+    [DataEditor(EditorAlias, "Skybrud Multinode Treepicker", EditorView, ValueType = ValueTypes.Text, Group = "Skybrud.dk", Icon = "icon-page-add color-skybrud")]
     public class MntpEditor : MultiNodeTreePickerPropertyEditor
     {
 
-        internal const string EditorAlias = "Limbo.Umbraco.MultiNodeTreePicker";
+        internal const string EditorAlias = "Skybrud.Umbraco.MultiNodeTreePicker";
 
         internal const string EditorView = "contentpicker";
         private readonly IIOHelper iOHelper;

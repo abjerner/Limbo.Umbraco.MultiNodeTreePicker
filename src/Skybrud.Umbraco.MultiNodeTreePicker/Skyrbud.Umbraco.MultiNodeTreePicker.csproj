@@ -1,28 +1,30 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
-        <TargetFramework>net6.0</TargetFramework>
+        <TargetFramework>net5.0</TargetFramework>
         <ContentTargetFolders>.</ContentTargetFolders>
-        <Product>Limbo.Umbraco.MultiNodeTreePicker</Product>
-        <Company>Limbo Works ApS</Company>
+        <Product>Skybrud.Umbraco.MultiNodeTreePicker</Product>
+        <Company>Skybrud a/s</Company>
         <Authors>Anders Bjerner, Nikolaj Brask-Nielsen</Authors>
-        <PackageId>Limbo.Umbraco.MultiNodeTreePicker</PackageId>
-        <Title>Limbo.Umbraco.MultiNodeTreePicker</Title>
+        <PackageId>Skybrud.Umbraco.MultiNodeTreePicker</PackageId>
+        <Title>Skybrud.Umbraco.MultiNodeTreePicker</Title>
         <Description>Extended multi node tree picker for Umbraco 9.</Description>
-        <Product>Limbo.Umbraco.MultiNodeTreePicker</Product>
+        <Product>Skybrud.Umbraco.MultiNodeTreePicker</Product>
         <PackageTags>umbraco plugin package</PackageTags>
-        <RootNamespace>Limbo.Umbraco.MultiNodeTreePicker</RootNamespace>
+        <RootNamespace>Skybrud.Umbraco.MultiNodeTreePicker</RootNamespace>
     </PropertyGroup>
 
     <PropertyGroup>
-      <PackageTags>Limbo, Umbraco, MultiNodeTreePicker</PackageTags>
+      <PackageTags>Skybrud, Umbraco, MultiNodeTreePicker</PackageTags>
       <PackageLicenseExpression>MIT</PackageLicenseExpression>
-      <PackageProjectUrl>https://github.com/limbo-works/Limbo.Umbraco.MultiNodeTreePicker</PackageProjectUrl>
+      <PackageProjectUrl>https://github.com/skybrud-works/Skybrud.Umbraco.MultiNodeTreePicker</PackageProjectUrl>
       <RepositoryType>git</RepositoryType>
-      <RepositoryUrl>https://github.com/limbo-works/Limbo.Umbraco.MultiNodeTreePicker</RepositoryUrl>
-      <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+      <RepositoryUrl>https://github.com/skybrud-works/Skybrud.Umbraco.MultiNodeTreePicker</RepositoryUrl>
+      <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
       <PackageIcon>Icon.png</PackageIcon>
       <PackageReadmeFile>README.md</PackageReadmeFile>
       <FileVersion></FileVersion>
+      <AssemblyVersion></AssemblyVersion>
+      <Version>1.0.0-beta001</Version>
     </PropertyGroup>
 
     <ItemGroup>
@@ -32,7 +34,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Content Include="App_Plugins\Limbo.Umbraco.MultiNodeTreePicker\**\*.*">
+        <Content Include="App_Plugins\Skybrud.Umbraco.MultiNodeTreePicker\**\*.*">
             <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
             <CopyToPublishDirectory>Always</CopyToPublishDirectory>
         </Content>
@@ -40,6 +42,10 @@
             <Pack>True</Pack>
             <PackagePath>buildTransitive</PackagePath>
         </None>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Include="Controllers\MntpController.cs" />
     </ItemGroup>
 
     <ItemGroup>
