@@ -1,9 +1,6 @@
 ﻿using Skybrud.Umbraco.MultiNodeTreePicker.Converters;
-using Umbraco.Cms.Core;
 using Umbraco.Cms.Core.Composing;
 using Umbraco.Cms.Core.DependencyInjection;
-using Umbraco.Cms.Core.PropertyEditors;
-using Umbraco.Extensions;
 
 namespace Skybrud.Umbraco.MultiNodeTreePicker.Composers
 {

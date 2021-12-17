@@ -1,7 +1,6 @@
 ﻿using System;
 using Newtonsoft.Json;
 using Umbraco.Cms.Core.Models.PublishedContent;
-using Umbraco.Cms.Core.PropertyEditors;
 
 namespace Skybrud.Umbraco.MultiNodeTreePicker.Converters
 {

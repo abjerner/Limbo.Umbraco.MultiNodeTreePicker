@@ -1,10 +1,5 @@
-﻿using System;
-using Microsoft.Extensions.Logging;
-using Umbraco.Cms.Core.Composing;
-using Umbraco.Cms.Core.DependencyInjection;
-using Umbraco.Cms.Core.IO;
+﻿using Umbraco.Cms.Core.IO;
 using Umbraco.Cms.Core.PropertyEditors;
-using Umbraco.Cms.Infrastructure.WebAssets;
 
 namespace Skybrud.Umbraco.MultiNodeTreePicker.PropertyEditors
 {
