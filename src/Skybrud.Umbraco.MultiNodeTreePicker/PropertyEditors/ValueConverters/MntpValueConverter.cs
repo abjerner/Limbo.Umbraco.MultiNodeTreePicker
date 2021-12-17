@@ -56,7 +56,7 @@ namespace Skybrud.Umbraco.MultiNodeTreePicker.PropertyEditors.ValueConverters
         public override object ConvertIntermediateToObject(IPublishedElement owner, IPublishedPropertyType propertyType, PropertyCacheLevel cacheLevel, object source, bool preview)
         {
 
-            object value = Bah(owner, propertyType, cacheLevel, source, preview);
+            object value = GetPickerValue(owner, propertyType, cacheLevel, source, preview);
 
             bool single = IsSingleNodePicker(propertyType);
 
@@ -135,7 +135,7 @@ namespace Skybrud.Umbraco.MultiNodeTreePicker.PropertyEditors.ValueConverters
             return content;
         }
 
-        public object Bah(IPublishedElement owner, IPublishedPropertyType propertyType, PropertyCacheLevel cacheLevel, object source, bool preview)
+        public object GetPickerValue(IPublishedElement owner, IPublishedPropertyType propertyType, PropertyCacheLevel cacheLevel, object source, bool preview)
         {
             umbracoContextAccessor.TryGetUmbracoContext(out var umbracoContext);
             if (source == null) return null;
