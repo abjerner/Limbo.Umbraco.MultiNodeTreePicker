@@ -6,7 +6,7 @@
         "destination": "releases/github/{packageName}.v{version}.zip",
         "files": [
           {
-            "source": "src/{packageName}/bin/Release/net472/",
+            "source": "src/{packageName}/bin/Release/net5.0/",
             "destination": "bin/",
             "patterns": [
               "Skybrud.Essentials.dll",
@@ -18,8 +18,8 @@
             ]
           },
           {
-            "source": "src/{packageName}/App_Plugins/Skybrud.MultiNodeTreePicker",
-            "destination": "App_Plugins/Skybrud.Time/",
+            "source": "src/{packageName}/App_Plugins/Skybrud.Umbraco.MultiNodeTreePicker",
+            "destination": "App_Plugins/Skybrud.Umbraco.MultiNodeTreePicker/",
             "patterns": [
               "**/*.js",
               "**/*.css",
@@ -46,18 +46,19 @@
           "license": "{license}",
           "licenseUrl": "{licenseUrl}",
           "readme": "{description}",
-          "requirements": "8.6.0",
+          "requirements": "9.0.0",
           "author": {
             "name": "{company}",
             "url": "https://www.skybrud.dk/"
           },
           "contributors": [
-            "Anders Bjerner"
+            "Anders Bjerner",
+            "Nikolaj Brask-Nielsen"
           ]
         },
         "files": [
           {
-            "source": "src/{packageName}/bin/Release/net472",
+            "source": "src/{packageName}/bin/Release/net5.0",
             "destination": "bin/",
             "patterns": [
               "Skybrud.Essentials.dll",
@@ -69,8 +70,8 @@
             ]
           },
           {
-            "source": "src/{packageName}/App_Plugins/Skybrud.MultiNodeTreePicker",
-            "destination": "App_Plugins/Skybrud.MultiNodeTreePicker/",
+            "source": "src/{packageName}/App_Plugins/Umbraco.MultiNodeTreePicker",
+            "destination": "App_Plugins/Umbraco.MultiNodeTreePicker/",
             "patterns": [
               "**/*.js",
               "**/*.css",
