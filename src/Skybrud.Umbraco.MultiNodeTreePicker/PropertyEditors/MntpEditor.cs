@@ -10,14 +10,14 @@ namespace Skybrud.Umbraco.MultiNodeTreePicker.PropertyEditors {
 
         internal const string EditorView = "contentpicker";
         
-        private readonly IIOHelper iOHelper;
+        private readonly IIOHelper _iOHelper;
 
         public MntpEditor(IDataValueEditorFactory dataValueEditorFactory, IIOHelper iOHelper) : base(dataValueEditorFactory, iOHelper) {
-            this.iOHelper = iOHelper;
+            this._iOHelper = iOHelper;
         }
 
         protected override IConfigurationEditor CreateConfigurationEditor() {
-            return new MntpConfigurationEditor(iOHelper);
+            return new MntpConfigurationEditor(_iOHelper);
         }
 
     }
