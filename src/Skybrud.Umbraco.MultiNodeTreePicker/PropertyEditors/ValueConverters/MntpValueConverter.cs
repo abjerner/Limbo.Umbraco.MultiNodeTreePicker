@@ -66,15 +66,15 @@ namespace Skybrud.Umbraco.MultiNodeTreePicker.PropertyEditors.ValueConverters {
             
             switch (value) {
                 
-                // If "value" is a single element, we can call the converter directly
-                case IPublishedElement element:
-                    return converter.Convert(propertyType, element);
+                // If "value" is a single item, we can call the converter directly
+                case IPublishedContent item:
+                    return converter.Convert(propertyType, item);
 
-                // If "value" is a list of elements, we call the converter for each item, and make sure to return a
+                // If "value" is a list of items, we call the converter for each item, and make sure to return a
                 // list of the type specified by the converter
-                case List<IPublishedElement> elements:
+                case List<IPublishedContent> items:
                     Type type = converter.GetType(propertyType);
-                    return elements
+                    return items
                         .Select(x => converter.Convert(propertyType, x))
                         .Cast(type)
                         .ToList(type);
