@@ -12,11 +12,9 @@ using Umbraco.Cms.Core.PublishedCache;
 using Umbraco.Cms.Core.Services;
 using Umbraco.Cms.Core.Web;
 
-namespace Skybrud.Umbraco.MultiNodeTreePicker.PropertyEditors.ValueConverters
-{
+namespace Skybrud.Umbraco.MultiNodeTreePicker.PropertyEditors.ValueConverters {
 
-    public class MntpValueConverter : MultiNodeTreePickerValueConverter
-    {
+    public class MntpValueConverter : MultiNodeTreePickerValueConverter {
 
         #region Constructors
 
@@ -24,8 +22,7 @@ namespace Skybrud.Umbraco.MultiNodeTreePicker.PropertyEditors.ValueConverters
         private readonly IUmbracoContextAccessor umbracoContextAccessor;
         private readonly MntpConverterCollection _converterCollection;
 
-        public MntpValueConverter(IPublishedSnapshotAccessor publishedSnapshotAccessor, IUmbracoContextAccessor umbracoContextAccessor, IMemberService memberService, MntpConverterCollection converterCollection) : base(publishedSnapshotAccessor, umbracoContextAccessor, memberService)
-        {
+        public MntpValueConverter(IPublishedSnapshotAccessor publishedSnapshotAccessor, IUmbracoContextAccessor umbracoContextAccessor, IMemberService memberService, MntpConverterCollection converterCollection) : base(publishedSnapshotAccessor, umbracoContextAccessor, memberService) {
             _publishedSnapshotAccessor = publishedSnapshotAccessor ?? throw new ArgumentNullException(nameof(publishedSnapshotAccessor));
             this.umbracoContextAccessor = umbracoContextAccessor;
             _converterCollection = converterCollection;
@@ -35,43 +32,36 @@ namespace Skybrud.Umbraco.MultiNodeTreePicker.PropertyEditors.ValueConverters
 
         #region Member methods
 
-        public override bool IsConverter(IPublishedPropertyType propertyType)
-        {
+        public override bool IsConverter(IPublishedPropertyType propertyType) {
             return propertyType.EditorAlias.Equals(MntpEditor.EditorAlias);
         }
 
-        public override PropertyCacheLevel GetPropertyCacheLevel(IPublishedPropertyType propertyType)
-        {
+        public override PropertyCacheLevel GetPropertyCacheLevel(IPublishedPropertyType propertyType) {
             return PropertyCacheLevel.Snapshot;
         }
 
-        public override object ConvertSourceToIntermediate(IPublishedElement owner, IPublishedPropertyType propertyType, object source, bool preview)
-        {
+        public override object ConvertSourceToIntermediate(IPublishedElement owner, IPublishedPropertyType propertyType, object source, bool preview) {
             return source?.ToString()
                 .Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries)
                 .Select(Udi.Create)
                 .ToArray();
         }
 
-        public override object ConvertIntermediateToObject(IPublishedElement owner, IPublishedPropertyType propertyType, PropertyCacheLevel cacheLevel, object source, bool preview)
-        {
+        public override object ConvertIntermediateToObject(IPublishedElement owner, IPublishedPropertyType propertyType, PropertyCacheLevel cacheLevel, object source, bool preview) {
 
             object value = GetPickerValue(owner, propertyType, cacheLevel, source, preview);
 
             bool single = IsSingleNodePicker(propertyType);
 
-            if (propertyType.DataType.Configuration is MntpConfiguration config && config.ItemConverter != null)
-            {
+            if (propertyType.DataType.Configuration is MntpConfiguration config && config.ItemConverter != null) {
 
                 string key = config.ItemConverter.GetValue("key").ToString();
 
-                if (_converterCollection.TryGet(key, out IMntpItemConverter converter))
-                {
+                if (_converterCollection.TryGet(key, out IMntpItemConverter converter)) {
 
                     if (value is IPublishedElement element) return converter.Convert(propertyType, element);
 
-                    if (single == false)
-                    {
+                    if (single == false) {
 
                         Type type = converter.GetType(propertyType);
 
@@ -90,18 +80,15 @@ namespace Skybrud.Umbraco.MultiNodeTreePicker.PropertyEditors.ValueConverters
 
         }
 
-        public override Type GetPropertyValueType(IPublishedPropertyType propertyType)
-        {
+        public override Type GetPropertyValueType(IPublishedPropertyType propertyType) {
 
             bool single = IsSingleNodePicker(propertyType);
 
-            if (propertyType.DataType.Configuration is MntpConfiguration config && config.ItemConverter != null)
-            {
+            if (propertyType.DataType.Configuration is MntpConfiguration config && config.ItemConverter != null) {
 
                 string key = config.ItemConverter.GetValue("key").ToString();
 
-                if (_converterCollection.TryGet(key, out IMntpItemConverter converter))
-                {
+                if (_converterCollection.TryGet(key, out IMntpItemConverter converter)) {
 
                     Type type = converter.GetType(propertyType);
 
@@ -115,28 +102,24 @@ namespace Skybrud.Umbraco.MultiNodeTreePicker.PropertyEditors.ValueConverters
 
         }
 
-        private IPublishedContent GetPublishedContent<T>(T nodeId, ref UmbracoObjectTypes actualType, UmbracoObjectTypes expectedType, Func<T, IPublishedContent> contentFetcher)
-        {
+        private IPublishedContent GetPublishedContent<T>(T nodeId, ref UmbracoObjectTypes actualType, UmbracoObjectTypes expectedType, Func<T, IPublishedContent> contentFetcher) {
 
             // is the actual type supported by the content fetcher?
-            if (actualType != UmbracoObjectTypes.Unknown && actualType != expectedType)
-            {
+            if (actualType != UmbracoObjectTypes.Unknown && actualType != expectedType) {
                 // no, return null
                 return null;
             }
 
             // attempt to get the content
             var content = contentFetcher(nodeId);
-            if (content != null)
-            {
+            if (content != null) {
                 // if we found the content, assign the expected type to the actual type so we don't have to keep looking for other types of content
                 actualType = expectedType;
             }
             return content;
         }
 
-        public object GetPickerValue(IPublishedElement owner, IPublishedPropertyType propertyType, PropertyCacheLevel cacheLevel, object source, bool preview)
-        {
+        public object GetPickerValue(IPublishedElement owner, IPublishedPropertyType propertyType, PropertyCacheLevel cacheLevel, object source, bool preview) {
             umbracoContextAccessor.TryGetUmbracoContext(out var umbracoContext);
             if (source == null) return null;
 
@@ -153,16 +136,14 @@ namespace Skybrud.Umbraco.MultiNodeTreePicker.PropertyEditors.ValueConverters
 
             UmbracoObjectTypes objectType = UmbracoObjectTypes.Unknown;
 
-            foreach (var udi in udis)
-            {
+            foreach (var udi in udis) {
 
                 GuidUdi guidUdi = udi as GuidUdi;
                 if (guidUdi == null) continue;
 
                 IPublishedContent multiNodeTreePickerItem = null;
                 var couldGetPublishedSnapshotAccessor = _publishedSnapshotAccessor.TryGetPublishedSnapshot(out var publishedSnapshot);
-                switch (udi.EntityType)
-                {
+                switch (udi.EntityType) {
                     case Constants.UdiEntityType.Document:
                         multiNodeTreePickerItem = GetPublishedContent(udi, ref objectType, UmbracoObjectTypes.Document, id => publishedSnapshot.Content.GetById(guidUdi.Guid));
                         break;
@@ -174,8 +155,7 @@ namespace Skybrud.Umbraco.MultiNodeTreePicker.PropertyEditors.ValueConverters
                         break;
                 }
 
-                if (multiNodeTreePickerItem != null && multiNodeTreePickerItem.ContentType.ItemType != PublishedItemType.Element)
-                {
+                if (multiNodeTreePickerItem != null && multiNodeTreePickerItem.ContentType.ItemType != PublishedItemType.Element) {
                     multiNodeTreePicker.Add(multiNodeTreePickerItem);
                     if (single) break;
                 }
@@ -187,8 +167,7 @@ namespace Skybrud.Umbraco.MultiNodeTreePicker.PropertyEditors.ValueConverters
 
         }
 
-        private static bool IsSingleNodePicker(IPublishedPropertyType propertyType)
-        {
+        private static bool IsSingleNodePicker(IPublishedPropertyType propertyType) {
             return propertyType.DataType.ConfigurationAs<MultiNodePickerConfiguration>().MaxNumber == 1;
         }
 
