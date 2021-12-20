@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Skybrud.Essentials.Collections.Extensions;
+using Skybrud.Essentials.Json.Extensions;
 using Skybrud.Umbraco.MultiNodeTreePicker.Composers;
 using Skybrud.Umbraco.MultiNodeTreePicker.Converters;
 using Umbraco.Cms.Core;
@@ -55,7 +57,7 @@ namespace Skybrud.Umbraco.MultiNodeTreePicker.PropertyEditors.ValueConverters {
 
             if (propertyType.DataType.Configuration is MntpConfiguration config && config.ItemConverter != null) {
 
-                string key = config.ItemConverter.GetValue("key").ToString();
+                string key = config.ItemConverter.GetString("key");
 
                 if (_converterCollection.TryGet(key, out IMntpItemConverter converter)) {
 
@@ -67,8 +69,8 @@ namespace Skybrud.Umbraco.MultiNodeTreePicker.PropertyEditors.ValueConverters {
 
                         return (value as IEnumerable<IPublishedElement> ?? new IPublishedElement[0])
                             .Select(x => converter.Convert(propertyType, x))
-                            //.Cast<type>()
-                            .ToList();
+                            .Cast(type)
+                            .ToList(type);
 
                     }
 
@@ -86,7 +88,7 @@ namespace Skybrud.Umbraco.MultiNodeTreePicker.PropertyEditors.ValueConverters {
 
             if (propertyType.DataType.Configuration is MntpConfiguration config && config.ItemConverter != null) {
 
-                string key = config.ItemConverter.GetValue("key").ToString();
+                string key = config.ItemConverter.GetString("key");
 
                 if (_converterCollection.TryGet(key, out IMntpItemConverter converter)) {
 
