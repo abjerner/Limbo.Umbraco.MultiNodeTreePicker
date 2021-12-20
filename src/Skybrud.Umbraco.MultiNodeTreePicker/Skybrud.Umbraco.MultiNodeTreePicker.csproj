@@ -1,62 +1,57 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-    <PropertyGroup>
-        <TargetFramework>net5.0</TargetFramework>
-        <ContentTargetFolders>.</ContentTargetFolders>
-        <Product>Skybrud.Umbraco.MultiNodeTreePicker</Product>
-        <Company>Skybrud a/s</Company>
-        <Authors>Anders Bjerner, Nikolaj Brask-Nielsen</Authors>
-        <PackageId>Skybrud.Umbraco.MultiNodeTreePicker</PackageId>
-        <Title>Skybrud.Umbraco.MultiNodeTreePicker</Title>
-        <Description>Extended multi node tree picker for Umbraco 9.</Description>
-        <Product>Skybrud.Umbraco.MultiNodeTreePicker</Product>
-        <PackageTags>umbraco plugin package</PackageTags>
-        <RootNamespace>Skybrud.Umbraco.MultiNodeTreePicker</RootNamespace>
-    </PropertyGroup>
 
-    <PropertyGroup>
-      <PackageTags>Skybrud, Umbraco, MultiNodeTreePicker</PackageTags>
-      <PackageLicenseExpression>MIT</PackageLicenseExpression>
-      <PackageProjectUrl>https://github.com/skybrud-works/Skybrud.Umbraco.MultiNodeTreePicker</PackageProjectUrl>
-      <RepositoryType>git</RepositoryType>
-      <RepositoryUrl>https://github.com/skybrud-works/Skybrud.Umbraco.MultiNodeTreePicker</RepositoryUrl>
-      <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
-      <PackageIcon>Icon.png</PackageIcon>
-      <PackageReadmeFile>README.md</PackageReadmeFile>
-      <FileVersion></FileVersion>
-      <AssemblyVersion></AssemblyVersion>
-      <Version>2.0.0-beta001</Version>
-    </PropertyGroup>
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <ContentTargetFolders>.</ContentTargetFolders>
+  </PropertyGroup>
 
-    <ItemGroup>
-        <PackageReference Include="Skybrud.Essentials" Version="1.1.33" />
-        <PackageReference Include="Umbraco.Cms.Core" Version="9.0.0" />
-        <PackageReference Include="Umbraco.Cms.Web.Website" Version="9.0.0" />
-        <PackageReference Include="Umbraco.Cms.Web.BackOffice" Version="9.0.0" />
-    </ItemGroup>
+  <PropertyGroup>
+    <Version>2.0.0-beta001</Version>
+    <Company>Skybrud.dk a/s</Company>
+    <Authors>Anders Bjerner, Nikolaj Brask-Nielsen</Authors>
+    <Copyright>Copyright © 2021</Copyright>
+    <Description>Extended multi node tree picker for Umbraco 9.</Description>
+  </PropertyGroup>
 
-    <ItemGroup>
-        <Content Include="App_Plugins\Skybrud.Umbraco.MultiNodeTreePicker\**\*.*">
-            <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-            <CopyToPublishDirectory>Always</CopyToPublishDirectory>
-        </Content>
-        <None Include="build\**\*.*">
-            <Pack>True</Pack>
-            <PackagePath>buildTransitive</PackagePath>
-        </None>
-    </ItemGroup>
+  <PropertyGroup>
+    <Title>Skybrud Multinode Treepicker</Title>
+    <PackageTags>Skybrud, Umbraco, MultiNodeTreePicker</PackageTags>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/abjerner/Skybrud.Umbraco.MultiNodeTreePicker</PackageProjectUrl>
+    <PackageIcon>Icon.png</PackageIcon>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/abjerner/Skybrud.Umbraco.MultiNodeTreePicker</RepositoryUrl>
+  </PropertyGroup>
 
-    <ItemGroup>
-      <Content Include="Controllers\MntpController.cs" />
-    </ItemGroup>
+  <ItemGroup>
+    <!-- Include NuGet dependencies -->
+    <PackageReference Include="Skybrud.Essentials" Version="1.1.33" />
+    <PackageReference Include="Umbraco.Cms.Core" Version="9.0.0" />
+    <PackageReference Include="Umbraco.Cms.Web.Website" Version="9.0.0" />
+    <PackageReference Include="Umbraco.Cms.Web.BackOffice" Version="9.0.0" />
+  </ItemGroup>
 
-    <ItemGroup>
-      <None Include="..\..\Icon.png">
-        <Pack>True</Pack>
-        <PackagePath>\</PackagePath>
-      </None>
-      <None Include="..\..\README.md">
-        <Pack>True</Pack>
-        <PackagePath>\</PackagePath>
-      </None>
-    </ItemGroup>
+  <ItemGroup>
+    <!-- Include backoffice assets -->
+    <Content Include="App_Plugins\Skybrud.Umbraco.MultiNodeTreePicker\**\*.css" />
+    <Content Include="App_Plugins\Skybrud.Umbraco.MultiNodeTreePicker\**\*.html" />
+    <Content Include="App_Plugins\Skybrud.Umbraco.MultiNodeTreePicker\**\*.js" />
+    <Content Include="App_Plugins\Skybrud.Umbraco.MultiNodeTreePicker\Lang\*.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Auto-generate targets file -->
+    <None Include="build\**\*.*">
+      <Pack>True</Pack>
+      <PackagePath>build</PackagePath>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\Icon.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
 </Project>
