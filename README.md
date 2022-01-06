@@ -1,31 +1,25 @@
 # Skybrud.Umbraco.MultiNodeTreePicker
 
-**Skybrud.Umbraco.MultiNodeTreePicker** adds a special multinode treepicker to the Umbraco 8 and 9 (version 2.0.0+) backoffice in which developers can select a custom item converter.
+**Skybrud.Umbraco.MultiNodeTreePicker** adds a special multinode treepicker to the Umbraco backoffice in which developers can select a custom item converter.
 
 The purpose of an item converter is to control the C# type returned by the `.Value()` method or the corresponding property in a ModelsBuilder generated model. This is particular useful in a SPA/Headless Umbraco implementation, where the ModelsBuilder model can then be returned directly via a WebAPI endpoint.
 
 ## Installation
 
-**Install via NuGet**  
-This is the recommended approach, as you install the [**NuGet Package**][NuGetPackage] in your Visual Studio project, and NuGet takes care of the rest.
+The Umbraco 9 version of this package is only available via [**NuGet**][NuGetPackage]. To install the package, you can use either .NET CLI
 
 ```
-Install-Package Skybrud.Umbraco.MultiNodeTreePicker -pre
+dotnet add package Skybrud.Umbraco.MultiNodeTreePicker --version 2.0.0
 ```
-**Umbraco package**  
-Download the package from Our Umbraco - the Umbraco cummunity website:
 
-- <a href="https://our.umbraco.com/packages/backoffice-extensions/skybrud-multinode-treepicker/" target="_blank"><strong>Download Umbraco package</strong></a>
+or the older NuGet Package Manager:
 
-**Manual install**  
-You can also download a ZIP file of the latest release directly from GitHub, unzip, and move the contents to the root directory of your web application.
+```
+Install-Package Skybrud.Umbraco.MultiNodeTreePicker -Version 2.0.0
+```
 
-1. [**Download ZIP file**][GitHubRelease]  
-  Download the ZIP file directly from here on GitHub. The ZIP contains all necessary files to run the package.
-
-2. **Unzip**  
-  Unzip and move the contents to the root directory of your web application.
-  
+**Umbraco 8**  
+For the Umbraco 8 version of this package, see the [**v2/main**](https://github.com/abjerner/Skybrud.Umbraco.MultiNodeTreePicker/tree/v1/main) branch instead.
 
 [NuGetPackage]: https://www.nuget.org/packages/Skybrud.Umbraco.MultiNodeTreePicker
 [GitHubRelease]: https://github.com/abjerner/Skybrud.Umbraco.MultiNodeTreePicker/releases
