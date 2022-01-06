@@ -14,15 +14,11 @@ namespace Skybrud.Umbraco.MultiNodeTreePicker.Converters {
             Callback = callback;
         }
 
-        public object Convert(IPublishedPropertyType propertyType, object source) {
-
-            if (source is IPublishedContent content) return Callback(content);
-
-            return null;
-
+        public virtual object Convert(IPublishedPropertyType propertyType, IPublishedContent source) {
+            return source is null ? null : Callback(source);
         }
 
-        public Type GetType(IPublishedPropertyType propertyType) {
+        public virtual Type GetType(IPublishedPropertyType propertyType) {
             return typeof(T);
         }
 

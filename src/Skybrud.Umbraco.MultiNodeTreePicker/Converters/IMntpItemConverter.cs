@@ -9,7 +9,7 @@ namespace Skybrud.Umbraco.MultiNodeTreePicker.Converters {
         [JsonProperty("name")]
         string Name { get; }
 
-        object Convert(IPublishedPropertyType propertyType, object source);
+        object Convert(IPublishedPropertyType propertyType, IPublishedContent source);
 
         Type GetType(IPublishedPropertyType propertyType);
 
