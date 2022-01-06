@@ -57,15 +57,15 @@ namespace Skybrud.Umbraco.MultiNodeTreePicker.PropertyEditors.ValueConverters {
             // Return "value" if the data type isn't configured with an item converter
             if (propertyType.DataType.Configuration is not MntpConfiguration config) return value;
             if (config.ItemConverter == null) return value;
-            
+
             // Get the key of the converter
             string key = config.ItemConverter.GetString("key");
-            
+
             // Return "value" if item converter wasn't found
             if (!_converterCollection.TryGet(key, out IMntpItemConverter converter)) return value;
-            
+
             switch (value) {
-                
+
                 // If "value" is a single item, we can call the converter directly
                 case IPublishedContent item:
                     return converter.Convert(propertyType, item);
@@ -110,13 +110,13 @@ namespace Skybrud.Umbraco.MultiNodeTreePicker.PropertyEditors.ValueConverters {
         }
 
         private object GetPickerValue(IPublishedPropertyType propertyType, object source, bool preview) {
-            
+
             if (source == null) return null;
 
             Udi[] udis = source as Udi[] ?? Array.Empty<Udi>();
             if (propertyType.Alias.Equals(Constants.Conventions.Content.InternalRedirectId)) return udis.FirstOrDefault();
             if (propertyType.Alias.Equals(Constants.Conventions.Content.Redirect)) return udis.FirstOrDefault();
-            
+
             // Get a reference to the current published snapshot
             _publishedSnapshotAccessor.TryGetPublishedSnapshot(out IPublishedSnapshot publishedSnapshot);
             if (publishedSnapshot == null) return source;
@@ -134,7 +134,7 @@ namespace Skybrud.Umbraco.MultiNodeTreePicker.PropertyEditors.ValueConverters {
                 if (guidUdi == null) continue;
 
                 IPublishedContent item = null;
-                
+
                 switch (udi.EntityType) {
                     case Constants.UdiEntityType.Document:
                         item = publishedSnapshot.Content.GetById(preview, guidUdi.Guid);

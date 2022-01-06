@@ -4,7 +4,7 @@ using Umbraco.Cms.Web.BackOffice.Controllers;
 using Umbraco.Cms.Web.Common.Attributes;
 
 namespace Skybrud.Umbraco.MultiNodeTreePicker.Controllers {
-    
+
     [PluginController("Skybrud")]
     public class MntpController : UmbracoAuthorizedApiController {
 
