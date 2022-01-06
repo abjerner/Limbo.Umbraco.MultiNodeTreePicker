@@ -10,11 +10,12 @@
     <Company>Limbo</Company>
     <Authors>Anders Bjerner, Nikolaj Brask-Nielsen</Authors>
     <Copyright>Copyright © 2021</Copyright>
+    <Title>Skybrud Multinode Treepicker</Title>
     <Description>Extended multi node tree picker for Umbraco 9.</Description>
   </PropertyGroup>
 
   <PropertyGroup>
-    <Title>Skybrud Multinode Treepicker</Title>
+    <!-- Information for the NuGet package -->
     <PackageTags>Skybrud, Limbo, Umbraco, MultiNodeTreePicker</PackageTags>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/abjerner/Skybrud.Umbraco.MultiNodeTreePicker</PackageProjectUrl>
@@ -40,15 +41,18 @@
   </ItemGroup>
 
   <ItemGroup>
-    <!-- Auto-generate targets file -->
-    <None Include="build\**\*.*">
-      <Pack>True</Pack>
-      <PackagePath>build</PackagePath>
-    </None>
+    <!-- Include the targets file -->
+    <Content Include="../build/$(AssemblyName).targets" PackagePath="build\$(AssemblyName).targets" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="../build/Limbo.png" Pack="true" PackagePath="\" />
+    <!-- Include package icon for NuGet -->
+    <Content Include="../build/Limbo.png" Pack="true" PackagePath="\" />
   </ItemGroup>
+
+  <PropertyGroup>
+    <!-- Generate XML documentation -->
+    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
+  </PropertyGroup>
 
 </Project>
