@@ -3,6 +3,8 @@ using Skybrud.Umbraco.MultiNodeTreePicker.Composers;
 using Umbraco.Cms.Web.BackOffice.Controllers;
 using Umbraco.Cms.Web.Common.Attributes;
 
+#pragma warning disable 1591
+
 namespace Skybrud.Umbraco.MultiNodeTreePicker.Controllers {
 
     [PluginController("Skybrud")]

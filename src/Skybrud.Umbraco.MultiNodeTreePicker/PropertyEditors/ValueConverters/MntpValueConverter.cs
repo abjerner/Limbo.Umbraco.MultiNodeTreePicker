@@ -14,6 +14,8 @@ using Umbraco.Cms.Core.PublishedCache;
 using Umbraco.Cms.Core.Services;
 using Umbraco.Cms.Core.Web;
 
+#pragma warning disable 1591
+
 namespace Skybrud.Umbraco.MultiNodeTreePicker.PropertyEditors.ValueConverters {
 
     public class MntpValueConverter : MultiNodeTreePickerValueConverter {
