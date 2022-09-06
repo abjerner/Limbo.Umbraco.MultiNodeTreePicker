@@ -24,6 +24,7 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/abjerner/Limbo.Umbraco.MultiNodeTreePicker</PackageProjectUrl>
     <PackageIcon>Limbo.png</PackageIcon>
+    <PackageReadmeFile>NUGET.md</PackageReadmeFile>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/abjerner/Limbo.Umbraco.MultiNodeTreePicker</RepositoryUrl>
   </PropertyGroup>
@@ -36,12 +37,13 @@
     <PackageReference Include="Umbraco.Cms.Web.BackOffice" Version="10.0.0" />
   </ItemGroup>
 
-  <!-- Include package icon for NuGet -->
+  <!-- Include package icon and readme file for the NuGet package -->
   <ItemGroup>
     <Content Include="../build/Limbo.png" Pack="true" PackagePath="\" />
+    <None Include="..\..\NUGET.md" Pack="true" PackagePath="\" />
   </ItemGroup>
 
-  
+  <!-- Exclude files from the NuGet package -->
   <ItemGroup>
     <Content Remove="compilerconfig.json" />
     <Content Include="compilerconfig.json" Pack="false" />
