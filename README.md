@@ -4,9 +4,32 @@
 
 The purpose of an item converter is to control the C# type returned by the `.Value()` method or the corresponding property in a ModelsBuilder generated model. This is particular useful in a SPA/Headless Umbraco implementation, where the ModelsBuilder model can then be returned directly via a WebAPI endpoint.
 
+<table>
+  <tr>
+    <td><strong>License:</strong></td>
+    <td><a href="./LICENSE.md"><strong>MIT License</strong></a></td>
+  </tr>
+  <tr>
+    <td><strong>Umbraco:</strong></td>
+    <td>Umbraco 10</td>
+  </tr>
+  <tr>
+    <td><strong>Target Framework:</strong></td>
+    <td>.NET 6</td>
+  </tr>
+</table>
+
+
+
+
+
+
+
+<br /><br />
+
 ## Installation
 
-The Umbraco 9 version of this package is only available via [**NuGet**][NuGetPackage]. To install the package, you can use either .NET CLI
+The package targets Umbraco 10 and is only available via [**NuGet**][NuGetPackage]. To install the package, you can use either .NET CLI
 
 ```
 dotnet add package Limbo.Umbraco.MultiNodeTreePicker --version 1.0.0
@@ -18,8 +41,21 @@ or the older NuGet Package Manager:
 Install-Package Limbo.Umbraco.MultiNodeTreePicker -Version 1.0.0
 ```
 
+> **Note**  
+> This package replaces our older [**Skybrud.Umbraco.MultiNodeTreePicker**](https://github.com/abjerner/Skybrud.Umbraco.MultiNodeTreePicker) package. See this package for older version of Umbraco.
+
 [NuGetPackage]: https://www.nuget.org/packages/Limbo.Umbraco.MultiNodeTreePicker
 [GitHubRelease]: https://github.com/abjerner/Limbo.Umbraco.MultiNodeTreePicker/releases
+
+
+
+
+
+
+
+
+
+<br /><br />
 
 ## Examples
 
