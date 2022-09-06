@@ -2,7 +2,6 @@
     <div ng-if="vm.notFound" class="alert alert-danger">
         The selected type <strong>{{model.value}}</strong> could not be found.
     </div>
-    <pre>{{model.value | json}}</pre>
     <umb-node-preview ng-if="vm.selected"
                       single="true"
                       icon="vm.selected.icon"
