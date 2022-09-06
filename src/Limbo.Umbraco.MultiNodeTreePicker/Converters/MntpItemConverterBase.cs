@@ -12,8 +12,13 @@ namespace Limbo.Umbraco.MultiNodeTreePicker.Converters {
         /// <summary>
         /// Gets the friendly name of the item converter.
         /// </summary>
-        public string Name { get; }
-        
+        public string Name { get; protected set; }
+
+        /// <summary>
+        /// Gets the icon of the item converter.
+        /// </summary>
+        public string Icon { get; protected set; }
+
         /// <summary>
         /// Initializes a new instance based on the specified <paramref name="name"/>.
         /// </summary>

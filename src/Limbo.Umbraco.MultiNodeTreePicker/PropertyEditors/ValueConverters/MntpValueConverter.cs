@@ -5,6 +5,7 @@ using Skybrud.Essentials.Json.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Newtonsoft.Json.Linq;
 using Umbraco.Cms.Core;
 using Umbraco.Cms.Core.Models;
 using Umbraco.Cms.Core.Models.PublishedContent;
@@ -58,10 +59,10 @@ namespace Limbo.Umbraco.MultiNodeTreePicker.PropertyEditors.ValueConverters {
 
             // Return "value" if the data type isn't configured with an item converter
             if (propertyType.DataType.Configuration is not MntpConfiguration config) return value;
-            if (config.ItemConverter == null) return value;
 
             // Get the key of the converter
-            string key = config.ItemConverter.GetString("key");
+            string key = GetItemConverterKey(config.ItemConverter);
+            if (string.IsNullOrWhiteSpace(key)) return value;
 
             // Return "value" if item converter wasn't found
             if (!_converterCollection.TryGet(key, out IMntpItemConverter converter)) return value;
@@ -95,7 +96,7 @@ namespace Limbo.Umbraco.MultiNodeTreePicker.PropertyEditors.ValueConverters {
 
             if (propertyType.DataType.Configuration is MntpConfiguration { ItemConverter: { } } config) {
 
-                string key = config.ItemConverter.GetString("key");
+                string key = GetItemConverterKey(config.ItemConverter);
 
                 if (_converterCollection.TryGet(key, out IMntpItemConverter converter)) {
 
@@ -173,6 +174,17 @@ namespace Limbo.Umbraco.MultiNodeTreePicker.PropertyEditors.ValueConverters {
         private IPublishedContent GetMemberByGuidUdi(GuidUdi udi, IPublishedSnapshot snapshot) {
             IMember member = _memberService.GetByKey(udi.Guid);
             return member == null ? null : snapshot.Members?.Get(member);
+        }
+
+        private static string GetItemConverterKey(JToken token) {
+            return token switch {
+                null => null,
+                JObject obj => obj.GetString("key"),
+                _ => token.Type switch {
+                    JTokenType.String => token.ToString(),
+                    _ => null
+                }
+            };
         }
 
         #endregion

@@ -40,9 +40,11 @@
   <ItemGroup>
     <Content Include="../build/Limbo.png" Pack="true" PackagePath="\" />
   </ItemGroup>
+
+  
   <ItemGroup>
-    <None Include="wwwroot\MntpConverter.html" />
-    <None Include="wwwroot\MntpConverter.js" />
+    <Content Remove="compilerconfig.json" />
+    <Content Include="compilerconfig.json" Pack="false" />
   </ItemGroup>
 
   <!-- Generate XML documentation -->

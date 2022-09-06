@@ -1,5 +1,8 @@
-﻿using Limbo.Umbraco.MultiNodeTreePicker.Composers;
+﻿using System;
+using Limbo.Umbraco.MultiNodeTreePicker.Composers;
 using System.Linq;
+using Limbo.Umbraco.MultiNodeTreePicker.Converters;
+using Newtonsoft.Json.Linq;
 using Umbraco.Cms.Web.BackOffice.Controllers;
 using Umbraco.Cms.Web.Common.Attributes;
 
@@ -17,11 +20,23 @@ namespace Limbo.Umbraco.MultiNodeTreePicker.Controllers {
         }
 
         public object GetTypes() {
-            return _converterCollection.ToArray().Select(x => new {
-                assembly = x.GetType().Assembly.FullName,
-                key = x.GetType().AssemblyQualifiedName,
-                name = x.Name
-            });
+            return _converterCollection.ToArray().Select(Map);
+        }
+
+        private static JObject Map(IMntpItemConverter converter) {
+
+            Type type = converter.GetType();
+
+            JObject json = new() {
+                { "assembly", type.Assembly.FullName },
+                { "key", type.AssemblyQualifiedName },
+                { "icon", $"{converter.Icon ?? "icon-box"} color-{type.Assembly.FullName?.Split('.')[0].ToLower()}" },
+                { "name", converter.Name },
+                { "description", type.AssemblyQualifiedName?.Split(new[] { ", Version" }, StringSplitOptions.None)[0] + ".dll" }
+            };
+
+            return json;
+
         }
 
     }

@@ -12,6 +12,26 @@ namespace Limbo.Umbraco.MultiNodeTreePicker.PropertyEditors {
         public MntpConfigurationEditor(IIOHelper ioHelper, IEditorConfigurationParser editorConfigurationParser) : base(ioHelper, editorConfigurationParser) {
             Field(nameof(MultiNodePickerConfiguration.TreeSource))
                 .Config = new Dictionary<string, object> { { "idType", "udi" } };
+
+            foreach (var field in Fields) {
+
+                if (field.View is not null) field.View = field.View.Replace("{version}", MntpPackage.InformationalVersion);
+
+                switch (field.Key) {
+
+                    case "itemConverter":
+                        MntpUtils.PrependLinkToDescription(
+                            field,
+                            "See the documentation &rarr;",
+                            "https://packages.limbo.works/163af59b"
+                        );
+                        break;
+
+                }
+
+            }
+
+
         }
 
         public override Dictionary<string, object> ToConfigurationEditor(MntpConfiguration configuration) {

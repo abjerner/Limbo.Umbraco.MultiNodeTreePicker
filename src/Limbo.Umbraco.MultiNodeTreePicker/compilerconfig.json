@@ -1,0 +1,9 @@
+﻿[
+  {
+    "outputFile": "wwwroot/Styles/Styles.css",
+    "inputFile": "wwwroot/Styles/Styles.less",
+    "minify": {
+      "enabled": false
+    }
+  }
+]

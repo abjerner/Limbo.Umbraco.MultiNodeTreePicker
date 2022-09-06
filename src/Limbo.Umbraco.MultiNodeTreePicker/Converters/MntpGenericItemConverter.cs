@@ -14,7 +14,12 @@ namespace Limbo.Umbraco.MultiNodeTreePicker.Converters {
         /// <summary>
         /// Gets the friendly name of the item converter.
         /// </summary>
-        public string Name { get; }
+        public string Name { get; protected set; }
+
+        /// <summary>
+        /// Gets the icon of the item converter.
+        /// </summary>
+        public string Icon { get; protected set; }
 
         /// <summary>
         /// Gets a reference to the callback function used for converting the items.
@@ -30,7 +35,19 @@ namespace Limbo.Umbraco.MultiNodeTreePicker.Converters {
             Name = name;
             Callback = callback;
         }
-        
+
+        /// <summary>
+        /// Initializes a new instance based on the specified <paramref name="name"/> and <paramref name="callback"/>.
+        /// </summary>
+        /// <param name="name">The friendly name of the item converter.</param>
+        /// <param name="icon">The icon of the converter.</param>
+        /// <param name="callback">The callback function used for converting the items.</param>
+        protected MntpGenericItemConverter(string name, string icon, Func<IPublishedContent, T> callback) {
+            Name = name;
+            Icon = icon;
+            Callback = callback;
+        }
+
         /// <summary>
         /// Returns the converted item based on <paramref name="source"/>.
         /// </summary>

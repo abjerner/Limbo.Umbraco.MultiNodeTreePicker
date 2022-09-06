@@ -16,6 +16,12 @@ namespace Limbo.Umbraco.MultiNodeTreePicker.Converters {
         string Name { get; }
 
         /// <summary>
+        /// Gets the icon of the item converter.
+        /// </summary>
+        [JsonProperty("icon")]
+        public string Icon => null;
+
+        /// <summary>
         /// Returns the converted item based on <paramref name="source"/>.
         /// </summary>
         /// <param name="propertyType">The property type.</param>
