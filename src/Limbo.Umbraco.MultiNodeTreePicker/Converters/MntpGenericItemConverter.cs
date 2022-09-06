@@ -1,25 +1,34 @@
 ﻿using System;
 using Umbraco.Cms.Core.Models.PublishedContent;
 
-namespace Skybrud.Umbraco.MultiNodeTreePicker.Converters {
+namespace Limbo.Umbraco.MultiNodeTreePicker.Converters {
 
     /// <summary>
-    /// Generic item converter base implementing the <see cref="IMntpItemConverter"/>.
+    /// Generic item converter implementing the <see cref="IMntpItemConverter"/>.
+    ///
+    /// The item converter works by specifying a callback method which then will be used for converting the items.
     /// </summary>
     /// <typeparam name="T">The type of the items.</typeparam>
-    public abstract class MntpItemConverterBase<T> : IMntpItemConverter {
+    public abstract class MntpGenericItemConverter<T> : IMntpItemConverter {
         
         /// <summary>
         /// Gets the friendly name of the item converter.
         /// </summary>
         public string Name { get; }
-        
+
         /// <summary>
-        /// Initializes a new instance based on the specified <paramref name="name"/>.
+        /// Gets a reference to the callback function used for converting the items.
+        /// </summary>
+        protected Func<IPublishedContent, T> Callback { get; }
+
+        /// <summary>
+        /// Initializes a new instance based on the specified <paramref name="name"/> and <paramref name="callback"/>.
         /// </summary>
         /// <param name="name">The friendly name of the item converter.</param>
-        protected MntpItemConverterBase(string name) {
+        /// <param name="callback">The callback function used for converting the items.</param>
+        protected MntpGenericItemConverter(string name, Func<IPublishedContent, T> callback) {
             Name = name;
+            Callback = callback;
         }
         
         /// <summary>
@@ -28,7 +37,9 @@ namespace Skybrud.Umbraco.MultiNodeTreePicker.Converters {
         /// <param name="propertyType">The property type.</param>
         /// <param name="source">The source <see cref="IPublishedContent"/>.</param>
         /// <returns>The converted item.</returns>
-        public abstract object Convert(IPublishedPropertyType propertyType, IPublishedContent source);
+        public virtual object Convert(IPublishedPropertyType propertyType, IPublishedContent source) {
+            return source is null ? null : Callback(source);
+        }
         
         /// <summary>
         /// Returns the <see cref="Type"/> of the items returned by this item converter.

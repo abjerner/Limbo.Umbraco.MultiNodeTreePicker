@@ -1,9 +1,9 @@
-﻿using System;
+﻿using Limbo.Umbraco.MultiNodeTreePicker.Converters;
+using System;
 using System.Collections.Generic;
-using Skybrud.Umbraco.MultiNodeTreePicker.Converters;
 using Umbraco.Cms.Core.Composing;
 
-namespace Skybrud.Umbraco.MultiNodeTreePicker.Composers {
+namespace Limbo.Umbraco.MultiNodeTreePicker.Composers {
 
     /// <summary>
     /// Class representing a collection of <see cref="IMntpItemConverter"/>.

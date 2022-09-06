@@ -1,20 +1,21 @@
 ﻿using System.Collections.Generic;
 using Umbraco.Cms.Core.IO;
 using Umbraco.Cms.Core.PropertyEditors;
+using Umbraco.Cms.Core.Services;
 
 #pragma warning disable 1591
 
-namespace Skybrud.Umbraco.MultiNodeTreePicker.PropertyEditors {
+namespace Limbo.Umbraco.MultiNodeTreePicker.PropertyEditors {
 
     public class MntpConfigurationEditor : ConfigurationEditor<MntpConfiguration> {
 
-        public MntpConfigurationEditor(IIOHelper iOHelper) : base(iOHelper) {
+        public MntpConfigurationEditor(IIOHelper ioHelper, IEditorConfigurationParser editorConfigurationParser) : base(ioHelper, editorConfigurationParser) {
             Field(nameof(MultiNodePickerConfiguration.TreeSource))
                 .Config = new Dictionary<string, object> { { "idType", "udi" } };
         }
 
         public override Dictionary<string, object> ToConfigurationEditor(MntpConfiguration configuration) {
-            // sanitize configuration
+
             var output = base.ToConfigurationEditor(configuration);
 
             output["multiPicker"] = configuration.MaxNumber > 1;

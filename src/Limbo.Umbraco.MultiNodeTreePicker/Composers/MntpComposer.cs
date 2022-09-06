@@ -1,9 +1,9 @@
-﻿using Skybrud.Umbraco.MultiNodeTreePicker.Converters;
+﻿using Limbo.Umbraco.MultiNodeTreePicker.Converters;
 using Umbraco.Cms.Core.Composing;
 using Umbraco.Cms.Core.DependencyInjection;
 using Umbraco.Cms.Core.WebAssets;
 
-namespace Skybrud.Umbraco.MultiNodeTreePicker.Composers {
+namespace Limbo.Umbraco.MultiNodeTreePicker.Composers {
 
     internal sealed class MntpComposer : IComposer {
 
@@ -19,7 +19,7 @@ namespace Skybrud.Umbraco.MultiNodeTreePicker.Composers {
             public string FilePath { get; set; }
 
             public BackOfficeJavaScriptAsset() {
-                FilePath = "/App_Plugins/Skybrud.Umbraco.MultiNodeTreePicker/MntpConverter.js";
+                FilePath = "/App_Plugins/Limbo.Umbraco.MultiNodeTreePicker/MntpConverter.js";
             }
 
         }

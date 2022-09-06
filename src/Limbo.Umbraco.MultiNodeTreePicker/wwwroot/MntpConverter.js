@@ -1,4 +1,4 @@
-﻿angular.module("umbraco").controller("Skybrud.MntpConverter.Controller", function ($scope, $http) {
+﻿angular.module("umbraco").controller("Limbo.Umbraco.MntpConverter.Controller", function ($scope, $http) {
 
     $scope.types = [
         {
@@ -11,7 +11,7 @@
 
     $scope.error = null;
 
-    $http.get("/umbraco/backoffice/Skybrud/Mntp/GetTypes").then(function(r) {
+    $http.get("/umbraco/backoffice/Limbo/Mntp/GetTypes").then(function(r) {
 
         $scope.types = $scope.types.concat(r.data);
 

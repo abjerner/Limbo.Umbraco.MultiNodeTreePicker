@@ -1,13 +1,13 @@
-﻿using System.Linq;
-using Skybrud.Umbraco.MultiNodeTreePicker.Composers;
+﻿using Limbo.Umbraco.MultiNodeTreePicker.Composers;
+using System.Linq;
 using Umbraco.Cms.Web.BackOffice.Controllers;
 using Umbraco.Cms.Web.Common.Attributes;
 
 #pragma warning disable 1591
 
-namespace Skybrud.Umbraco.MultiNodeTreePicker.Controllers {
+namespace Limbo.Umbraco.MultiNodeTreePicker.Controllers {
 
-    [PluginController("Skybrud")]
+    [PluginController("Limbo")]
     public class MntpController : UmbracoAuthorizedApiController {
 
         private readonly MntpConverterCollection _converterCollection;

@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using Limbo.Umbraco.MultiNodeTreePicker.Composers;
+using Limbo.Umbraco.MultiNodeTreePicker.Converters;
 using Skybrud.Essentials.Collections.Extensions;
 using Skybrud.Essentials.Json.Extensions;
-using Skybrud.Umbraco.MultiNodeTreePicker.Composers;
-using Skybrud.Umbraco.MultiNodeTreePicker.Converters;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using Umbraco.Cms.Core;
 using Umbraco.Cms.Core.Models;
 using Umbraco.Cms.Core.Models.PublishedContent;
@@ -16,7 +16,7 @@ using Umbraco.Cms.Core.Web;
 
 #pragma warning disable 1591
 
-namespace Skybrud.Umbraco.MultiNodeTreePicker.PropertyEditors.ValueConverters {
+namespace Limbo.Umbraco.MultiNodeTreePicker.PropertyEditors.ValueConverters {
 
     public class MntpValueConverter : MultiNodeTreePickerValueConverter {
 
@@ -27,7 +27,7 @@ namespace Skybrud.Umbraco.MultiNodeTreePicker.PropertyEditors.ValueConverters {
         private readonly MntpConverterCollection _converterCollection;
 
         public MntpValueConverter(IPublishedSnapshotAccessor publishedSnapshotAccessor, IUmbracoContextAccessor umbracoContextAccessor, IMemberService memberService, MntpConverterCollection converterCollection) : base(publishedSnapshotAccessor, umbracoContextAccessor, memberService) {
-            _publishedSnapshotAccessor = publishedSnapshotAccessor ?? throw new ArgumentNullException(nameof(publishedSnapshotAccessor));
+            _publishedSnapshotAccessor = publishedSnapshotAccessor;
             _memberService = memberService;
             _converterCollection = converterCollection;
         }
@@ -93,7 +93,7 @@ namespace Skybrud.Umbraco.MultiNodeTreePicker.PropertyEditors.ValueConverters {
 
             bool single = IsSingleNodePicker(propertyType);
 
-            if (propertyType.DataType.Configuration is MntpConfiguration config && config.ItemConverter != null) {
+            if (propertyType.DataType.Configuration is MntpConfiguration { ItemConverter: { } } config) {
 
                 string key = config.ItemConverter.GetString("key");
 
@@ -127,7 +127,7 @@ namespace Skybrud.Umbraco.MultiNodeTreePicker.PropertyEditors.ValueConverters {
             bool single = IsSingleNodePicker(propertyType);
 
             // Initialize a new list for the items
-            List<IPublishedContent> items = new List<IPublishedContent>();
+            List<IPublishedContent> items = new();
 
             foreach (Udi udi in udis) {
 
@@ -139,10 +139,10 @@ namespace Skybrud.Umbraco.MultiNodeTreePicker.PropertyEditors.ValueConverters {
 
                 switch (udi.EntityType) {
                     case Constants.UdiEntityType.Document:
-                        item = publishedSnapshot.Content.GetById(preview, guidUdi.Guid);
+                        item = publishedSnapshot.Content?.GetById(preview, guidUdi.Guid);
                         break;
                     case Constants.UdiEntityType.Media:
-                        item = publishedSnapshot.Media.GetById(preview, guidUdi.Guid);
+                        item = publishedSnapshot.Media?.GetById(preview, guidUdi.Guid);
                         break;
                     case Constants.UdiEntityType.Member:
                         item = GetMemberByGuidUdi(guidUdi, publishedSnapshot);
@@ -167,12 +167,12 @@ namespace Skybrud.Umbraco.MultiNodeTreePicker.PropertyEditors.ValueConverters {
         }
 
         private static bool IsSingleNodePicker(IPublishedPropertyType propertyType) {
-            return propertyType.DataType.ConfigurationAs<MultiNodePickerConfiguration>().MaxNumber == 1;
+            return propertyType.DataType.ConfigurationAs<MultiNodePickerConfiguration>()!.MaxNumber == 1;
         }
 
         private IPublishedContent GetMemberByGuidUdi(GuidUdi udi, IPublishedSnapshot snapshot) {
             IMember member = _memberService.GetByKey(udi.Guid);
-            return member == null ? null : snapshot.Members.Get(member);
+            return member == null ? null : snapshot.Members?.Get(member);
         }
 
         #endregion
