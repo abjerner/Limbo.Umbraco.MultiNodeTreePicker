@@ -1,5 +1,8 @@
 # Limbo Multinode Treepicker
 
+
+ [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE.md) [![NuGet](https://img.shields.io/nuget/vpre/Limbo.Umbraco.MultiNodeTreePicker.svg)](https://www.nuget.org/packages/Limbo.Umbraco.MultiNodeTreePicker) [![NuGet](https://img.shields.io/nuget/dt/Limbo.Umbraco.MultiNodeTreePicker.svg)](https://www.nuget.org/packages/Limbo.Umbraco.MultiNodeTreePicker) [![Our Umbraco](https://img.shields.io/badge/our-umbraco-%233544B1)](https://our.umbraco.com/packages/backoffice-extensions/limbo-multinode-treepicker/)
+
 **Limbo.Umbraco.MultiNodeTreePicker** adds a special multinode treepicker to the Umbraco backoffice in which developers can select a custom item converter.
 
 The purpose of an item converter is to control the C# type returned by the `.Value()` method or the corresponding property in a ModelsBuilder generated model. This is particular useful in a SPA/Headless Umbraco implementation, where the ModelsBuilder model can then be returned directly via a WebAPI endpoint.
@@ -11,7 +14,7 @@ The purpose of an item converter is to control the C# type returned by the `.Val
   </tr>
   <tr>
     <td><strong>Umbraco:</strong></td>
-    <td>Umbraco 10</td>
+    <td>Umbraco 10 + Umbraco 11</td>
   </tr>
   <tr>
     <td><strong>Target Framework:</strong></td>
@@ -32,17 +35,17 @@ The purpose of an item converter is to control the C# type returned by the `.Val
 The package targets Umbraco 10 and is only available via [**NuGet**][NuGetPackage]. To install the package, you can use either .NET CLI
 
 ```
-dotnet add package Limbo.Umbraco.MultiNodeTreePicker --version 1.0.0
+dotnet add package Limbo.Umbraco.MultiNodeTreePicker --version 1.0.1
 ```
 
 or the older NuGet Package Manager:
 
 ```
-Install-Package Limbo.Umbraco.MultiNodeTreePicker -Version 1.0.0
+Install-Package Limbo.Umbraco.MultiNodeTreePicker -Version 1.0.1
 ```
 
 > **Note**  
-> This package replaces our older [**Skybrud.Umbraco.MultiNodeTreePicker**](https://github.com/abjerner/Skybrud.Umbraco.MultiNodeTreePicker) package. See this package for older version of Umbraco.
+> This package replaces our older [**Skybrud.Umbraco.MultiNodeTreePicker**](https://github.com/abjerner/Skybrud.Umbraco.MultiNodeTreePicker) package. See this package for older versions of Umbraco.
 
 [NuGetPackage]: https://www.nuget.org/packages/Limbo.Umbraco.MultiNodeTreePicker
 [GitHubRelease]: https://github.com/abjerner/Limbo.Umbraco.MultiNodeTreePicker/releases
