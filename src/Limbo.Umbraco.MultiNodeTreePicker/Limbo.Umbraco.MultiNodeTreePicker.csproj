@@ -20,7 +20,7 @@
   <!-- Information for the NuGet package -->
   <PropertyGroup>
     <PackageId>Limbo.Umbraco.MultiNodeTreePicker</PackageId>
-    <PackageTags>Limbo, Limbo, Umbraco, MultiNodeTreePicker</PackageTags>
+    <PackageTags>Limbo, Skybrud, Umbraco, MNTP, MultiNodeTreePicker, Umbraco-Marketplace</PackageTags>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/abjerner/Limbo.Umbraco.MultiNodeTreePicker</PackageProjectUrl>
     <PackageIcon>Limbo.png</PackageIcon>
