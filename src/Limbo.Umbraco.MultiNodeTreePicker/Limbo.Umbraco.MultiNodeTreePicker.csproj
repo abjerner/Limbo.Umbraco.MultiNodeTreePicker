@@ -9,13 +9,13 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <VersionPrefix>1.0.0</VersionPrefix>
+    <VersionPrefix>1.0.1</VersionPrefix>
     <VersionSuffix Condition="'$(Configuration)'=='Debug'">build$([System.DateTime]::UtcNow.ToString(`yyyyMMddHHmm`))</VersionSuffix>
     <Company>Limbo</Company>
     <Authors>Anders Bjerner</Authors>
     <Copyright>Copyright © 2022</Copyright>
     <Title>Limbo Multinode Treepicker</Title>
-    <Description>Extended multi node tree picker for Umbraco 10.</Description>
+    <Description>Extended multi node tree picker for Umbraco.</Description>
   </PropertyGroup>
 
   <!-- Information for the NuGet package -->
