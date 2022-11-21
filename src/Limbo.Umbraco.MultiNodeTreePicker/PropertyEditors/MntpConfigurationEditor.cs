@@ -34,17 +34,17 @@ namespace Limbo.Umbraco.MultiNodeTreePicker.PropertyEditors {
 
         }
 
-        public override Dictionary<string, object> ToConfigurationEditor(MntpConfiguration configuration) {
+        public override Dictionary<string, object> ToConfigurationEditor(MntpConfiguration? configuration) {
 
             var output = base.ToConfigurationEditor(configuration);
 
-            output["multiPicker"] = configuration.MaxNumber > 1;
+            output["multiPicker"] = configuration?.MaxNumber > 1;
 
             return output;
         }
 
         /// <inheritdoc />
-        public override IDictionary<string, object> ToValueEditor(object configuration) {
+        public override IDictionary<string, object> ToValueEditor(object? configuration) {
             var d = base.ToValueEditor(configuration);
             d["multiPicker"] = true;
             d["showEditButton"] = false;

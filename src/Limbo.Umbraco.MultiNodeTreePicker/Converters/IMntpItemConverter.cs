@@ -19,7 +19,7 @@ namespace Limbo.Umbraco.MultiNodeTreePicker.Converters {
         /// Gets the icon of the item converter.
         /// </summary>
         [JsonProperty("icon")]
-        public string Icon => null;
+        public string? Icon => null;
 
         /// <summary>
         /// Returns the converted item based on <paramref name="source"/>.
@@ -27,7 +27,7 @@ namespace Limbo.Umbraco.MultiNodeTreePicker.Converters {
         /// <param name="propertyType">The property type.</param>
         /// <param name="source">The source <see cref="IPublishedContent"/>.</param>
         /// <returns>The converted item.</returns>
-        object Convert(IPublishedPropertyType propertyType, IPublishedContent source);
+        object? Convert(IPublishedPropertyType propertyType, IPublishedContent? source);
 
         /// <summary>
         /// Returns the <see cref="Type"/> of the items returned by this item converter.

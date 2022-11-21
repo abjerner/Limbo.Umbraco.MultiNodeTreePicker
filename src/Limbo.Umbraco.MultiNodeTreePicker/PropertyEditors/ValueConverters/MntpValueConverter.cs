@@ -45,27 +45,27 @@ namespace Limbo.Umbraco.MultiNodeTreePicker.PropertyEditors.ValueConverters {
             return PropertyCacheLevel.Snapshot;
         }
 
-        public override object ConvertSourceToIntermediate(IPublishedElement owner, IPublishedPropertyType propertyType, object source, bool preview) {
+        public override object? ConvertSourceToIntermediate(IPublishedElement owner, IPublishedPropertyType propertyType, object? source, bool preview) {
             return source?.ToString()?
                 .Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries)
                 .Select(UdiParser.Parse)
                 .ToArray();
         }
 
-        public override object ConvertIntermediateToObject(IPublishedElement owner, IPublishedPropertyType propertyType, PropertyCacheLevel cacheLevel, object source, bool preview) {
+        public override object? ConvertIntermediateToObject(IPublishedElement owner, IPublishedPropertyType propertyType, PropertyCacheLevel cacheLevel, object? source, bool preview) {
 
             // gets the picked items as IPublishedContent
-            object value = GetPickerValue(propertyType, source, preview);
+            object? value = GetPickerValue(propertyType, source, preview);
 
             // Return "value" if the data type isn't configured with an item converter
             if (propertyType.DataType.Configuration is not MntpConfiguration config) return value;
 
             // Get the key of the converter
-            string key = GetItemConverterKey(config.ItemConverter);
+            string? key = GetItemConverterKey(config.ItemConverter);
             if (string.IsNullOrWhiteSpace(key)) return value;
 
             // Return "value" if item converter wasn't found
-            if (!_converterCollection.TryGet(key, out IMntpItemConverter converter)) return value;
+            if (!_converterCollection.TryGet(key, out IMntpItemConverter? converter)) return value;
 
             switch (value) {
 
@@ -96,9 +96,9 @@ namespace Limbo.Umbraco.MultiNodeTreePicker.PropertyEditors.ValueConverters {
 
             if (propertyType.DataType.Configuration is MntpConfiguration { ItemConverter: { } } config) {
 
-                string key = GetItemConverterKey(config.ItemConverter);
+                string? key = GetItemConverterKey(config.ItemConverter);
 
-                if (_converterCollection.TryGet(key, out IMntpItemConverter converter)) {
+                if (!string.IsNullOrWhiteSpace(key) && _converterCollection.TryGet(key, out IMntpItemConverter? converter)) {
 
                     Type type = converter.GetType(propertyType);
 
@@ -112,7 +112,7 @@ namespace Limbo.Umbraco.MultiNodeTreePicker.PropertyEditors.ValueConverters {
 
         }
 
-        private object GetPickerValue(IPublishedPropertyType propertyType, object source, bool preview) {
+        private object? GetPickerValue(IPublishedPropertyType propertyType, object? source, bool preview) {
 
             if (source == null) return null;
 
@@ -121,7 +121,7 @@ namespace Limbo.Umbraco.MultiNodeTreePicker.PropertyEditors.ValueConverters {
             if (propertyType.Alias.Equals(Constants.Conventions.Content.Redirect)) return udis.FirstOrDefault();
 
             // Get a reference to the current published snapshot
-            _publishedSnapshotAccessor.TryGetPublishedSnapshot(out IPublishedSnapshot publishedSnapshot);
+            _publishedSnapshotAccessor.TryGetPublishedSnapshot(out IPublishedSnapshot? publishedSnapshot);
             if (publishedSnapshot == null) return source;
 
             // Is the data type configured as a single picker?
@@ -133,10 +133,10 @@ namespace Limbo.Umbraco.MultiNodeTreePicker.PropertyEditors.ValueConverters {
             foreach (Udi udi in udis) {
 
                 // Make sure we have a GUID UDI
-                GuidUdi guidUdi = udi as GuidUdi;
+                GuidUdi? guidUdi = udi as GuidUdi;
                 if (guidUdi == null) continue;
 
-                IPublishedContent item = null;
+                IPublishedContent? item = null;
 
                 switch (udi.EntityType) {
                     case Constants.UdiEntityType.Document:
@@ -171,12 +171,12 @@ namespace Limbo.Umbraco.MultiNodeTreePicker.PropertyEditors.ValueConverters {
             return propertyType.DataType.ConfigurationAs<MultiNodePickerConfiguration>()!.MaxNumber == 1;
         }
 
-        private IPublishedContent GetMemberByGuidUdi(GuidUdi udi, IPublishedSnapshot snapshot) {
-            IMember member = _memberService.GetByKey(udi.Guid);
+        private IPublishedContent? GetMemberByGuidUdi(GuidUdi udi, IPublishedSnapshot snapshot) {
+            IMember? member = _memberService.GetByKey(udi.Guid);
             return member == null ? null : snapshot.Members?.Get(member);
         }
 
-        private static string GetItemConverterKey(JToken token) {
+        private static string? GetItemConverterKey(JToken? token) {
             return token switch {
                 null => null,
                 JObject obj => obj.GetString("key"),

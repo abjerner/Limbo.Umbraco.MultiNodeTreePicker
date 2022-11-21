@@ -10,7 +10,7 @@ namespace Limbo.Umbraco.MultiNodeTreePicker.Converters {
     /// </summary>
     /// <typeparam name="T">The type of the items.</typeparam>
     public abstract class MntpGenericItemConverter<T> : IMntpItemConverter {
-        
+
         /// <summary>
         /// Gets the friendly name of the item converter.
         /// </summary>
@@ -19,7 +19,7 @@ namespace Limbo.Umbraco.MultiNodeTreePicker.Converters {
         /// <summary>
         /// Gets the icon of the item converter.
         /// </summary>
-        public string Icon { get; protected set; }
+        public string? Icon { get; protected set; }
 
         /// <summary>
         /// Gets a reference to the callback function used for converting the items.
@@ -54,10 +54,10 @@ namespace Limbo.Umbraco.MultiNodeTreePicker.Converters {
         /// <param name="propertyType">The property type.</param>
         /// <param name="source">The source <see cref="IPublishedContent"/>.</param>
         /// <returns>The converted item.</returns>
-        public virtual object Convert(IPublishedPropertyType propertyType, IPublishedContent source) {
+        public virtual object? Convert(IPublishedPropertyType propertyType, IPublishedContent? source) {
             return source is null ? null : Callback(source);
         }
-        
+
         /// <summary>
         /// Returns the <see cref="Type"/> of the items returned by this item converter.
         /// </summary>

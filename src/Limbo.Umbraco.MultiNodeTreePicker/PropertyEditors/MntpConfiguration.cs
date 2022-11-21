@@ -12,7 +12,7 @@ namespace Limbo.Umbraco.MultiNodeTreePicker.PropertyEditors {
         /// Gets or sets an instance of <see cref="JObject"/> representing the information about the selected item converter.
         /// </summary>
         [ConfigurationField("itemConverter", "Item converter", "/App_Plugins/Limbo.Umbraco.MultiNodeTreePicker/Views/ItemConverter.html?v={version}", Description = "Select a item converter to control the type of the items returned by properties of this data type.")]
-        public JToken ItemConverter { get; set; }
+        public JToken? ItemConverter { get; set; }
 
     }
 

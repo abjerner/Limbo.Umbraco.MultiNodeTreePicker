@@ -1,6 +1,7 @@
 ﻿using Limbo.Umbraco.MultiNodeTreePicker.Converters;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using Umbraco.Cms.Core.Composing;
 
 namespace Limbo.Umbraco.MultiNodeTreePicker.Composers {
@@ -22,7 +23,7 @@ namespace Limbo.Umbraco.MultiNodeTreePicker.Composers {
 
             foreach (IMntpItemConverter item in this) {
 
-                string typeName = item.GetType().AssemblyQualifiedName;
+                string? typeName = item.GetType().AssemblyQualifiedName;
                 if (typeName != null && _lookup.ContainsKey(typeName) == false) {
                     _lookup.Add(typeName, item);
                 }
@@ -40,7 +41,7 @@ namespace Limbo.Umbraco.MultiNodeTreePicker.Composers {
         /// uninitialized.</param>
         /// <returns><c>true</c> if the collection contains an item converter with the specified
         /// <paramref name="typeName"/>; otherwise, false.</returns>
-        public bool TryGet(string typeName, out IMntpItemConverter result) {
+        public bool TryGet(string typeName, [NotNullWhen(true)] out IMntpItemConverter? result) {
             return _lookup.TryGetValue(typeName, out result);
         }
 
