@@ -35,7 +35,7 @@
             availableItems: vm.models,
             submit: function (model) {
                 vm.selected = model;
-                $scope.model.value = model.key;
+                $scope.model.value = model.type;
                 delete vm.notFound;
                 editorService.close();
             },
@@ -50,12 +50,14 @@
 
         if (!$scope.model.value) $scope.model.value = "";
 
+        $scope.model.value = $scope.model.value.split(", Version=")[0];
+
         $http.get(`${baseUrl}/backoffice/Limbo/Mntp/GetTypes`).then(function (response) {
 
             vm.loaded = true;
             vm.models = response.data;
 
-            vm.selected = vm.models.find(x => x.key === $scope.model.value);
+            vm.selected = vm.models.find(x => x.type === $scope.model.value);
 
             if ($scope.model.value && !vm.selected) {
                 const m = $scope.model.value.match(/^([a-zA-Z0-9\\.]+), ([a-zA-Z0-9\\.]+)$/);

@@ -21,6 +21,8 @@ namespace Limbo.Umbraco.MultiNodeTreePicker.PropertyEditors.ValueConverters {
 
     public class MntpValueConverter : MultiNodeTreePickerValueConverter {
 
+        private static readonly string[] _versionToken = { ", Version=" };
+
         #region Constructors
 
         private readonly IMemberService _memberService;
@@ -181,7 +183,7 @@ namespace Limbo.Umbraco.MultiNodeTreePicker.PropertyEditors.ValueConverters {
                 null => null,
                 JObject obj => obj.GetString("key"),
                 _ => token.Type switch {
-                    JTokenType.String => token.ToString(),
+                    JTokenType.String => token.ToString().Split(_versionToken, StringSplitOptions.None)[0],
                     _ => null
                 }
             };

@@ -23,7 +23,7 @@ namespace Limbo.Umbraco.MultiNodeTreePicker.Composers {
 
             foreach (IMntpItemConverter item in this) {
 
-                string? typeName = item.GetType().AssemblyQualifiedName;
+                string? typeName = MntpUtils.GetTypeName(item.GetType());
                 if (typeName != null && _lookup.ContainsKey(typeName) == false) {
                     _lookup.Add(typeName, item);
                 }

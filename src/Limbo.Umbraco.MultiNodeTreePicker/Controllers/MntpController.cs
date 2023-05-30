@@ -29,7 +29,7 @@ namespace Limbo.Umbraco.MultiNodeTreePicker.Controllers {
 
             JObject json = new() {
                 { "assembly", type.Assembly.FullName },
-                { "key", type.AssemblyQualifiedName },
+                { "type", MntpUtils.GetTypeName(type) },
                 { "icon", $"{converter.Icon ?? "icon-box"} color-{type.Assembly.FullName?.Split('.')[0].ToLower()}" },
                 { "name", converter.Name },
                 { "description", type.AssemblyQualifiedName?.Split(new[] { ", Version" }, StringSplitOptions.None)[0] + ".dll" }
