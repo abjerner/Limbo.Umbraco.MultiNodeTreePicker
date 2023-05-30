@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Skybrud.Essentials.Strings.Extensions;
 using Umbraco.Cms.Core.Manifest;
 
 namespace Limbo.Umbraco.MultiNodeTreePicker.Manifest {
@@ -10,7 +9,9 @@ namespace Limbo.Umbraco.MultiNodeTreePicker.Manifest {
         /// <inheritdoc />
         public void Filter(List<PackageManifest> manifests) {
             manifests.Add(new PackageManifest {
-                PackageName = MntpPackage.Alias.ToKebabCase(),
+                AllowPackageTelemetry = true,
+                PackageName = MntpPackage.Name,
+                Version = MntpPackage.InformationalVersion,
                 BundleOptions = BundleOptions.Independent,
                 Scripts = new[] {
                     $"/App_Plugins/{MntpPackage.Alias}/Scripts/Controllers/ItemConverter.js",
