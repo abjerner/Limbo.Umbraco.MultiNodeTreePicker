@@ -23,7 +23,7 @@
     <PackageId>Limbo.Umbraco.MultiNodeTreePicker</PackageId>
     <PackageTags>Limbo, Skybrud, Umbraco, MNTP, MultiNodeTreePicker, Umbraco-Marketplace</PackageTags>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageProjectUrl>https://github.com/abjerner/Limbo.Umbraco.MultiNodeTreePicker</PackageProjectUrl>
+    <PackageProjectUrl>https://packages.limbo.works/limbo.umbraco.multinodetreepicker/v1/</PackageProjectUrl>
     <PackageIcon>Limbo.png</PackageIcon>
     <PackageReadmeFile>NUGET.md</PackageReadmeFile>
     <RepositoryType>git</RepositoryType>
