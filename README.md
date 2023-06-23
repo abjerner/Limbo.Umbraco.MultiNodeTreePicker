@@ -1,7 +1,6 @@
 # Limbo Multinode Treepicker
 
-
- [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE.md) [![NuGet](https://img.shields.io/nuget/vpre/Limbo.Umbraco.MultiNodeTreePicker.svg)](https://www.nuget.org/packages/Limbo.Umbraco.MultiNodeTreePicker) [![NuGet](https://img.shields.io/nuget/dt/Limbo.Umbraco.MultiNodeTreePicker.svg)](https://www.nuget.org/packages/Limbo.Umbraco.MultiNodeTreePicker) [![Our Umbraco](https://img.shields.io/badge/our-umbraco-%233544B1)](https://our.umbraco.com/packages/backoffice-extensions/limbo-multinode-treepicker/)
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE.md) [![NuGet](https://img.shields.io/nuget/vpre/Limbo.Umbraco.MultiNodeTreePicker.svg)](https://www.nuget.org/packages/Limbo.Umbraco.MultiNodeTreePicker) [![NuGet](https://img.shields.io/nuget/dt/Limbo.Umbraco.MultiNodeTreePicker.svg)](https://www.nuget.org/packages/Limbo.Umbraco.MultiNodeTreePicker) [![Our Umbraco](https://img.shields.io/badge/our-umbraco-%233544B1)](https://our.umbraco.com/packages/backoffice-extensions/limbo-multinode-treepicker/) [![Umbraco Marketplace](https://img.shields.io/badge/umbraco-marketplace-%233544B1)](https://marketplace.umbraco.com/package/limbo.umbraco.multinodetreepicker)
 
 **Limbo.Umbraco.MultiNodeTreePicker** adds a special multinode treepicker to the Umbraco backoffice in which developers can select a custom item converter.
 
@@ -35,13 +34,13 @@ The purpose of an item converter is to control the C# type returned by the `.Val
 The package targets Umbraco 10 and is only available via [**NuGet**][NuGetPackage]. To install the package, you can use either .NET CLI
 
 ```
-dotnet add package Limbo.Umbraco.MultiNodeTreePicker --version 1.0.2
+dotnet add package Limbo.Umbraco.MultiNodeTreePicker --version 1.0.3
 ```
 
 or the older NuGet Package Manager:
 
 ```
-Install-Package Limbo.Umbraco.MultiNodeTreePicker -Version 1.0.2
+Install-Package Limbo.Umbraco.MultiNodeTreePicker -Version 1.0.3
 ```
 
 > **Note**  
