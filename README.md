@@ -34,13 +34,13 @@ The purpose of an item converter is to control the C# type returned by the `.Val
 The package targets Umbraco 10 and is only available via [**NuGet**][NuGetPackage]. To install the package, you can use either .NET CLI
 
 ```
-dotnet add package Limbo.Umbraco.MultiNodeTreePicker --version 1.0.4
+dotnet add package Limbo.Umbraco.MultiNodeTreePicker --version 1.0.5
 ```
 
 or the NuGet Package Manager:
 
 ```
-Install-Package Limbo.Umbraco.MultiNodeTreePicker -Version 1.0.4
+Install-Package Limbo.Umbraco.MultiNodeTreePicker -Version 1.0.5
 ```
 
 > **Note**  
