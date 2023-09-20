@@ -7,21 +7,21 @@ using Umbraco.Cms.Core.Composing;
 namespace Limbo.Umbraco.MultiNodeTreePicker.Composers {
 
     /// <summary>
-    /// Class representing a collection of <see cref="IMntpItemConverter"/>.
+    /// Class representing a collection of <see cref="IMntpTypeConverter"/>.
     /// </summary>
-    public sealed class MntpConverterCollection : BuilderCollectionBase<IMntpItemConverter> {
+    public sealed class MntpTypeConverterCollection : BuilderCollectionBase<IMntpTypeConverter> {
 
-        private readonly Dictionary<string, IMntpItemConverter> _lookup;
+        private readonly Dictionary<string, IMntpTypeConverter> _lookup;
 
         /// <summary>
         /// Initializes an new instance based on the specified <paramref name="converters"/>.
         /// </summary>
         /// <param name="converters">The item converters that should make up the collection.</param>
-        public MntpConverterCollection(Func<IEnumerable<IMntpItemConverter>> converters) : base(converters) {
+        public MntpTypeConverterCollection(Func<IEnumerable<IMntpTypeConverter>> converters) : base(converters) {
 
-            _lookup = new Dictionary<string, IMntpItemConverter>(StringComparer.OrdinalIgnoreCase);
+            _lookup = new Dictionary<string, IMntpTypeConverter>(StringComparer.OrdinalIgnoreCase);
 
-            foreach (IMntpItemConverter item in this) {
+            foreach (IMntpTypeConverter item in this) {
 
                 string? typeName = MntpUtils.GetTypeAlias(item.GetType());
                 if (typeName != null && _lookup.ContainsKey(typeName) == false) {
@@ -41,7 +41,7 @@ namespace Limbo.Umbraco.MultiNodeTreePicker.Composers {
         /// uninitialized.</param>
         /// <returns><c>true</c> if the collection contains an item converter with the specified
         /// <paramref name="typeName"/>; otherwise, false.</returns>
-        public bool TryGet(string typeName, [NotNullWhen(true)] out IMntpItemConverter? result) {
+        public bool TryGet(string typeName, [NotNullWhen(true)] out IMntpTypeConverter? result) {
             return _lookup.TryGetValue(typeName, out result);
         }
 

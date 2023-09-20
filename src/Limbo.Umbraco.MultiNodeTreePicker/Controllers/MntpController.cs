@@ -13,14 +13,32 @@ namespace Limbo.Umbraco.MultiNodeTreePicker.Controllers {
     [PluginController("Limbo")]
     public class MntpController : UmbracoAuthorizedApiController {
 
-        private readonly MntpConverterCollection _converterCollection;
+        private readonly MntpTypeConverterCollection _typeConverterCollection;
+        private readonly MntpConverterCollection _itemConverterCollection;
 
-        public MntpController(MntpConverterCollection converterCollection) {
-            _converterCollection = converterCollection;
+        public MntpController(MntpTypeConverterCollection typeConverterCollection, MntpConverterCollection itemConverterCollection) {
+            _typeConverterCollection = typeConverterCollection;
+            _itemConverterCollection = itemConverterCollection;
         }
 
         public object GetTypes() {
-            return _converterCollection.ToArray().Select(Map);
+            return _typeConverterCollection.ToArray().Select(Map).Union(_itemConverterCollection.ToArray().Select(Map));
+        }
+
+        private static JObject Map(IMntpTypeConverter converter) {
+
+            Type type = converter.GetType();
+
+            JObject json = new() {
+                { "assembly", type.Assembly.FullName },
+                { "type", converter.Alias },
+                { "icon", $"{converter.Icon ?? "icon-box"} color-{type.Assembly.FullName?.Split('.')[0].ToLower()}" },
+                { "name", converter.Name },
+                { "description", type.AssemblyQualifiedName?.Split(new[] { ", Version" }, StringSplitOptions.None)[0] + ".dll" }
+            };
+
+            return json;
+
         }
 
         private static JObject Map(IMntpItemConverter converter) {
@@ -29,7 +47,7 @@ namespace Limbo.Umbraco.MultiNodeTreePicker.Controllers {
 
             JObject json = new() {
                 { "assembly", type.Assembly.FullName },
-                { "type", MntpUtils.GetTypeName(type) },
+                { "type", converter.Alias },
                 { "icon", $"{converter.Icon ?? "icon-box"} color-{type.Assembly.FullName?.Split('.')[0].ToLower()}" },
                 { "name", converter.Name },
                 { "description", type.AssemblyQualifiedName?.Split(new[] { ", Version" }, StringSplitOptions.None)[0] + ".dll" }

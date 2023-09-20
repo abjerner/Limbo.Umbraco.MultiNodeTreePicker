@@ -10,6 +10,10 @@ namespace Limbo.Umbraco.MultiNodeTreePicker.Composers {
         public void Compose(IUmbracoBuilder builder) {
 
             builder
+                .WithCollectionBuilder<MntpTypeConverterCollectionBuilder>()
+                .Add(() => builder.TypeLoader.GetTypes<IMntpTypeConverter>());
+
+            builder
                 .WithCollectionBuilder<MntpConverterCollectionBuilder>()
                 .Add(() => builder.TypeLoader.GetTypes<IMntpItemConverter>());
 

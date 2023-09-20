@@ -8,12 +8,12 @@ namespace Limbo.Umbraco.MultiNodeTreePicker {
 
     internal static class MntpUtils {
 
-        public static string? GetTypeName(Type type) {
-            return type.AssemblyQualifiedName is { } name ? GetTypeName(name) : null;
+        public static string? GetTypeAlias(Type type) {
+            return type.AssemblyQualifiedName is { } name ? GetTypeAlias(name) : null;
         }
 
         [return: NotNullIfNotNull("typeName")]
-        public static string? GetTypeName(string? typeName) {
+        public static string? GetTypeAlias(string? typeName) {
             return typeName?.Split(',').Take(2).Join(",");
         }
 

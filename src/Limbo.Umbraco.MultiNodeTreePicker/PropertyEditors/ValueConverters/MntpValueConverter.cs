@@ -26,13 +26,15 @@ namespace Limbo.Umbraco.MultiNodeTreePicker.PropertyEditors.ValueConverters {
         #region Constructors
 
         private readonly IMemberService _memberService;
+        private readonly MntpTypeConverterCollection _typeConverterCollection;
         private readonly IPublishedSnapshotAccessor _publishedSnapshotAccessor;
-        private readonly MntpConverterCollection _converterCollection;
+        private readonly MntpConverterCollection _itemConverterCollection;
 
-        public MntpValueConverter(IPublishedSnapshotAccessor publishedSnapshotAccessor, IUmbracoContextAccessor umbracoContextAccessor, IMemberService memberService, MntpConverterCollection converterCollection) : base(publishedSnapshotAccessor, umbracoContextAccessor, memberService) {
+        public MntpValueConverter(IPublishedSnapshotAccessor publishedSnapshotAccessor, IUmbracoContextAccessor umbracoContextAccessor, IMemberService memberService, MntpTypeConverterCollection typeConverterCollection, MntpConverterCollection itemConverterCollection) : base(publishedSnapshotAccessor, umbracoContextAccessor, memberService) {
             _publishedSnapshotAccessor = publishedSnapshotAccessor;
             _memberService = memberService;
-            _converterCollection = converterCollection;
+            _typeConverterCollection = typeConverterCollection;
+            _itemConverterCollection = itemConverterCollection;
         }
 
         #endregion
@@ -56,39 +58,43 @@ namespace Limbo.Umbraco.MultiNodeTreePicker.PropertyEditors.ValueConverters {
 
         public override object? ConvertIntermediateToObject(IPublishedElement owner, IPublishedPropertyType propertyType, PropertyCacheLevel cacheLevel, object? source, bool preview) {
 
-            // gets the picked items as IPublishedContent
-            object? value = GetPickerValue(propertyType, source, preview);
+            // Get the picked items as IPublishedContent
+            IEnumerable<IPublishedContent> value = GetPickerValue(propertyType, source, preview);
 
             // Return "value" if the data type isn't configured with an item converter
             if (propertyType.DataType.Configuration is not MntpConfiguration config) return value;
 
             // Get the key of the converter
             string? key = GetItemConverterKey(config.ItemConverter);
-            if (string.IsNullOrWhiteSpace(key)) return value;
+            if (string.IsNullOrWhiteSpace(key)) return config.IsSinglePicker ? value.FirstOrDefault() : value;
 
-            // Return "value" if item converter wasn't found
-            if (!_converterCollection.TryGet(key, out IMntpItemConverter? converter)) return value;
+            // Is the selected converter a type converter?
+            if (_typeConverterCollection.TryGet(key, out IMntpTypeConverter? typeConverter)) {
+                return typeConverter.Convert(owner, propertyType, value, config, preview);
+            }
 
-            switch (value) {
+            // Is the selected converter an item converter?
+            if (_itemConverterCollection.TryGet(key, out IMntpItemConverter? itemConverter)) {
 
-                // If "value" is a single item, we can call the converter directly
-                case IPublishedContent item:
-                    return converter.Convert(propertyType, item);
+                // If the multinode treepicker is configured as a single picker, we pick the first
+                // item (if any) and run that through the converter
+                if (config.IsSinglePicker) {
+                    IPublishedContent? first = value.FirstOrDefault();
+                    return itemConverter.Convert(propertyType, first);
+                }
 
-                // If "value" is a list of items, we call the converter for each item, and make sure to return a
-                // list of the type specified by the converter
-                case List<IPublishedContent> items:
-                    Type type = converter.GetType(propertyType);
-                    return items
-                        .Select(x => converter.Convert(propertyType, x))
-                        .Cast(type)
-                        .ToList(type);
-
-                // If neither of the above cases are matched, we return "value" as a fallback
-                default:
-                    return value;
+                // If configured as a multi picker, we run each item through the converter and return the result as a list
+                Type type = itemConverter.GetType(propertyType);
+                return value
+                    .Select(x => itemConverter.Convert(propertyType, x))
+                    .Cast(type)
+                    .ToList(type);
 
             }
+
+            // In theory we shouldn't reach this point, but if we do, we return the list of IPublishedContent if the
+            // picker is configured as a multi picker, or the first item if the picker is configured as a single picker
+            return config.IsSinglePicker ? value.FirstOrDefault() : value;
 
         }
 
@@ -100,7 +106,13 @@ namespace Limbo.Umbraco.MultiNodeTreePicker.PropertyEditors.ValueConverters {
 
                 string? key = GetItemConverterKey(config.ItemConverter);
 
-                if (!string.IsNullOrWhiteSpace(key) && _converterCollection.TryGet(key, out IMntpItemConverter? converter)) {
+                if (!string.IsNullOrWhiteSpace(key) && _typeConverterCollection.TryGet(key, out IMntpTypeConverter? typeConverter)) {
+
+                    return typeConverter.GetType(propertyType, config);
+
+                }
+
+                if (!string.IsNullOrWhiteSpace(key) && _itemConverterCollection.TryGet(key, out IMntpItemConverter? converter)) {
 
                     Type type = converter.GetType(propertyType);
 
@@ -114,17 +126,17 @@ namespace Limbo.Umbraco.MultiNodeTreePicker.PropertyEditors.ValueConverters {
 
         }
 
-        private object? GetPickerValue(IPublishedPropertyType propertyType, object? source, bool preview) {
+        private IReadOnlyList<IPublishedContent> GetPickerValue(IPublishedPropertyType propertyType, object? source, bool preview) {
 
-            if (source == null) return null;
+            if (source == null) return Array.Empty<IPublishedContent>();
 
             Udi[] udis = source as Udi[] ?? Array.Empty<Udi>();
-            if (propertyType.Alias.Equals(Constants.Conventions.Content.InternalRedirectId)) return udis.FirstOrDefault();
-            if (propertyType.Alias.Equals(Constants.Conventions.Content.Redirect)) return udis.FirstOrDefault();
+            if (propertyType.Alias.Equals(Constants.Conventions.Content.InternalRedirectId)) return Array.Empty<IPublishedContent>();
+            if (propertyType.Alias.Equals(Constants.Conventions.Content.Redirect)) return Array.Empty<IPublishedContent>();
 
             // Get a reference to the current published snapshot
             _publishedSnapshotAccessor.TryGetPublishedSnapshot(out IPublishedSnapshot? publishedSnapshot);
-            if (publishedSnapshot == null) return source;
+            if (publishedSnapshot == null) return Array.Empty<IPublishedContent>();
 
             // Is the data type configured as a single picker?
             bool single = IsSingleNodePicker(propertyType);
@@ -165,7 +177,7 @@ namespace Limbo.Umbraco.MultiNodeTreePicker.PropertyEditors.ValueConverters {
 
             }
 
-            return single ? items.FirstOrDefault() : items;
+            return items;
 
         }
 
