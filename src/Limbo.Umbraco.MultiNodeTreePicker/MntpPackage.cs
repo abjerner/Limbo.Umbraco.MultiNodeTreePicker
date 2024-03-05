@@ -27,7 +27,9 @@ public static class MntpPackage {
     /// <summary>
     /// Gets the informational version of the package.
     /// </summary>
-    public static readonly string InformationalVersion = FileVersionInfo.GetVersionInfo(typeof(MntpPackage).Assembly.Location).ProductVersion!;
+    public static readonly string InformationalVersion = FileVersionInfo
+        .GetVersionInfo(typeof(MntpPackage).Assembly.Location).ProductVersion!
+        .Split('+')[0];
 
     /// <summary>
     /// Gets the semantic version of the package.
