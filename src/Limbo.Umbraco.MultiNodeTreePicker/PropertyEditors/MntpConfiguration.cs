@@ -12,7 +12,7 @@ public class MntpConfiguration : MultiNodePickerConfiguration {
     /// <summary>
     /// Gets whether the multinode treepicker is configured as a single picker.
     /// </summary>
-    //[IgnoreDataMember]
+    [IgnoreDataMember]
     public bool IsSinglePicker => base.MaxNumber == 1;
 
     /// <summary>
