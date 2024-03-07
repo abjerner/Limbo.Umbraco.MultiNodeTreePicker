@@ -131,6 +131,22 @@ With this special multinode treepicker, it's the datatype of the individual prop
 
 ![image](https://user-images.githubusercontent.com/3634580/90199149-3037f400-ddd4-11ea-93c0-ce7661e04531.png)
 
+
+
+
+
+
+
+<br /><br />
+
+## Documentation
+
+- [See more at **packages.limbo.works**](https://packages.limbo.works/limbo.umbraco.multinodetreepicker/)
+
+
+
+<br /><br />
+
 ## Inspiration
 
 The item converters in this package was inspired by a similar concept in the [Contentment](https://github.com/leekelleher/umbraco-contentment) package. Thanks for creating and sharing this with us [**@leekelleher**](https://github.com/leekelleher) 👍
