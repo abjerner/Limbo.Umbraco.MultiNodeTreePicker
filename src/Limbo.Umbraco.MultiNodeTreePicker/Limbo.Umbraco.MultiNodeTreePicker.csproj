@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
+    <LangVersion>12</LangVersion>
     <VersionPrefix>1.0.6</VersionPrefix>
     <VersionSuffix Condition="'$(Configuration)'=='Debug'">build$([System.DateTime]::UtcNow.ToString(`yyyyMMddHHmm`))</VersionSuffix>
     <Company>Limbo</Company>

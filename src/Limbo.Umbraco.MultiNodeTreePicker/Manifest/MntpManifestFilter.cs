@@ -16,13 +16,13 @@ public class MntpManifestFilter : IManifestFilter {
             PackageName = MntpPackage.Name,
             Version = MntpPackage.InformationalVersion,
             BundleOptions = BundleOptions.Independent,
-            Scripts = new[] {
+            Scripts = [
                 $"/App_Plugins/{MntpPackage.Alias}/Scripts/Controllers/ItemConverter.js",
                 $"/App_Plugins/{MntpPackage.Alias}/Scripts/Controllers/ItemConverterOverlay.js"
-            },
-            Stylesheets = new[] {
+            ],
+            Stylesheets = [
                 $"/App_Plugins/{MntpPackage.Alias}/Styles/Styles.css"
-            }
+            ]
         };
 
         // The "PackageId" property isn't available prior to Umbraco 12, and since the package is build against
