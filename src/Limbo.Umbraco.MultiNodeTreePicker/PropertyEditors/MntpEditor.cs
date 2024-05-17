@@ -22,6 +22,8 @@ public class MntpEditor : MultiNodeTreePickerPropertyEditor {
     private readonly IIOHelper _ioHelper;
     private readonly IEditorConfigurationParser _editorConfigurationParser;
 
+    public override IPropertyIndexValueFactory PropertyIndexValueFactory => new MntpPropertyIndexValueFactory();
+
     public MntpEditor(IDataValueEditorFactory dataValueEditorFactory, IIOHelper ioHelper, IEditorConfigurationParser editorConfigurationParser) : base(dataValueEditorFactory, ioHelper, editorConfigurationParser) {
         _ioHelper = ioHelper;
         _editorConfigurationParser = editorConfigurationParser;
