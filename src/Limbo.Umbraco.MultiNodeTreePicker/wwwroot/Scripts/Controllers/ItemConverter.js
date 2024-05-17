@@ -16,7 +16,7 @@
     const v = urlQuery.get("v");
 
     vm.changed = function () {
-        $scope.model.value = vm.selected ? vm.selected.key : "";
+        $scope.model.value = vm.selected ? { type: vm.selected.key } : "";
     };
 
     vm.reset = function () {
@@ -35,7 +35,7 @@
             availableItems: vm.models,
             submit: function (model) {
                 vm.selected = model;
-                $scope.model.value = model.type;
+                $scope.model.value = { type: model.type };
                 delete vm.notFound;
                 editorService.close();
             },
@@ -48,20 +48,24 @@
 
     function init() {
 
-        if (!$scope.model.value) $scope.model.value = "";
-
-        $scope.model.value = $scope.model.value.split(", Version=")[0];
+        if (!$scope.model.value) {
+            $scope.model.value = "";
+        } else if (typeof $scope.model.value === "string") {
+            $scope.model.value = { type: $scope.model.value.split(", Version=")[0] };
+        } else if (!$scope.model.value.type) {
+            $scope.model.value = "";
+        }
 
         $http.get(`${baseUrl}/backoffice/Limbo/Mntp/GetTypes`).then(function (response) {
 
             vm.loaded = true;
             vm.models = response.data;
 
-            vm.selected = vm.models.find(x => x.type === $scope.model.value);
+            vm.selected = vm.models.find(x => x.type === $scope.model.value.type);
 
             if ($scope.model.value && !vm.selected) {
                 const m = $scope.model.value.match(/^([a-zA-Z0-9\\.]+), ([a-zA-Z0-9\\.]+)$/);
-                if (m) vm.selected = vm.models.find(x => x.key.indexOf(`${$scope.model.value},`) === 0);
+                if (m) vm.selected = vm.models.find(x => x.key.indexOf(`${$scope.model.value.type},`) === 0);
                 if (!vm.selected) vm.notFound = true;
             }
 

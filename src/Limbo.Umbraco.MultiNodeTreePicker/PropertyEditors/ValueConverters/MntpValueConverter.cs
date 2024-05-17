@@ -1,11 +1,9 @@
-﻿using Limbo.Umbraco.MultiNodeTreePicker.Composers;
-using Limbo.Umbraco.MultiNodeTreePicker.Converters;
-using Skybrud.Essentials.Collections.Extensions;
-using Skybrud.Essentials.Json.Extensions;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Newtonsoft.Json.Linq;
+using Limbo.Umbraco.MultiNodeTreePicker.Composers;
+using Limbo.Umbraco.MultiNodeTreePicker.Converters;
+using Skybrud.Essentials.Collections.Extensions;
 using Umbraco.Cms.Core;
 using Umbraco.Cms.Core.DeliveryApi;
 using Umbraco.Cms.Core.Models;
@@ -21,8 +19,6 @@ using Umbraco.Cms.Core.Web;
 namespace Limbo.Umbraco.MultiNodeTreePicker.PropertyEditors.ValueConverters;
 
 public class MntpValueConverter : MultiNodeTreePickerValueConverter {
-
-    private static readonly string[] _versionToken = [", Version="];
 
     private static readonly char[] _commaSeparator = [','];
 
@@ -68,7 +64,7 @@ public class MntpValueConverter : MultiNodeTreePickerValueConverter {
         if (propertyType.DataType.Configuration is not MntpConfiguration config) return value;
 
         // Get the key of the converter
-        string? key = GetItemConverterKey(config.ItemConverter);
+        string? key = config.ItemConverter?.Type;
         if (string.IsNullOrWhiteSpace(key)) return config.IsSinglePicker ? value.FirstOrDefault() : value;
 
         // Is the selected converter a type converter?
@@ -107,7 +103,7 @@ public class MntpValueConverter : MultiNodeTreePickerValueConverter {
 
         if (propertyType.DataType.Configuration is MntpConfiguration { ItemConverter: { } } config) {
 
-            string? key = GetItemConverterKey(config.ItemConverter);
+            string? key = config.ItemConverter?.Type;
 
             if (!string.IsNullOrWhiteSpace(key) && _typeConverterCollection.TryGet(key, out IMntpTypeConverter? typeConverter)) {
 
@@ -184,17 +180,6 @@ public class MntpValueConverter : MultiNodeTreePickerValueConverter {
     private IPublishedContent? GetMemberByGuidUdi(GuidUdi udi, IPublishedSnapshot snapshot) {
         IMember? member = _memberService.GetByKey(udi.Guid);
         return member == null ? null : snapshot.Members?.Get(member);
-    }
-
-    private static string? GetItemConverterKey(JToken? token) {
-        return token switch {
-            null => null,
-            JObject obj => obj.GetString("key"),
-            _ => token.Type switch {
-                JTokenType.String => token.ToString().Split(_versionToken, StringSplitOptions.None)[0],
-                _ => null
-            }
-        };
     }
 
     #endregion
