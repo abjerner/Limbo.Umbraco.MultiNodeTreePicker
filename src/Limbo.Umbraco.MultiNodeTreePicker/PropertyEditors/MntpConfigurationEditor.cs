@@ -23,7 +23,7 @@ public class MntpConfigurationEditor : ConfigurationEditor<MntpConfiguration> {
                     MntpUtils.PrependLinkToDescription(
                         field,
                         "See the documentation &rarr;",
-                        "https://packages.limbo.works/163af59b"
+                        "https://packages.limbo.works/73a7c52f"
                     );
                     break;
 
