@@ -7,6 +7,10 @@ order: -13
 
 Version 13 of this package targets Umbraco 13.
 
-## Installation
+## Getting Started
+
+- [**Installation**](./installation.md)
+- [**Item Converters**](./item-converters/)
+- [**Property Editors**](./property-editors/)
 
 {{installation}}
