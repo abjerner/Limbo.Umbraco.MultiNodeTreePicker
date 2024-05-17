@@ -95,7 +95,7 @@ public abstract class MntpGenericTypeConverter<T> : IMntpTypeConverter {
     /// <param name="config">The configuration of the multinode treepicker.</param>
     /// <returns>The <see cref="Type"/> of the value returned by this type converter.</returns>
     public Type GetType(IPublishedPropertyType propertyType, MntpConfiguration config) {
-        return config.IsSinglePicker ? typeof(T) : typeof(IEnumerable<>).MakeGenericType(typeof(T));
+        return config.IsSinglePicker ? typeof(T) : typeof(IReadOnlyList<>).MakeGenericType(typeof(T));
     }
 
     #endregion

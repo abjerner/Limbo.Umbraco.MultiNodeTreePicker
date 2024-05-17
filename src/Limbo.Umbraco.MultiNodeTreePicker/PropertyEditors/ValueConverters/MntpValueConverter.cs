@@ -62,7 +62,7 @@ public class MntpValueConverter : MultiNodeTreePickerValueConverter {
     public override object? ConvertIntermediateToObject(IPublishedElement owner, IPublishedPropertyType propertyType, PropertyCacheLevel cacheLevel, object? source, bool preview) {
 
         // Get the picked items as IPublishedContent
-        IEnumerable<IPublishedContent> value = GetPickerValue(propertyType, source, preview);
+        IReadOnlyList<IPublishedContent> value = GetPickerValue(propertyType, source, preview);
 
         // Return "value" if the data type isn't configured with an item converter
         if (propertyType.DataType.Configuration is not MntpConfiguration config) return value;
@@ -119,13 +119,13 @@ public class MntpValueConverter : MultiNodeTreePickerValueConverter {
 
                 Type type = converter.GetType(propertyType);
 
-                return single ? type : typeof(IEnumerable<>).MakeGenericType(type);
+                return single ? type : typeof(IReadOnlyList<>).MakeGenericType(type);
 
             }
 
         }
 
-        return single ? typeof(IPublishedContent) : typeof(IEnumerable<IPublishedContent>);
+        return single ? typeof(IPublishedContent) : typeof(IReadOnlyList<IPublishedContent>);
 
     }
 
