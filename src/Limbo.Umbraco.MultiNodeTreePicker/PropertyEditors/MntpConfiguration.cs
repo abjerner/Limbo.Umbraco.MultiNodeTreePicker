@@ -13,7 +13,7 @@ public class MntpConfiguration : MultiNodePickerConfiguration {
     /// Gets whether the multinode treepicker is configured as a single picker.
     /// </summary>
     [IgnoreDataMember]
-    public bool IsSinglePicker => base.MaxNumber == 1;
+    public bool IsSinglePicker => MaxNumber == 1;
 
     /// <summary>
     /// Gets or sets an instance of <see cref="JObject"/> representing the information about the selected item converter.

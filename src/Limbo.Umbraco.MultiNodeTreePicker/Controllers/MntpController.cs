@@ -13,6 +13,8 @@ namespace Limbo.Umbraco.MultiNodeTreePicker.Controllers;
 [PluginController("Limbo")]
 public class MntpController : UmbracoAuthorizedApiController {
 
+    private static readonly string[] _versionSeparator = [", Version"];
+
     private readonly MntpTypeConverterCollection _typeConverterCollection;
     private readonly MntpConverterCollection _itemConverterCollection;
 
@@ -34,7 +36,7 @@ public class MntpController : UmbracoAuthorizedApiController {
             { "type", converter.Alias },
             { "icon", $"{converter.Icon ?? "icon-box"} color-{type.Assembly.FullName?.Split('.')[0].ToLower()}" },
             { "name", converter.Name },
-            { "description", type.AssemblyQualifiedName?.Split(new[] { ", Version" }, StringSplitOptions.None)[0] + ".dll" }
+            { "description", type.AssemblyQualifiedName?.Split(_versionSeparator, StringSplitOptions.None)[0] + ".dll" }
         };
 
         return json;
@@ -50,7 +52,7 @@ public class MntpController : UmbracoAuthorizedApiController {
             { "type", converter.Alias },
             { "icon", $"{converter.Icon ?? "icon-box"} color-{type.Assembly.FullName?.Split('.')[0].ToLower()}" },
             { "name", converter.Name },
-            { "description", type.AssemblyQualifiedName?.Split(new[] { ", Version" }, StringSplitOptions.None)[0] + ".dll" }
+            { "description", type.AssemblyQualifiedName?.Split(_versionSeparator, StringSplitOptions.None)[0] + ".dll" }
         };
 
         return json;

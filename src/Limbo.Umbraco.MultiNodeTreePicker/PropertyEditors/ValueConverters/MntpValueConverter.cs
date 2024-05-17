@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json.Linq;
 using Umbraco.Cms.Core;
+using Umbraco.Cms.Core.DeliveryApi;
 using Umbraco.Cms.Core.Models;
 using Umbraco.Cms.Core.Models.PublishedContent;
 using Umbraco.Cms.Core.PropertyEditors;
@@ -21,7 +22,9 @@ namespace Limbo.Umbraco.MultiNodeTreePicker.PropertyEditors.ValueConverters;
 
 public class MntpValueConverter : MultiNodeTreePickerValueConverter {
 
-    private static readonly string[] _versionToken = { ", Version=" };
+    private static readonly string[] _versionToken = [", Version="];
+
+    private static readonly char[] _commaSeparator = [','];
 
     #region Constructors
 
@@ -30,7 +33,7 @@ public class MntpValueConverter : MultiNodeTreePickerValueConverter {
     private readonly IPublishedSnapshotAccessor _publishedSnapshotAccessor;
     private readonly MntpConverterCollection _itemConverterCollection;
 
-    public MntpValueConverter(IPublishedSnapshotAccessor publishedSnapshotAccessor, IUmbracoContextAccessor umbracoContextAccessor, IMemberService memberService, MntpTypeConverterCollection typeConverterCollection, MntpConverterCollection itemConverterCollection) : base(publishedSnapshotAccessor, umbracoContextAccessor, memberService) {
+    public MntpValueConverter(IPublishedSnapshotAccessor publishedSnapshotAccessor, IUmbracoContextAccessor umbracoContextAccessor, IMemberService memberService, IApiContentBuilder apiContentBuilder, IApiMediaBuilder apiMediaBuilder, MntpTypeConverterCollection typeConverterCollection, MntpConverterCollection itemConverterCollection) : base(publishedSnapshotAccessor, umbracoContextAccessor, memberService, apiContentBuilder, apiMediaBuilder) {
         _publishedSnapshotAccessor = publishedSnapshotAccessor;
         _memberService = memberService;
         _typeConverterCollection = typeConverterCollection;
@@ -51,7 +54,7 @@ public class MntpValueConverter : MultiNodeTreePickerValueConverter {
 
     public override object? ConvertSourceToIntermediate(IPublishedElement owner, IPublishedPropertyType propertyType, object? source, bool preview) {
         return source?.ToString()?
-            .Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries)
+            .Split(_commaSeparator, StringSplitOptions.RemoveEmptyEntries)
             .Select(UdiParser.Parse)
             .ToArray();
     }
@@ -92,7 +95,7 @@ public class MntpValueConverter : MultiNodeTreePickerValueConverter {
 
         }
 
-        // In theory we shouldn't reach this point, but if we do, we return the list of IPublishedContent if the
+        // In theory, we shouldn't reach this point, but if we do, we return the list of IPublishedContent if the
         // picker is configured as a multi picker, or the first item if the picker is configured as a single picker
         return config.IsSinglePicker ? value.FirstOrDefault() : value;
 
@@ -128,21 +131,21 @@ public class MntpValueConverter : MultiNodeTreePickerValueConverter {
 
     private IReadOnlyList<IPublishedContent> GetPickerValue(IPublishedPropertyType propertyType, object? source, bool preview) {
 
-        if (source == null) return Array.Empty<IPublishedContent>();
+        if (source == null) return [];
 
-        Udi[] udis = source as Udi[] ?? Array.Empty<Udi>();
-        if (propertyType.Alias.Equals(Constants.Conventions.Content.InternalRedirectId)) return Array.Empty<IPublishedContent>();
-        if (propertyType.Alias.Equals(Constants.Conventions.Content.Redirect)) return Array.Empty<IPublishedContent>();
+        Udi[] udis = source as Udi[] ?? [];
+        if (propertyType.Alias.Equals(Constants.Conventions.Content.InternalRedirectId)) return [];
+        if (propertyType.Alias.Equals(Constants.Conventions.Content.Redirect)) return [];
 
         // Get a reference to the current published snapshot
         _publishedSnapshotAccessor.TryGetPublishedSnapshot(out IPublishedSnapshot? publishedSnapshot);
-        if (publishedSnapshot == null) return Array.Empty<IPublishedContent>();
+        if (publishedSnapshot == null) return [];
 
         // Is the data type configured as a single picker?
         bool single = IsSingleNodePicker(propertyType);
 
         // Initialize a new list for the items
-        List<IPublishedContent> items = new();
+        List<IPublishedContent> items = [];
 
         foreach (Udi udi in udis) {
 
@@ -150,19 +153,12 @@ public class MntpValueConverter : MultiNodeTreePickerValueConverter {
             GuidUdi? guidUdi = udi as GuidUdi;
             if (guidUdi == null) continue;
 
-            IPublishedContent? item = null;
-
-            switch (udi.EntityType) {
-                case Constants.UdiEntityType.Document:
-                    item = publishedSnapshot.Content?.GetById(preview, guidUdi.Guid);
-                    break;
-                case Constants.UdiEntityType.Media:
-                    item = publishedSnapshot.Media?.GetById(preview, guidUdi.Guid);
-                    break;
-                case Constants.UdiEntityType.Member:
-                    item = GetMemberByGuidUdi(guidUdi, publishedSnapshot);
-                    break;
-            }
+            IPublishedContent? item = udi.EntityType switch {
+                Constants.UdiEntityType.Document => publishedSnapshot.Content?.GetById(preview, guidUdi.Guid),
+                Constants.UdiEntityType.Media => publishedSnapshot.Media?.GetById(preview, guidUdi.Guid),
+                Constants.UdiEntityType.Member => GetMemberByGuidUdi(guidUdi, publishedSnapshot),
+                _ => null
+            };
 
             // Continue to the next UDI if "item" is either null or an element type
             if (item == null) continue;

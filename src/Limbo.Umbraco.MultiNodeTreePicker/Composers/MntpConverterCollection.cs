@@ -14,7 +14,7 @@ public sealed class MntpConverterCollection : BuilderCollectionBase<IMntpItemCon
     private readonly Dictionary<string, IMntpItemConverter> _lookup;
 
     /// <summary>
-    /// Initializes an new instance based on the specified <paramref name="converters"/>.
+    /// Initializes a new instance based on the specified <paramref name="converters"/>.
     /// </summary>
     /// <param name="converters">The item converters that should make up the collection.</param>
     public MntpConverterCollection(Func<IEnumerable<IMntpItemConverter>> converters) : base(converters) {
