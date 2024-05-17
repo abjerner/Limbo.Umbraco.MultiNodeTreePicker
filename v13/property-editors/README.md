@@ -1,5 +1,5 @@
 ---
-redirect: ./multinodetreepicker.md
+redirect: ./multinodetreepicker/
 ---
 
 # Property Editors
