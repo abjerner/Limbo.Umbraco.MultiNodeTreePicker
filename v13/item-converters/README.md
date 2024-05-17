@@ -8,7 +8,7 @@ When you have created a new MNTP data type, you can select an item converter. Cu
 
 You can select the item converter via the options on the multinode treepicker data type.
 
-![image](https://github.com/abjerner/Limbo.Umbraco.MultiNodeTreePicker/assets/3634580/72a6dd79-4b70-4df0-bd06-baf1e954d514)
+![image](https://github.com/abjerner/Limbo.Umbraco.MultiNodeTreePicker/assets/3634580/157eb851-4c5c-4c1f-ac00-3c21cca0918f)
 
 In the example below, the item converter converts the selected `IPublishedContent` into instances of `MyContentItem`. As also show in this example, your custom item converters can use dependency injection - e.g. for delegating the work of creating the item to an item factory.
 
