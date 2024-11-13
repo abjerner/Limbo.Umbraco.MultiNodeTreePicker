@@ -56,14 +56,6 @@ See the [**`v1.x`**](https://github.com/limbo-works/Limbo.Umbraco.MultiNodeTreeP
 
 See our older [**Skybrud.Umbraco.MultiNodeTreePicker**](https://github.com/skybrud/Skybrud.Umbraco.MultiNodeTreePicker) package.
 
-
-
-
-
-
-> **Note**  
-> This package replaces our older [**Skybrud.Umbraco.MultiNodeTreePicker**](https://github.com/abjerner/Skybrud.Umbraco.MultiNodeTreePicker) package. See this package for older versions of Umbraco.
-
 [NuGetPackage]: https://www.nuget.org/packages/Limbo.Umbraco.MultiNodeTreePicker
 [GitHubRelease]: https://github.com/abjerner/Limbo.Umbraco.MultiNodeTreePicker/releases
 
