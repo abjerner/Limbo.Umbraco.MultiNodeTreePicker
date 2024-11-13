@@ -18,11 +18,11 @@ The purpose of an item converter is to control the C# type returned by the `.Val
   </tr>
   <tr>
     <td><strong>Umbraco:</strong></td>
-    <td>Umbraco 10, 11 and 12</td>
+    <td>Umbraco 13</td>
   </tr>
   <tr>
     <td><strong>Target Framework:</strong></td>
-    <td>.NET 6</td>
+    <td>.NET 8</td>
   </tr>
 </table>
 
@@ -39,14 +39,27 @@ The purpose of an item converter is to control the C# type returned by the `.Val
 The package targets Umbraco 10 and is only available via [**NuGet**][NuGetPackage]. To install the package, you can use either .NET CLI
 
 ```
-dotnet add package Limbo.Umbraco.MultiNodeTreePicker --version 1.0.6
+dotnet add package Limbo.Umbraco.MultiNodeTreePicker --version 13.0.0
 ```
 
 or the NuGet Package Manager:
 
 ```
-Install-Package Limbo.Umbraco.MultiNodeTreePicker -Version 1.0.6
+Install-Package Limbo.Umbraco.MultiNodeTreePicker -Version 13.0.0
 ```
+
+### Umbraco 10, 11 and 12
+
+See the [**`v1.x`**](https://github.com/limbo-works/Limbo.Umbraco.MultiNodeTreePicker/tree/v1/main) branch.
+
+### Umbraco 8 and 9
+
+See our older [**Skybrud.Umbraco.MultiNodeTreePicker**](https://github.com/skybrud/Skybrud.Umbraco.MultiNodeTreePicker) package.
+
+
+
+
+
 
 > **Note**  
 > This package replaces our older [**Skybrud.Umbraco.MultiNodeTreePicker**](https://github.com/abjerner/Skybrud.Umbraco.MultiNodeTreePicker) package. See this package for older versions of Umbraco.
