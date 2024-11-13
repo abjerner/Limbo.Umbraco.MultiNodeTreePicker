@@ -14,7 +14,7 @@ namespace Limbo.Umbraco.MultiNodeTreePicker.Converters;
 /// <summary>
 /// Converter ensuring that MNTP properties have a value type using the published model instead of
 /// <see cref="IPublishedContent"/>. If more than one content type is allowed, the converter will try to find a
-/// common type - eg. based on a shared composition. If no common type is found, the property value type will still
+/// common type - e.g. based on a shared composition. If no common type is found, the property value type will still
 /// be <see cref="IPublishedContent"/>.
 /// </summary>
 public class PublishedModelConverter : IMntpItemConverter {
@@ -94,11 +94,9 @@ public class PublishedModelConverter : IMntpItemConverter {
 internal static class EnumerableExtensions {
     public static IEnumerable<T> IntersectMany<T>(this IEnumerable<IEnumerable<T>> values) {
         IEnumerable<T>? intersection = null;
-
         foreach (var value in values) {
             intersection = intersection == null ? new List<T>(value) : intersection.Intersect(value);
         }
-
-        return intersection ?? Enumerable.Empty<T>();
+        return intersection ?? [];
     }
 }

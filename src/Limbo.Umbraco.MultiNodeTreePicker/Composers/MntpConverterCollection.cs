@@ -22,12 +22,8 @@ public sealed class MntpConverterCollection : BuilderCollectionBase<IMntpItemCon
         _lookup = new Dictionary<string, IMntpItemConverter>(StringComparer.OrdinalIgnoreCase);
 
         foreach (IMntpItemConverter item in this) {
-
             string? typeName = MntpUtils.GetTypeAlias(item.GetType());
-            if (typeName != null && _lookup.ContainsKey(typeName) == false) {
-                _lookup.Add(typeName, item);
-            }
-
+            if (typeName != null) _lookup.TryAdd(typeName, item);
         }
 
     }
