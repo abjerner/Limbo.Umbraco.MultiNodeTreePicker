@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using Umbraco.Cms.Core.Models.PublishedContent;
 
 namespace Limbo.Umbraco.MultiNodeTreePicker.Converters;
@@ -7,24 +6,7 @@ namespace Limbo.Umbraco.MultiNodeTreePicker.Converters;
 /// <summary>
 /// Interface describing an item converter.
 /// </summary>
-public interface IMntpItemConverter {
-
-    /// <summary>
-    /// Gets the alias of the converter.
-    /// </summary>
-    public sealed string? Alias => MntpUtils.GetTypeAlias(GetType());
-
-    /// <summary>
-    /// Gets the friendly name of the item converter.
-    /// </summary>
-    [JsonProperty("name")]
-    string Name { get; }
-
-    /// <summary>
-    /// Gets the icon of the item converter.
-    /// </summary>
-    [JsonProperty("icon")]
-    public string? Icon => null;
+public interface IMntpItemConverter : IMntpConverter {
 
     /// <summary>
     /// Returns the converted item based on <paramref name="source"/>.
