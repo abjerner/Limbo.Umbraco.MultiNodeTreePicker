@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Umbraco.Cms.Core;
 using Umbraco.Cms.Core.Models;
 using Umbraco.Cms.Core.PropertyEditors;
@@ -9,10 +8,6 @@ using Umbraco.Cms.Core.PropertyEditors;
 namespace Limbo.Umbraco.MultiNodeTreePicker.PropertyEditors;
 
 public class MntpPropertyIndexValueFactory : IPropertyIndexValueFactory {
-
-    public MntpPropertyIndexValueFactory() {
-        Console.WriteLine("Hello from MntpPropertyIndexValueFactory");
-    }
 
     public IEnumerable<KeyValuePair<string, IEnumerable<object?>>> GetIndexValues(IProperty property, string? culture, string? segment, bool published) {
 
