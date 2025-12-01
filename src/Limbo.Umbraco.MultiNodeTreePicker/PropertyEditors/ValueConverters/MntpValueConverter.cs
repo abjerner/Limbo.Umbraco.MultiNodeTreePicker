@@ -137,8 +137,8 @@ public class MntpValueConverter : MultiNodeTreePickerValueConverter {
         if (source == null) return [];
 
         Udi[] udis = source as Udi[] ?? [];
-        if (propertyType.Alias.Equals(Constants.Conventions.Content.InternalRedirectId)) return [];
-        if (propertyType.Alias.Equals(Constants.Conventions.Content.Redirect)) return [];
+        if (propertyType.Alias.Equals(global::Umbraco.Cms.Core.Constants.Conventions.Content.InternalRedirectId)) return [];
+        if (propertyType.Alias.Equals(global::Umbraco.Cms.Core.Constants.Conventions.Content.Redirect)) return [];
 
         // Get a reference to the current published snapshot
         _publishedSnapshotAccessor.TryGetPublishedSnapshot(out IPublishedSnapshot? publishedSnapshot);
@@ -157,9 +157,9 @@ public class MntpValueConverter : MultiNodeTreePickerValueConverter {
             if (guidUdi == null) continue;
 
             IPublishedContent? item = udi.EntityType switch {
-                Constants.UdiEntityType.Document => publishedSnapshot.Content?.GetById(preview, guidUdi.Guid),
-                Constants.UdiEntityType.Media => publishedSnapshot.Media?.GetById(preview, guidUdi.Guid),
-                Constants.UdiEntityType.Member => GetMemberByGuidUdi(guidUdi, publishedSnapshot),
+                global::Umbraco.Cms.Core.Constants.UdiEntityType.Document => publishedSnapshot.Content?.GetById(preview, guidUdi.Guid),
+                global::Umbraco.Cms.Core.Constants.UdiEntityType.Media => publishedSnapshot.Media?.GetById(preview, guidUdi.Guid),
+                global::Umbraco.Cms.Core.Constants.UdiEntityType.Member => GetMemberByGuidUdi(guidUdi, publishedSnapshot),
                 _ => null
             };
 
