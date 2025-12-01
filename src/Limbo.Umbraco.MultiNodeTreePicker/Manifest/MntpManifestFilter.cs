@@ -17,6 +17,7 @@ public class MntpManifestFilter : IManifestFilter {
             Version = MntpPackage.InformationalVersion,
             BundleOptions = BundleOptions.Independent,
             Scripts = [
+                $"/App_Plugins/{MntpPackage.Alias}/Scripts/Controllers/CacheLevel.js",
                 $"/App_Plugins/{MntpPackage.Alias}/Scripts/Controllers/ItemConverter.js",
                 $"/App_Plugins/{MntpPackage.Alias}/Scripts/Controllers/ItemConverterOverlay.js"
             ],

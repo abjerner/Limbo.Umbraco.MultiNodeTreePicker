@@ -44,8 +44,15 @@ public class MntpValueConverter : MultiNodeTreePickerValueConverter {
         return propertyType.EditorAlias.Equals(MntpEditor.EditorAlias);
     }
 
+    /// <inheritdoc />
     public override PropertyCacheLevel GetPropertyCacheLevel(IPublishedPropertyType propertyType) {
-        return PropertyCacheLevel.Snapshot;
+
+        // Default to "Snapshot" if configuration doesn't match (probably wouldn't happen)
+        if (propertyType.DataType.Configuration is not MntpConfiguration config) return PropertyCacheLevel.Snapshot;
+
+        // Return the configured cache level (or "Snapshot" if not specified)
+        return config.CacheLevel ?? PropertyCacheLevel.Snapshot;
+
     }
 
     public override object? ConvertSourceToIntermediate(IPublishedElement owner, IPublishedPropertyType propertyType, object? source, bool preview) {
