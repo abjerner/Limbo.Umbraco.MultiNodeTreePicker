@@ -93,6 +93,7 @@ public class MntpValueConverter : MultiNodeTreePickerValueConverter {
             Type type = itemConverter.GetType(propertyType);
             return value
                 .Select(x => itemConverter.Convert(propertyType, x))
+                .WhereNotNull()
                 .Cast(type)
                 .ToList(type);
 
