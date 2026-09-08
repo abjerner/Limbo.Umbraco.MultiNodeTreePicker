@@ -11,7 +11,7 @@ namespace Limbo.Umbraco.MultiNodeTreePicker.Models;
 /// Class describing a selected item converter.
 /// </summary>
 [JsonConverter(typeof(MntpItemConverterJsonConverter))]
-public class MntpItemConverter {
+public class MntpTypeConverter {
 
     private static readonly string[] _separator = [", Version"];
 
@@ -25,7 +25,7 @@ public class MntpItemConverter {
     /// </summary>
     /// <param name="type">The alias of the item converter type.</param>
     [SetsRequiredMembers]
-    public MntpItemConverter(string type) {
+    public MntpTypeConverter(string type) {
         Type = type;
     }
 
@@ -52,9 +52,9 @@ public class MntpItemConverter {
     /// Creates a new instance based on the specified <typeparamref name="T"/>.
     /// </summary>
     /// <typeparam name="T">The type of the converter.</typeparam>
-    /// <returns>A new instance of <see cref="MntpItemConverter"/> describing a converter of type <typeparamref name="T"/>.</returns>
-    public static MntpItemConverter Create<T>() where T : IMntpConverter {
-        return new MntpItemConverter(GetTypeName<T>());
+    /// <returns>A new instance of <see cref="MntpTypeConverter"/> describing a converter of type <typeparamref name="T"/>.</returns>
+    public static MntpTypeConverter Create<T>() where T : IMntpConverter {
+        return new MntpTypeConverter(GetTypeName<T>());
     }
 
 }

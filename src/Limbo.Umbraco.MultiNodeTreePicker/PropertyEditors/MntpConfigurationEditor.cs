@@ -9,48 +9,49 @@ namespace Limbo.Umbraco.MultiNodeTreePicker.PropertyEditors;
 
 public class MntpConfigurationEditor : ConfigurationEditor<MntpConfiguration> {
 
-    public MntpConfigurationEditor(IIOHelper ioHelper, IEditorConfigurationParser editorConfigurationParser) : base(ioHelper, editorConfigurationParser) {
-        Field(nameof(MultiNodePickerConfiguration.TreeSource))
-            .Config = new Dictionary<string, object> { { "idType", "udi" } };
+    public MntpConfigurationEditor(IIOHelper ioHelper) : base(ioHelper) {
 
-        foreach (var field in Fields) {
+        //Field(nameof(MultiNodePickerConfiguration.TreeSource))
+        //    .Config = new Dictionary<string, object> { { "idType", "udi" } };
 
-            if (field.View is not null) field.View = field.View.Replace("{version}", MntpPackage.InformationalVersion);
+        //foreach (var field in Fields) {
 
-            switch (field.Key) {
+        //    if (field.View is not null) field.View = field.View.Replace("{version}", MntpPackage.InformationalVersion);
 
-                case "itemConverter":
-                    MntpUtils.PrependLinkToDescription(
-                        field,
-                        "See the documentation &rarr;",
-                        "https://packages.limbo.works/73a7c52f"
-                    );
-                    break;
+        //    switch (field.Key) {
 
-            }
+        //        case "itemConverter":
+        //            MntpUtils.PrependLinkToDescription(
+        //                field,
+        //                "See the documentation &rarr;",
+        //                "https://packages.limbo.works/73a7c52f"
+        //            );
+        //            break;
 
-        }
+        //    }
+
+        //}
 
 
     }
 
-    public override Dictionary<string, object> ToConfigurationEditor(MntpConfiguration? configuration) {
+    //public override Dictionary<string, object> ToConfigurationEditor(MntpConfiguration? configuration) {
 
-        var output = base.ToConfigurationEditor(configuration);
+    //    var output = base.ToConfigurationEditor(configuration);
 
-        output["multiPicker"] = configuration?.MaxNumber > 1;
+    //    output["multiPicker"] = configuration?.MaxNumber > 1;
 
-        return output;
-    }
+    //    return output;
+    //}
 
-    /// <inheritdoc />
-    public override IDictionary<string, object> ToValueEditor(object? configuration) {
-        var d = base.ToValueEditor(configuration);
-        d["multiPicker"] = true;
-        d["showEditButton"] = false;
-        d["showPathOnHover"] = false;
-        d["idType"] = "udi";
-        return d;
-    }
+    ///// <inheritdoc />
+    //public override IDictionary<string, object> ToValueEditor(object? configuration) {
+    //    var d = base.ToValueEditor(configuration);
+    //    d["multiPicker"] = true;
+    //    d["showEditButton"] = false;
+    //    d["showPathOnHover"] = false;
+    //    d["idType"] = "udi";
+    //    return d;
+    //}
 
 }

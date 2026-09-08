@@ -12,7 +12,7 @@ public class MntpItemConverterJsonConverter : JsonConverter {
 
     public override void WriteJson(JsonWriter writer, object? value, JsonSerializer serializer) {
 
-        if (value is MntpItemConverter converter && !string.IsNullOrWhiteSpace(converter.Type)) {
+        if (value is MntpTypeConverter converter && !string.IsNullOrWhiteSpace(converter.Type)) {
             new JObject { { "type", converter.Type } }.WriteTo(writer);
             return;
         }
@@ -27,11 +27,11 @@ public class MntpItemConverterJsonConverter : JsonConverter {
                 return null;
             case JsonToken.String: {
                     string? type = reader.Value as string;
-                    return string.IsNullOrWhiteSpace(type) ? null : new MntpItemConverter(type);
+                    return string.IsNullOrWhiteSpace(type) ? null : new MntpTypeConverter(type);
                 }
             case JsonToken.StartObject: {
                     string? type = JObject.Load(reader).GetString("type");
-                    return string.IsNullOrWhiteSpace(type) ? null : new MntpItemConverter(type);
+                    return string.IsNullOrWhiteSpace(type) ? null : new MntpTypeConverter(type);
                 }
             default:
                 throw new Exception($"Unsupported token type: {reader.TokenType}...");

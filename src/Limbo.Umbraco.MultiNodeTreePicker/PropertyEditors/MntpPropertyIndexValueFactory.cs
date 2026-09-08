@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Umbraco.Cms.Core;
 using Umbraco.Cms.Core.Models;
 using Umbraco.Cms.Core.PropertyEditors;
@@ -9,7 +10,7 @@ namespace Limbo.Umbraco.MultiNodeTreePicker.PropertyEditors;
 
 public class MntpPropertyIndexValueFactory : IPropertyIndexValueFactory {
 
-    public IEnumerable<KeyValuePair<string, IEnumerable<object?>>> GetIndexValues(IProperty property, string? culture, string? segment, bool published) {
+    public IEnumerable<IndexValue> GetIndexValues(IProperty property, string? culture, string? segment, bool published) {
 
         // Get the source value from the property
         object? source = property.GetValue(culture, segment, published);
@@ -18,7 +19,7 @@ public class MntpPropertyIndexValueFactory : IPropertyIndexValueFactory {
         if (source is not string str) yield break;
 
         // Add the property value (JSON serialized string) to the index
-        yield return new KeyValuePair<string, IEnumerable<object?>>(property.Alias, [str]);
+        yield return Create(property.Alias, culture, new object?[] { str });
 
         // The saved value is a list of UDIs, which isn't really that good for searching. UDIs aren't necessarily GUID
         // UDIs, but in this case we know they are, so we can parse them, and then grab only the GUID part, which
@@ -29,8 +30,18 @@ public class MntpPropertyIndexValueFactory : IPropertyIndexValueFactory {
         }
 
         // Add a field with the search friendly GUID keys
-        yield return new KeyValuePair<string, IEnumerable<object?>>($"{property.Alias}_search", guids);
+        yield return Create($"{property.Alias}_search", culture, guids);
 
+    }
+
+    public IEnumerable<IndexValue> GetIndexValues(IProperty property, string? culture, string? segment, bool published,
+        IEnumerable<string> availableCultures, IDictionary<Guid, IContentType> contentTypeDictionary) {
+        throw new NotImplementedException();
+    }
+
+    private static IndexValue Create(string fieldName, string? culture, object? value) {
+        if (!string.IsNullOrWhiteSpace(culture)) fieldName = $"{fieldName}_{culture}";
+        return new IndexValue { FieldName = fieldName, Culture = culture, Values = value is null ? [] : [value] };
     }
 
 }

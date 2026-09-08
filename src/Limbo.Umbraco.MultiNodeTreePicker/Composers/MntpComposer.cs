@@ -1,5 +1,8 @@
-﻿using Limbo.Umbraco.MultiNodeTreePicker.Converters;
-using Limbo.Umbraco.MultiNodeTreePicker.Manifest;
+﻿using Limbo.Umbraco.MultiNodeTreePicker.Api;
+using Limbo.Umbraco.MultiNodeTreePicker.Converters;
+using Limbo.Umbraco.MultiNodeTreePicker.Manifests;
+using Microsoft.Extensions.DependencyInjection;
+using Skybrud.Essentials.Umbraco.Composing;
 using Umbraco.Cms.Core.Composing;
 using Umbraco.Cms.Core.DependencyInjection;
 
@@ -17,9 +20,11 @@ internal sealed class MntpComposer : IComposer {
             .WithCollectionBuilder<MntpConverterCollectionBuilder>()
             .Add(() => builder.TypeLoader.GetTypes<IMntpItemConverter>());
 
-        builder
-            .ManifestFilters()
-            .Append<MntpManifestFilter>();
+        // Register the custom package manifest reader
+        builder.AddPackageManifestReader<MntpPackageManifestReader>();
+
+        // Register the SwaggerGen options for the API
+        builder.Services.ConfigureOptions<MntpSwaggerGenOptions>();
 
     }
 

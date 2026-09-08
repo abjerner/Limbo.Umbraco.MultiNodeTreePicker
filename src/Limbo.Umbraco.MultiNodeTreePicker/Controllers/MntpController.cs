@@ -1,17 +1,29 @@
 ﻿using System;
-using Limbo.Umbraco.MultiNodeTreePicker.Composers;
+using System.Collections.Generic;
 using System.Linq;
+using Asp.Versioning;
+using Limbo.Umbraco.MultiNodeTreePicker.Api;
+using Limbo.Umbraco.MultiNodeTreePicker.Composers;
 using Limbo.Umbraco.MultiNodeTreePicker.Converters;
-using Newtonsoft.Json.Linq;
-using Umbraco.Cms.Web.BackOffice.Controllers;
-using Umbraco.Cms.Web.Common.Attributes;
+using Limbo.Umbraco.MultiNodeTreePicker.Models.Api;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Umbraco.Cms.Api.Common.Attributes;
+using Umbraco.Cms.Api.Management.Controllers;
+using Umbraco.Cms.Api.Management.Routing;
+using Umbraco.Cms.Web.Common.Authorization;
 
 #pragma warning disable 1591
 
 namespace Limbo.Umbraco.MultiNodeTreePicker.Controllers;
 
-[PluginController("Limbo")]
-public class MntpController : UmbracoAuthorizedApiController {
+[ApiController]
+[MapToApi(MntpApiConstants.Alias)]
+[Authorize(Policy = AuthorizationPolicies.SectionAccessContent)]
+[ApiVersion(MntpApiConstants.Version)]
+[ApiExplorerSettings(GroupName = MntpApiConstants.GroupName)]
+[VersionedApiBackOfficeRoute(MntpApiConstants.Route)]
+public class MntpController : ManagementApiControllerBase {
 
     private static readonly string[] _versionSeparator = [", Version"];
 
@@ -23,39 +35,40 @@ public class MntpController : UmbracoAuthorizedApiController {
         _itemConverterCollection = itemConverterCollection;
     }
 
-    public object GetTypes() {
+    [HttpGet("converters")]
+    public IEnumerable<MntpConverter> GetTypes() {
         return _typeConverterCollection.ToArray().Select(Map).Union(_itemConverterCollection.ToArray().Select(Map));
     }
 
-    private static JObject Map(IMntpTypeConverter converter) {
+    private static MntpConverter Map(IMntpTypeConverter converter) {
 
         Type type = converter.GetType();
 
-        JObject json = new() {
-            { "assembly", type.Assembly.FullName },
-            { "type", converter.Alias },
-            { "icon", $"{converter.Icon ?? "icon-box"} color-{type.Assembly.FullName?.Split('.')[0].ToLower()}" },
-            { "name", converter.Name },
-            { "description", type.AssemblyQualifiedName?.Split(_versionSeparator, StringSplitOptions.None)[0] + ".dll" }
+        MntpConverter model = new() {
+            Type = converter.Alias,
+            Icon = $"{converter.Icon ?? "icon-box"} color-{type.Assembly.FullName?.Split('.')[0].ToLower()}",
+            Name = converter.Name,
+            Description = type.AssemblyQualifiedName?.Split(_versionSeparator, StringSplitOptions.None)[0] + ".dll",
+            Assembly = type.Assembly.FullName
         };
 
-        return json;
+        return model;
 
     }
 
-    private static JObject Map(IMntpItemConverter converter) {
+    private static MntpConverter Map(IMntpItemConverter converter) {
 
         Type type = converter.GetType();
 
-        JObject json = new() {
-            { "assembly", type.Assembly.FullName },
-            { "type", converter.Alias },
-            { "icon", $"{converter.Icon ?? "icon-box"} color-{type.Assembly.FullName?.Split('.')[0].ToLower()}" },
-            { "name", converter.Name },
-            { "description", type.AssemblyQualifiedName?.Split(_versionSeparator, StringSplitOptions.None)[0] + ".dll" }
+        MntpConverter model = new() {
+            Type = converter.Alias,
+            Icon = $"{converter.Icon ?? "icon-box"} color-{type.Assembly.FullName?.Split('.')[0].ToLower()}",
+            Name = converter.Name,
+            Description = type.AssemblyQualifiedName?.Split(_versionSeparator, StringSplitOptions.None)[0] + ".dll",
+            Assembly = type.Assembly.FullName
         };
 
-        return json;
+        return model;
 
     }
 

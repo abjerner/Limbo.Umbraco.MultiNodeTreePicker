@@ -48,7 +48,7 @@ public class PublishedModelConverter : IMntpItemConverter {
     public Type GetType(IPublishedPropertyType propertyType) {
 
         // Ensure the configuration is of the correct type (probably always is)
-        if (propertyType.DataType.Configuration is not MultiNodePickerConfiguration config) throw new Exception("NOES!");
+        if (propertyType.DataType.ConfigurationObject is not MultiNodePickerConfiguration config) throw new Exception("NOES!");
 
         // Get the allowed content types from the configuration
         string[] allowedTypes = StringUtils.ParseStringArray(config.Filter);

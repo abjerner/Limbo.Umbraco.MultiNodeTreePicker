@@ -3,27 +3,29 @@
 <Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
     <Nullable>enable</Nullable>
     <StaticWebAssetBasePath>App_Plugins/$(AssemblyName)</StaticWebAssetBasePath>
+    <NoWarn>CS1591</NoWarn>
   </PropertyGroup>
 
   <PropertyGroup>
-    <VersionPrefix>13.0.4</VersionPrefix>
+    <VersionPrefix>17.0.0-alpha000</VersionPrefix>
     <VersionSuffix Condition="'$(Configuration)'=='Debug'">build$([System.DateTime]::UtcNow.ToString(`yyyyMMddHHmm`))</VersionSuffix>
     <Company>Limbo</Company>
     <Product>Limbo Multinode Treepicker</Product>
     <Authors>Anders Bjerner</Authors>
     <Copyright>Copyright © $([System.DateTime]::UtcNow.ToString(`yyyy`))</Copyright>
-    <Title>Limbo Multinode Treepicker</Title>
-    <AssemblyTitle>Limbo Multinode Treepicker</AssemblyTitle>
+    <Title>$(Product)</Title>
+    <AssemblyTitle>$(Product)</AssemblyTitle>
     <Description>Extended multi node tree picker for Umbraco.</Description>
   </PropertyGroup>
 
   <!-- Include additional metadata in the assembly -->
   <ItemGroup>
+    <AssemblyMetadata Include="Authors" Value="$(Authors)" />
     <AssemblyMetadata Include="PackageProjectUrl" Value="https://packages.limbo.works/limbo.umbraco.multinodetreepicker/" />
-    <AssemblyMetadata Include="DocumentationUrl" Value="https://packages.limbo.works/limbo.umbraco.multinodetreepicker/docs/v13/" />
+    <AssemblyMetadata Include="DocumentationUrl" Value="https://packages.limbo.works/limbo.umbraco.multinodetreepicker/docs/v17/" />
     <AssemblyMetadata Include="NuGetUrl" Value="https://www.nuget.org/packages/Limbo.Umbraco.MultiNodeTreePicker" />
     <AssemblyMetadata Include="UmbracoMarketplaceUrl" Value="https://marketplace.umbraco.com/package/limbo.umbraco.multinodetreepicker" />
   </ItemGroup>
@@ -40,24 +42,24 @@
     <RepositoryUrl>https://github.com/abjerner/Limbo.Umbraco.MultiNodeTreePicker</RepositoryUrl>
   </PropertyGroup>
 
+  <!-- Ignore vulnerabilities from transient dependencies -->
+  <PropertyGroup>
+    <NuGetAuditMode>direct</NuGetAuditMode>
+  </PropertyGroup>
+
   <!-- Include NuGet dependencies -->
   <ItemGroup>
-    <PackageReference Include="Skybrud.Essentials" Version="1.1.64" />
-    <PackageReference Include="Umbraco.Cms.Core" Version="[13.0.0,13.999)" NoWarn="NU1902" />
-    <PackageReference Include="Umbraco.Cms.Web.Website" Version="[13.0.0,13.999)" NoWarn="NU1902" />
-    <PackageReference Include="Umbraco.Cms.Web.BackOffice" Version="[13.0.0,13.999)" NoWarn="NU1902" />
+    <PackageReference Include="Skybrud.Essentials" Version="1.1.69" />
+    <PackageReference Include="Skybrud.Essentials.Umbraco" Version="17.0.0-alpha008" />
+    <PackageReference Include="Umbraco.Cms.Core" Version="[17.1.0,17.999)" />
+    <PackageReference Include="Umbraco.Cms.Web.Website" Version="[17.1.0,17.999)" />
+    <PackageReference Include="Umbraco.Cms.Api.Management" Version="[17.1.0,17.999)" />
   </ItemGroup>
 
   <!-- Include package icon and readme file for the NuGet package -->
   <ItemGroup>
     <Content Include="../build/Limbo.png" Pack="true" PackagePath="\" />
     <None Include="..\..\NUGET.md" Pack="true" PackagePath="\" />
-  </ItemGroup>
-
-  <!-- Exclude files from the NuGet package -->
-  <ItemGroup>
-    <Content Remove="compilerconfig.json" />
-    <Content Include="compilerconfig.json" Pack="false" />
   </ItemGroup>
 
   <!-- Generate XML documentation -->
