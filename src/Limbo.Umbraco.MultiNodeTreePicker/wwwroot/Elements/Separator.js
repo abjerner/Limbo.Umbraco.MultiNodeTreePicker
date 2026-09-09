@@ -54,7 +54,7 @@ export class LimboMultiNodeTreePickerSeparatorElement extends UmbLitElement {
     static styles = css`
 
         .limbo-separator {
-            border-bottom: 2px solid #F4C1BC;
+            border-bottom: 2px solid var(--limbo-separator-color, var(--uui-color-current));
             margin: 0;
             padding: 0;
             margin-bottom: -21px;
