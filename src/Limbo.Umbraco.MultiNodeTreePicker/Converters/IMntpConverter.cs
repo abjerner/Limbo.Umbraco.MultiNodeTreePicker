@@ -1,5 +1,3 @@
-﻿using Newtonsoft.Json;
-
 namespace Limbo.Umbraco.MultiNodeTreePicker.Converters;
 
 /// <summary>
@@ -15,13 +13,11 @@ public interface IMntpConverter {
     /// <summary>
     /// Gets the friendly name of the converter.
     /// </summary>
-    [JsonProperty("name")]
     string Name { get; }
 
     /// <summary>
     /// Gets the icon of the converter.
     /// </summary>
-    [JsonProperty("icon")]
     public string? Icon => null;
 
 }

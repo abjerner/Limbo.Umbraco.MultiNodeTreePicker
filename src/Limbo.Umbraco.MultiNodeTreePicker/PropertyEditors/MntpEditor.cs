@@ -1,12 +1,15 @@
-﻿using Umbraco.Cms.Core.IO;
+using Umbraco.Cms.Core.IO;
 using Umbraco.Cms.Core.PropertyEditors;
-using Umbraco.Cms.Core.Services;
 
 #pragma warning disable 1591
 
 namespace Limbo.Umbraco.MultiNodeTreePicker.PropertyEditors;
 
-[DataEditor(EditorAlias, "Limbo Multinode Treepicker", EditorView, ValueType = ValueTypes.Text, Group = "Limbo", Icon = "icon-page-add color-limbo")]
+/// <summary>
+/// Property editor (schema) for the Limbo multinode treepicker. Extends the built-in multinode treepicker, so the
+/// stored value format is the same as the built-in picker.
+/// </summary>
+[DataEditor(EditorAlias, ValueType = ValueTypes.Text)]
 public class MntpEditor : MultiNodeTreePickerPropertyEditor {
 
     /// <summary>
@@ -15,22 +18,26 @@ public class MntpEditor : MultiNodeTreePickerPropertyEditor {
     public const string EditorAlias = "Limbo.Umbraco.MultiNodeTreePicker";
 
     /// <summary>
-    /// Gets the view of the property editor.
+    /// Gets the friendly name of the property editor.
     /// </summary>
-    public const string EditorView = "contentpicker";
+    public const string EditorName = "Limbo Multinode Treepicker";
+
+    /// <summary>
+    /// Gets the icon of the property editor.
+    /// </summary>
+    public const string EditorIcon = "icon-page-add";
 
     private readonly IIOHelper _ioHelper;
-    private readonly IEditorConfigurationParser _editorConfigurationParser;
 
     public override IPropertyIndexValueFactory PropertyIndexValueFactory => new MntpPropertyIndexValueFactory();
 
-    public MntpEditor(IDataValueEditorFactory dataValueEditorFactory, IIOHelper ioHelper, IEditorConfigurationParser editorConfigurationParser) : base(dataValueEditorFactory, ioHelper, editorConfigurationParser) {
+    public MntpEditor(IDataValueEditorFactory dataValueEditorFactory, IIOHelper ioHelper) : base(dataValueEditorFactory, ioHelper) {
         _ioHelper = ioHelper;
-        _editorConfigurationParser = editorConfigurationParser;
+        SupportsReadOnly = true;
     }
 
     protected override IConfigurationEditor CreateConfigurationEditor() {
-        return new MntpConfigurationEditor(_ioHelper, _editorConfigurationParser);
+        return new MntpConfigurationEditor(_ioHelper);
     }
 
 }

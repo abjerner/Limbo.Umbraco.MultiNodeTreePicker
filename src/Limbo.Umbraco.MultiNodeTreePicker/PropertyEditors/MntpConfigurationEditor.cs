@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using Umbraco.Cms.Core.IO;
 using Umbraco.Cms.Core.PropertyEditors;
-using Umbraco.Cms.Core.Services;
+using Umbraco.Cms.Core.Serialization;
 
 #pragma warning disable 1591
 
@@ -9,48 +9,33 @@ namespace Limbo.Umbraco.MultiNodeTreePicker.PropertyEditors;
 
 public class MntpConfigurationEditor : ConfigurationEditor<MntpConfiguration> {
 
-    public MntpConfigurationEditor(IIOHelper ioHelper, IEditorConfigurationParser editorConfigurationParser) : base(ioHelper, editorConfigurationParser) {
-        Field(nameof(MultiNodePickerConfiguration.TreeSource))
-            .Config = new Dictionary<string, object> { { "idType", "udi" } };
+    /// <summary>
+    /// The configuration key used by the v13 version of this package for the selected converter.
+    /// </summary>
+    internal const string LegacyItemConverterKey = "itemConverter";
 
-        foreach (var field in Fields) {
+    /// <summary>
+    /// The configuration key used for the selected converter.
+    /// </summary>
+    internal const string TypeConverterKey = "typeConverter";
 
-            if (field.View is not null) field.View = field.View.Replace("{version}", MntpPackage.InformationalVersion);
-
-            switch (field.Key) {
-
-                case "itemConverter":
-                    MntpUtils.PrependLinkToDescription(
-                        field,
-                        "See the documentation &rarr;",
-                        "https://packages.limbo.works/73a7c52f"
-                    );
-                    break;
-
-            }
-
-        }
-
-
-    }
-
-    public override Dictionary<string, object> ToConfigurationEditor(MntpConfiguration? configuration) {
-
-        var output = base.ToConfigurationEditor(configuration);
-
-        output["multiPicker"] = configuration?.MaxNumber > 1;
-
-        return output;
-    }
+    public MntpConfigurationEditor(IIOHelper ioHelper) : base(ioHelper) { }
 
     /// <inheritdoc />
-    public override IDictionary<string, object> ToValueEditor(object? configuration) {
-        var d = base.ToValueEditor(configuration);
-        d["multiPicker"] = true;
-        d["showEditButton"] = false;
-        d["showPathOnHover"] = false;
-        d["idType"] = "udi";
-        return d;
+    public override object ToConfigurationObject(IDictionary<string, object> configuration, IConfigurationEditorJsonSerializer configurationEditorJsonSerializer) {
+
+        // Data types upgraded from v13 still hold the selected converter under "itemConverter", so we fall back to
+        // that value if "typeConverter" hasn't been set yet
+        if (!HasValue(configuration, TypeConverterKey) && configuration.TryGetValue(LegacyItemConverterKey, out object? legacy) && legacy is not null) {
+            configuration = new Dictionary<string, object>(configuration) { [TypeConverterKey] = legacy };
+        }
+
+        return base.ToConfigurationObject(configuration, configurationEditorJsonSerializer);
+
+    }
+
+    private static bool HasValue(IDictionary<string, object> configuration, string key) {
+        return configuration.TryGetValue(key, out object? value) && value is not null && value is not "";
     }
 
 }

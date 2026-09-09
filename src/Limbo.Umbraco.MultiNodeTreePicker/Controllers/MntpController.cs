@@ -1,17 +1,33 @@
-﻿using System;
-using Limbo.Umbraco.MultiNodeTreePicker.Composers;
+using System;
+using System.Collections.Generic;
 using System.Linq;
+using Asp.Versioning;
+using Limbo.Umbraco.MultiNodeTreePicker.Api;
+using Limbo.Umbraco.MultiNodeTreePicker.Composers;
 using Limbo.Umbraco.MultiNodeTreePicker.Converters;
-using Newtonsoft.Json.Linq;
-using Umbraco.Cms.Web.BackOffice.Controllers;
-using Umbraco.Cms.Web.Common.Attributes;
+using Limbo.Umbraco.MultiNodeTreePicker.Models.Api;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Umbraco.Cms.Api.Common.Attributes;
+using Umbraco.Cms.Api.Management.Controllers;
+using Umbraco.Cms.Api.Management.Routing;
+using Umbraco.Cms.Web.Common.Authorization;
 
 #pragma warning disable 1591
 
 namespace Limbo.Umbraco.MultiNodeTreePicker.Controllers;
 
-[PluginController("Limbo")]
-public class MntpController : UmbracoAuthorizedApiController {
+/// <summary>
+/// Management API controller exposing the converters available for the multinode treepicker.
+/// </summary>
+[ApiController]
+[ApiVersion(MntpApiConstants.Version)]
+[MapToApi(MntpApiConstants.ApiName)]
+[ApiExplorerSettings(GroupName = MntpApiConstants.ApiName)]
+[Authorize(Policy = AuthorizationPolicies.BackOfficeAccess)]
+[VersionedApiBackOfficeRoute(MntpApiConstants.Route)]
+public class MntpController : ManagementApiControllerBase {
 
     private static readonly string[] _versionSeparator = [", Version"];
 
@@ -23,39 +39,33 @@ public class MntpController : UmbracoAuthorizedApiController {
         _itemConverterCollection = itemConverterCollection;
     }
 
-    public object GetTypes() {
-        return _typeConverterCollection.ToArray().Select(Map).Union(_itemConverterCollection.ToArray().Select(Map));
-    }
+    /// <summary>
+    /// Returns a list of all registered type converters and item converters.
+    /// </summary>
+    [HttpGet("converters")]
+    [ProducesResponseType(typeof(IEnumerable<MntpConverterModel>), StatusCodes.Status200OK)]
+    public IActionResult GetConverters() {
 
-    private static JObject Map(IMntpTypeConverter converter) {
+        IEnumerable<MntpConverterModel> converters = _typeConverterCollection
+            .Select(Map)
+            .Concat(_itemConverterCollection.Select(Map))
+            .OrderBy(x => x.Name);
 
-        Type type = converter.GetType();
-
-        JObject json = new() {
-            { "assembly", type.Assembly.FullName },
-            { "type", converter.Alias },
-            { "icon", $"{converter.Icon ?? "icon-box"} color-{type.Assembly.FullName?.Split('.')[0].ToLower()}" },
-            { "name", converter.Name },
-            { "description", type.AssemblyQualifiedName?.Split(_versionSeparator, StringSplitOptions.None)[0] + ".dll" }
-        };
-
-        return json;
+        return Ok(converters);
 
     }
 
-    private static JObject Map(IMntpItemConverter converter) {
+    private static MntpConverterModel Map(IMntpConverter converter) {
 
         Type type = converter.GetType();
 
-        JObject json = new() {
-            { "assembly", type.Assembly.FullName },
-            { "type", converter.Alias },
-            { "icon", $"{converter.Icon ?? "icon-box"} color-{type.Assembly.FullName?.Split('.')[0].ToLower()}" },
-            { "name", converter.Name },
-            { "description", type.AssemblyQualifiedName?.Split(_versionSeparator, StringSplitOptions.None)[0] + ".dll" }
+        return new MntpConverterModel {
+            Type = converter.Alias ?? type.FullName ?? type.Name,
+            Name = converter.Name,
+            Icon = converter.Icon ?? "icon-box",
+            Description = type.AssemblyQualifiedName?.Split(_versionSeparator, StringSplitOptions.None)[0] + ".dll",
+            Assembly = type.Assembly.FullName
         };
-
-        return json;
 
     }
 

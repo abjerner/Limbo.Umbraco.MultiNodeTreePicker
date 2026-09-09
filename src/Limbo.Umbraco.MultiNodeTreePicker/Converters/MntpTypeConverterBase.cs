@@ -3,7 +3,7 @@ using Limbo.Umbraco.MultiNodeTreePicker.PropertyEditors;
 using System.Collections.Generic;
 using Umbraco.Cms.Core.Models.PublishedContent;
 using System.Linq;
-using Skybrud.Essentials.Collections.Extensions;
+using Skybrud.Essentials.Collections.Enumerables.Extensions;
 
 namespace Limbo.Umbraco.MultiNodeTreePicker.Converters;
 
