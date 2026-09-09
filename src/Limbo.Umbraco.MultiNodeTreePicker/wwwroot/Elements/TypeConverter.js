@@ -5,10 +5,16 @@ import { UMB_ITEM_PICKER_MODAL, umbOpenModal } from "@umbraco-cms/backoffice/mod
 
 import { MntpService } from "@limbo/mntp/service";
 
-
 /**
-  * Normalises every value shape the package has persisted over time into `{ type } `.
-  */
+ * Normalises the different value shapes the package has stored over time into `{ type }`.
+ *
+ * - v17: `{ type: "Namespace.Type, Assembly" }`
+ * - v13: `{ type: "Namespace.Type, Assembly" }` or a plain string
+ * - very early versions: `{ key: "Namespace.Type, Assembly, Version=..." }`
+ *
+ * @param {unknown} value
+ * @returns {{ type: string } | undefined}
+ */
 function normalize(value) {
 
 	let type;
@@ -16,16 +22,13 @@ function normalize(value) {
 	if (typeof value === "string") {
 		type = value;
 	} else if (value && typeof value === "object") {
-		// `key` was the property name used by some earlier versions of the package
 		type = value.type ?? value.key;
 	}
 
-	if (!type) {
-		return undefined;
-	}
+	if (typeof type !== "string") return undefined;
 
-	// Strip any assembly version information, so only "Namespace.Type, Assembly" is left
-	type = type.split(", Version=")[0].trim();
+	// Strip assembly version information, so only "Namespace.Type, Assembly" is left
+	type = type.split(",").slice(0, 2).map((x) => x.trim()).join(", ");
 
 	return type ? { type } : undefined;
 
@@ -105,7 +108,7 @@ export class LimboMultiNodeTreePickerTypeConverterElement extends UmbLitElement 
 
 		const picked = await umbOpenModal(this, UMB_ITEM_PICKER_MODAL, {
 			data: {
-				headline: "Select converter",
+				headline: "Select type converter",
 				items: converters.map((converter) => ({
 					label: converter.name,
 					description: converter.description ?? undefined,

@@ -1,8 +1,6 @@
-﻿import { LitElement, html, css, repeat, when } from "@umbraco-cms/backoffice/external/lit";
-import { UmbElementMixin } from "@umbraco-cms/backoffice/element-api";
+﻿import { html, css, when } from "@umbraco-cms/backoffice/external/lit";
 import { UmbLitElement } from "@umbraco-cms/backoffice/lit-element";
-import { UmbChangeEvent } from "@umbraco-cms/backoffice/event";
-import { UMB_PROPERTY_CONTEXT, UmbPropertyContext } from "@umbraco-cms/backoffice/property";
+import { UMB_PROPERTY_CONTEXT } from "@umbraco-cms/backoffice/property";
 
 export function parseBoolean(value) {
     if (typeof value === "boolean") return value;
@@ -16,30 +14,30 @@ export function parseBoolean(value) {
 
 export class LimboMultiNodeTreePickerSeparatorElement extends UmbLitElement {
 
-	_label = "";
-	_description = "";
+    _label = "";
+    _description = "";
 
     set config(config) {
         this.first = parseBoolean(config?.getValueByAlias("first"));
     }
 
-	constructor() {
-		super();
+    constructor() {
+        super();
         this.consumeContext(UMB_PROPERTY_CONTEXT, (ctx) => {
             if (!ctx) return;
-			if (ctx.label) this.observe(ctx.label, (v) => (this._label = v ?? ""));
-			if (ctx.description) this.observe(ctx.description, (v) => (this._description = v ?? ""));
-		});
-	}
+            if (ctx.label) this.observe(ctx.label, (v) => (this._label = v ?? ""));
+            if (ctx.description) this.observe(ctx.description, (v) => (this._description = v ?? ""));
+        });
+    }
 
-	connectedCallback() {
-		super.connectedCallback();
-		const umbPropertyLayout = this.parentElement?.parentElement;
-		if (umbPropertyLayout) {
-			umbPropertyLayout.setAttribute("orientation", "vertical");
-			const headerColumn = umbPropertyLayout.shadowRoot?.querySelector("#headerColumn");
-			if (headerColumn) headerColumn.style.display = "none";
-		}
+    connectedCallback() {
+        super.connectedCallback();
+        const umbPropertyLayout = this.parentElement?.parentElement;
+        if (umbPropertyLayout) {
+            umbPropertyLayout.setAttribute("orientation", "vertical");
+            const headerColumn = umbPropertyLayout.shadowRoot?.querySelector("#headerColumn");
+            if (headerColumn) headerColumn.style.display = "none";
+        }
     }
 
     render() {
