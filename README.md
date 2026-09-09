@@ -1,6 +1,6 @@
 # Limbo Multinode Treepicker
 
-[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/abjerner/Limbo.Umbraco.MultiNodeTreePicker/blob/v13/main/LICENSE.md)
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/abjerner/Limbo.Umbraco.MultiNodeTreePicker/blob/v17/main/LICENSE.md)
 [![NuGet](https://img.shields.io/nuget/vpre/Limbo.Umbraco.MultiNodeTreePicker.svg)](https://www.nuget.org/packages/Limbo.Umbraco.MultiNodeTreePicker)
 [![NuGet](https://img.shields.io/nuget/dt/Limbo.Umbraco.MultiNodeTreePicker.svg)](https://www.nuget.org/packages/Limbo.Umbraco.MultiNodeTreePicker)
 [![Umbraco Marketplace](https://img.shields.io/badge/umbraco-marketplace-%233544B1)](https://marketplace.umbraco.com/package/limbo.umbraco.multinodetreepicker)
@@ -14,15 +14,15 @@ The purpose of an item converter is to control the C# type returned by the `.Val
 <table>
   <tr>
     <td><strong>License:</strong></td>
-    <td><a href="https://github.com/abjerner/Limbo.Umbraco.MultiNodeTreePicker/blob/v13/main/LICENSE.md"><strong>MIT License</strong></a></td>
+    <td><a href="https://github.com/abjerner/Limbo.Umbraco.MultiNodeTreePicker/blob/v17/main/LICENSE.md"><strong>MIT License</strong></a></td>
   </tr>
   <tr>
     <td><strong>Umbraco:</strong></td>
-    <td>Umbraco 13</td>
+    <td>Umbraco 17</td>
   </tr>
   <tr>
     <td><strong>Target Framework:</strong></td>
-    <td>.NET 8</td>
+    <td>.NET 10</td>
   </tr>
 </table>
 
@@ -36,17 +36,27 @@ The purpose of an item converter is to control the C# type returned by the `.Val
 
 ## Installation
 
-The package targets Umbraco 13 and is only available via [**NuGet**][NuGetPackage]. To install the package, you can use either .NET CLI
+The package targets Umbraco 17 and is only available via [**NuGet**][NuGetPackage]. To install the package, you can use either .NET CLI
 
 ```
-dotnet add package Limbo.Umbraco.MultiNodeTreePicker --version 13.0.4
+dotnet add package Limbo.Umbraco.MultiNodeTreePicker --version 17.0.0-alpha000
 ```
 
 or the NuGet Package Manager:
 
 ```
-Install-Package Limbo.Umbraco.MultiNodeTreePicker -Version 13.0.4
+Install-Package Limbo.Umbraco.MultiNodeTreePicker -Version 17.0.0-alpha000
 ```
+
+### Upgrading from v13
+
+- The data type setting previously stored as `itemConverter` is now stored as `typeConverter`. Existing data types keep working, as the package falls back to the old key until the data type is saved again.
+- The `Snapshot` cache level no longer exists in Umbraco 15+. Data types configured with `Snapshot` are treated as `Elements` (the new default). The available levels are now `Element`, `Elements` and `None`.
+- `MntpItemConverter` has been renamed to `MntpTypeConverter`. The old class still exists, but is marked as obsolete.
+
+### Umbraco 13
+
+See the [**`v13.x`**](https://github.com/limbo-works/Limbo.Umbraco.MultiNodeTreePicker/tree/v13/main) branch.
 
 ### Umbraco 10, 11 and 12
 
