@@ -58,7 +58,8 @@ public class MntpPackageManifestReader : IPackageManifestReader {
                         new PropertyEditorSettingsProperty {
                             Alias = "typeConverter",
                             Label = "Type converter",
-                            Description = "Select a type converter to control the type returned by properties using this data type.",
+                            Description = "Select a type converter to control the type returned by properties using this data type.\r\n\r\n" +
+                                          CreateButton("https://packages.limbo.works/dbe1eade", "See the documentation"),
                             PropertyEditorUiAlias = MntpPropertyEditorUiAliases.TypeConverter
                         },
                         new PropertyEditorSettingsProperty {
@@ -173,6 +174,16 @@ public class MntpPackageManifestReader : IPackageManifestReader {
                 Group = "Limbo"
             }
         };
+
+    }
+
+    private static string CreateButton(string url, string text) {
+
+        // Must be written in a single line as Umbraco will replace all newlines with <br /> tags, which will break the button
+
+        return $"""
+                <a href="{url}" target="_blank" rel="noopener noreferrer"><uui-button look="outline" compact label="{text}">&nbsp;{text} &rarr;&nbsp;</uui-button></a>
+                """;
 
     }
 
