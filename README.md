@@ -22,7 +22,7 @@ The purpose of an item converter is to control the C# type returned by the `.Val
   </tr>
   <tr>
     <td><strong>Target Framework:</strong></td>
-    <td>.NET 8</td>
+    <td>.NET 10</td>
   </tr>
 </table>
 
