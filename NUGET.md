@@ -1,4 +1,4 @@
-[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE.md) [![NuGet](https://img.shields.io/nuget/vpre/Limbo.Umbraco.MultiNodeTreePicker.svg)](https://www.nuget.org/packages/Limbo.Umbraco.MultiNodeTreePicker) [![NuGet](https://img.shields.io/nuget/dt/Limbo.Umbraco.MultiNodeTreePicker.svg)](https://www.nuget.org/packages/Limbo.Umbraco.MultiNodeTreePicker) [![Umbraco Marketplace](https://img.shields.io/badge/umbraco-marketplace-%233544B1)](https://marketplace.umbraco.com/package/limbo.umbraco.multinodetreepicker) [![Limbo.Umbraco.MultiNodeTreePicker at packages.limbo.works](https://img.shields.io/badge/limbo-packages-blue)](https://packages.limbo.works/limbo.umbraco.multinodetreepicker/)
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/abjerner/Limbo.Umbraco.MultiNodeTreePicker/blob/v17/main/LICENSE.md) [![NuGet](https://img.shields.io/nuget/vpre/Limbo.Umbraco.MultiNodeTreePicker.svg)](https://www.nuget.org/packages/Limbo.Umbraco.MultiNodeTreePicker) [![NuGet](https://img.shields.io/nuget/dt/Limbo.Umbraco.MultiNodeTreePicker.svg)](https://www.nuget.org/packages/Limbo.Umbraco.MultiNodeTreePicker) [![Umbraco Marketplace](https://img.shields.io/badge/umbraco-marketplace-%233544B1)](https://marketplace.umbraco.com/package/limbo.umbraco.multinodetreepicker) [![Limbo.Umbraco.MultiNodeTreePicker at packages.limbo.works](https://img.shields.io/badge/limbo-packages-blue)](https://packages.limbo.works/limbo.umbraco.multinodetreepicker/)
 
 **Limbo.Umbraco.MultiNodeTreePicker** adds a special multinode treepicker to the Umbraco backoffice in which developers can select a custom item converter.
 
@@ -12,7 +12,7 @@ The [**releases page**][Releases] lists all releases, and each there will be som
 
 For examples on how to use the package, see our [**documentation**][Documentation].
 
-[Documentation]: https://packages.limbo.works/163af59b
+[Documentation]: https://packages.limbo.works/4fc49d76
 [NuGetPackage]: https://www.nuget.org/packages/Limbo.Umbraco.MultiNodeTreePicker
 [GitHubRelease]: https://github.com/abjerner/Limbo.Umbraco.MultiNodeTreePicker/releases/latest
 [Releases]: https://github.com/abjerner/Limbo.Umbraco.MultiNodeTreePicker/releases
