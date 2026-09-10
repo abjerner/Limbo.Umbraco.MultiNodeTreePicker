@@ -17,7 +17,7 @@ using Umbraco.Cms.Core.Web;
 
 #pragma warning disable 1591
 
-namespace Limbo.Umbraco.MultiNodeTreePicker.PropertyEditors.ValueConverters;
+namespace Limbo.Umbraco.MultiNodeTreePicker.PropertyEditors;
 
 public class MntpValueConverter : MultiNodeTreePickerValueConverter {
 
