@@ -10,7 +10,7 @@ namespace Limbo.Umbraco.MultiNodeTreePicker.PropertyEditors;
 
 public class MntpPropertyIndexValueFactory : IPropertyIndexValueFactory {
 
-    public IEnumerable<IndexValue> GetIndexValues(IProperty property, string? culture, string? segment, bool published) {
+    public IEnumerable<IndexValue> GetIndexValues(IProperty property, string? culture, string? segment, bool published, IEnumerable<string> availableCultures, IDictionary<Guid, IContentType> contentTypeDictionary) {
 
         // Get the source value from the property
         object? source = property.GetValue(culture, segment, published);
@@ -32,11 +32,6 @@ public class MntpPropertyIndexValueFactory : IPropertyIndexValueFactory {
         // Add a field with the search friendly GUID keys
         yield return Create($"{property.Alias}_search", culture, guids);
 
-    }
-
-    public IEnumerable<IndexValue> GetIndexValues(IProperty property, string? culture, string? segment, bool published,
-        IEnumerable<string> availableCultures, IDictionary<Guid, IContentType> contentTypeDictionary) {
-        throw new NotImplementedException();
     }
 
     private static IndexValue Create(string fieldName, string? culture, object? value) {
