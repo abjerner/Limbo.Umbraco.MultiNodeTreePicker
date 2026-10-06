@@ -1,4 +1,5 @@
-﻿using Umbraco.Cms.Core.IO;
+﻿using Limbo.Umbraco.MultiNodeTreePicker.Constants;
+using Umbraco.Cms.Core.IO;
 using Umbraco.Cms.Core.PropertyEditors;
 
 #pragma warning disable 1591
@@ -11,15 +12,17 @@ public class MntpPropertyEditor : MultiNodeTreePickerPropertyEditor {
     /// <summary>
     /// Gets the alias of the property editor.
     /// </summary>
-    public const string EditorAlias = "Limbo.Umbraco.MultiNodeTreePicker";
+    public const string EditorAlias = MntpPropertyEditorSchemaAliases.Mntp;
 
-    public const string EditorUiAlias = "Limbo.Umbraco.MultiNodeTreePicker.PropertyEditorUi";
+    public const string EditorUiAlias = MntpPropertyEditorUiAliases.Mntp;
 
     public const string EditorName = "Limbo Multinode Treepicker";
 
     public const string EditorValueType = ValueTypes.Text;
 
     public const string EditorIcon = "icon-page-add";
+
+    public const string EditorGroup = "Limbo";
 
     private readonly IIOHelper _ioHelper;
 
